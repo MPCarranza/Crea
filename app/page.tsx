@@ -23,7 +23,6 @@ import {
   Check,
   Send,
   Sliders,
-  DollarSign,
   Copy,
   Laptop
 } from 'lucide-react';
@@ -161,31 +160,23 @@ export default function Home() {
     setTimeout(() => setCopiedCode(false), 2000);
   };
 
-  // Pain points data
+  // Pain points updated with the new commercial strategy diagnostics
   const painPoints: PainPoint[] = [
     {
       id: 'pain-1',
       icon: <MessageSquare className="w-6 h-6 text-cyan-400" />,
-      title: 'Mensajes fuera de hora',
-      subtitle: 'La invasión a tu paz mental',
-      description: 'Pacientes escribiendo domingos a las 11 PM esperando respuesta inmediata. Responder de forma manual te quita tiempo de descanso y desgasta la relación profesional.',
-      stat: '73% de mensajes fuera de hora laboral'
+      title: 'Disponibilidad Asincrónica',
+      subtitle: 'El drenaje silencioso de tu tiempo',
+      description: 'Pasar horas respondiendo precios, ubicaciones u horarios por mensajería quita energía que podrías usar en tu trabajo real o en tu descanso.',
+      stat: 'Docenas de mensajes repetitivos diarios'
     },
     {
       id: 'pain-2',
-      icon: <Clock className="w-6 h-6 text-purple-400" />,
-      title: 'Baches libres en tu agenda',
-      subtitle: 'Dinero perdido hora por hora',
-      description: 'Llenar un bache vacío que se liberó por la mañana requiere docenas de mensajes cruzados. Si no respondes rápido, el turno queda desierto y el ingreso se pierde por completo.',
-      stat: 'Hasta 4 horas muertas por semana'
-    },
-    {
-      id: 'pain-3',
-      icon: <AlertTriangle className="w-6 h-6 text-rose-400" />,
-      title: 'Cancelaciones de último minuto',
-      subtitle: 'La impuntualidad sin penalización',
-      description: 'El paciente no se presenta ni te avisa. Sin un sistema de confirmación automatizado o seña previa, tu tiempo de consultorio se devalúa sin ningún tipo de resguardo.',
-      stat: '15% de ausentismo promedio sin sistema'
+      icon: <Laptop className="w-6 h-6 text-purple-400" />,
+      title: 'Visibilidad Propia',
+      subtitle: 'La trampa de las redes sociales',
+      description: 'No tener un espacio propio en internet hace que dependas al 100% de los cambios de algoritmo de las redes sociales para que la gente te encuentre.',
+      stat: 'Dependencia inestable de plataformas externas'
     }
   ];
 
@@ -225,7 +216,7 @@ export default function Home() {
   const availableDates = [4, 5, 11, 12, 18, 19, 25, 26];
   const availableTimes = ['09:30 hs', '11:00 hs', '14:30 hs', '16:00 hs', '17:30 hs'];
 
-  // Pricing Calculation
+  // Pricing Calculation taking base Desarrollo Semilla
   const baseDevelopmentPrice = 280000;
   const baseMaintenancePrice = 15000;
 
@@ -314,7 +305,7 @@ export default function Home() {
         />
       </div>
 
-      {/* 1. FIXED NAVIGATION BAR WITH LIQUID TRANSITION */}
+      {/* FIXED NAVIGATION BAR */}
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled 
           ? 'py-4 bg-[#070707]/80 backdrop-blur-xl border-b border-white/[0.08] shadow-[0_12px_40px_rgba(0,0,0,0.6)]' 
@@ -377,10 +368,12 @@ export default function Home() {
           {/* Header Action Button */}
           <div className="hidden md:block">
             <a 
-              href="#booking" 
+              href="https://wa.me/5491112345678?text=Hola%20Estudio%20Crea,%20quiero%20consultar%20por%20un%20proyecto%20web"
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-5 py-2.5 rounded-full text-[10px] font-bold tracking-widest uppercase backdrop-blur-xl bg-white/[0.04] border border-white/[0.08] hover:border-cyan-500/40 hover:bg-cyan-500/10 text-white transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:scale-[1.03]"
             >
-              Consultar Proyecto
+              Consultar por WhatsApp
             </a>
           </div>
 
@@ -435,11 +428,13 @@ export default function Home() {
                 </a>
                 
                 <a 
-                  href="#booking"
+                  href="https://wa.me/5491112345678?text=Hola%20Estudio%20Crea,%20quiero%20consultar%20por%20un%20proyecto%20web"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => setMobileMenuOpen(false)}
                   className="mt-4 w-full py-3.5 rounded-xl text-center text-xs font-semibold uppercase tracking-wider bg-gradient-to-r from-cyan-500 to-indigo-500 text-white shadow-lg shadow-cyan-500/20"
                 >
-                  Agendar Llamada
+                  Consultar WhatsApp
                 </a>
               </div>
             </motion.div>
@@ -447,7 +442,7 @@ export default function Home() {
         </AnimatePresence>
       </header>
 
-      {/* 2. HERO SECTION INMERSIVO */}
+      {/* HERO SECTION INMERSIVO */}
       <section id="hero" className="relative pt-36 pb-24 md:pt-48 md:pb-36 flex items-center min-h-[90vh] z-10">
         <div className="max-w-7xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           
@@ -463,18 +458,18 @@ export default function Home() {
             >
               <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
               <span className="text-xs font-semibold uppercase tracking-wider text-cyan-200">
-                Estudio de Diseño Digital y Sistemas
+                Interfaces claras para tu negocio
               </span>
             </motion.div>
 
-            {/* Title - Elegant serif with closed tracking */}
+            {/* Title - Serif with tight tracking */}
             <motion.h1 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.1 }}
               className="font-serif text-4xl sm:text-5xl md:text-6xl font-light tracking-tight text-white leading-[1.08] mb-6"
             >
-              La evolución digital de tu <span className="font-light italic text-transparent bg-clip-text bg-gradient-to-r from-cyan-200 via-indigo-300 to-cyan-100">consultorio independiente.</span>
+              Interfaces claras para <span className="font-light italic text-transparent bg-clip-text bg-gradient-to-r from-cyan-200 via-indigo-300 to-cyan-100">impulsar tu trabajo independiente.</span>
             </motion.h1>
 
             {/* Subtitle - Sans-serif geometric */}
@@ -484,7 +479,7 @@ export default function Home() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-base sm:text-lg md:text-xl text-zinc-400 font-light leading-relaxed max-w-2xl mb-10"
             >
-              Diseñamos interfaces inmersivas de alta gama y automatizamos tu agenda. Menos tiempo respondiendo mensajes en WhatsApp, más pacientes en tu consultorio operando en piloto automático.
+              Diseñamos páginas web modernas y funcionales que te ayudan a mostrar lo que hacés, conectar con tus clientes y organizar tu día a día. Una estructura digital transparente, pensada para acompañar el crecimiento de tu proyecto en la región.
             </motion.p>
 
             {/* Interactive CTAs */}
@@ -499,15 +494,17 @@ export default function Home() {
                 className="group relative flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-sm font-semibold bg-white text-zinc-950 overflow-hidden shadow-2xl transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
               >
                 <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-cyan-400 to-indigo-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
-                <span className="group-hover:text-white transition-colors duration-300">Explorar Packs</span>
+                <span className="group-hover:text-white transition-colors duration-300">Ver Opciones de Páginas</span>
                 <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:text-white" />
               </a>
               
               <a 
-                href="#booking"
-                className="flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-sm font-semibold backdrop-blur-xl bg-white/[0.03] border border-white/[0.08] hover:bg-white/[0.08] hover:border-white/[0.15] text-zinc-300 hover:text-white transition-all duration-300"
+                href="https://wa.me/5491112345678?text=Hola%20Estudio%20Crea,%20quiero%20consultar%20por%20un%20proyecto%20web"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-sm font-semibold backdrop-blur-xl bg-white/[0.03] border border-white/[0.08] hover:bg-white/[0.08] hover:border-cyan-500/30 text-zinc-300 hover:text-white transition-all duration-300"
               >
-                <span>Agendar una llamada</span>
+                <span>Consultar por WhatsApp</span>
               </a>
             </motion.div>
 
@@ -624,14 +621,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 3. SECCIÓN EL DOLOR (The WhatsApp Live Interactive Simulation) */}
+      {/* SECCIÓN EL DOLOR */}
       <section id="pain" className="relative py-24 md:py-32 z-10 border-t border-white/[0.02] bg-[#090909]/40">
         <div className="max-w-7xl mx-auto px-6">
           
           {/* Section Header */}
           <div className="text-center max-w-3xl mx-auto mb-16 md:mb-24">
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-light tracking-tight text-white mb-6">
-              El costo oculto de gestionar tus turnos por <span className="font-light italic text-transparent bg-clip-text bg-gradient-to-r from-rose-200 to-orange-200">WhatsApp.</span>
+              Hacer que tu negocio sea <span className="font-light italic text-transparent bg-clip-text bg-gradient-to-r from-rose-200 to-orange-200">más fácil de gestionar.</span>
             </h2>
             <p className="text-base md:text-lg text-zinc-400 font-light leading-relaxed">
               El intercambio interminable de mensajes manuales desgasta tu autoridad profesional y vacía tu agenda. Mira cómo impacta la falta de un sistema en tu día a día interactuando abajo:
@@ -714,7 +711,7 @@ export default function Home() {
                       PA
                     </div>
                     <div>
-                      <p className="text-xs font-semibold text-white">Paciente Inquieto</p>
+                      <p className="text-xs font-semibold text-white">Paciente / Cliente</p>
                       <p className="text-[8px] text-zinc-500 font-bold uppercase tracking-wider">Escribiendo...</p>
                     </div>
                   </div>
@@ -745,8 +742,8 @@ export default function Home() {
                           }}
                           className="self-start max-w-[85%] p-3 rounded-2xl rounded-tl-none bg-zinc-900 border border-white/[0.04] text-zinc-200"
                         >
-                          <p className="font-bold text-[8px] text-cyan-400 uppercase tracking-wider mb-1">DOMINGO 23:14hs</p>
-                          <p className="leading-relaxed">Hola Dr.! Disculpe la molestia a esta hora... Quería ver si de casualidad tiene un lugarcito libre para mañana a la mañana. Es medio urgente 🙏</p>
+                          <p className="font-bold text-[8px] text-cyan-400 uppercase tracking-wider mb-1">DOMINGO 22:15hs</p>
+                          <p className="leading-relaxed">Hola! Quería consultar cuáles son los precios de los turnos, en qué horarios atienden esta semana y por dónde queda el consultorio.</p>
                         </motion.div>
                         
                         <motion.div
@@ -756,8 +753,8 @@ export default function Home() {
                           }}
                           className="self-end max-w-[85%] p-3 rounded-2xl rounded-tr-none bg-rose-950/20 border border-rose-900/40 text-rose-300 italic"
                         >
-                          <p className="font-bold text-[8px] text-rose-400 uppercase tracking-widest mb-1">Tu dilema mental</p>
-                          <p className="leading-relaxed">¿Responder de inmediato perdiendo descanso o responder mañana arriesgándote a que el paciente ya haya conseguido otro profesional?</p>
+                          <p className="font-bold text-[8px] text-rose-400 uppercase tracking-widest mb-1">Tu fricción diaria</p>
+                          <p className="leading-relaxed">Pasar horas respondiendo estas mismas dudas de forma manual consume la energía que necesitas para tu trabajo o descanso.</p>
                         </motion.div>
                       </motion.div>
                     )}
@@ -780,71 +777,19 @@ export default function Home() {
                           }}
                           className="self-start max-w-[85%] p-3 rounded-2xl rounded-tl-none bg-zinc-900 border border-white/[0.04] text-zinc-200"
                         >
-                          <p className="font-bold text-[8px] text-purple-400 uppercase tracking-wider mb-1">MARTES 10:15hs</p>
-                          <p className="leading-relaxed">Hola, disculpas! Al final no voy a poder ir al turno de hoy a las 14:00hs. ¿Me lo reprogramas porfa?</p>
+                          <p className="font-bold text-[8px] text-purple-400 uppercase tracking-wider mb-1">JUEVES 15:40hs</p>
+                          <p className="leading-relaxed">Hola! Te busqué por Google para ver tus servicios pero solo me aparece tu perfil de Instagram. El problema es que no tengo esa red social, ¿tenés una web para ver info?</p>
                         </motion.div>
                         
                         <motion.div
                           variants={{
                             hidden: { opacity: 0, y: 15 },
-                            show: { opacity: 1, y: 0, transition: { delay: 0.4 } }
+                            show: { opacity: 1, y: 0, transition: { delay: 0.6 } }
                           }}
-                          className="self-end max-w-[85%] p-3 rounded-2xl rounded-tr-none bg-zinc-800/80 border border-zinc-700/40 text-zinc-300"
+                          className="self-end max-w-[85%] p-3 rounded-2xl rounded-tr-none bg-rose-950/20 border border-rose-900/40 text-rose-300 italic"
                         >
-                          <p className="leading-relaxed">Hola! Dale. Te puedo ofrecer Martes de la semana que viene a las 15hs o Jueves a las 10hs...</p>
-                        </motion.div>
-
-                        <motion.div
-                          variants={{
-                            hidden: { opacity: 0, y: 15 },
-                            show: { opacity: 1, y: 0, transition: { delay: 0.8 } }
-                          }}
-                          className="self-start max-w-[85%] p-3 rounded-2xl rounded-tl-none bg-rose-950/20 border border-rose-900/40 text-rose-300 italic"
-                        >
-                          <p className="leading-relaxed">El paciente tarda 3 horas en responder. El turno de hoy a las 14hs queda libre y se pierde el dinero de la consulta.</p>
-                        </motion.div>
-                      </motion.div>
-                    )}
-
-                    {selectedPain === 'pain-3' && (
-                      <motion.div
-                        key="pain-3-chat"
-                        initial="hidden"
-                        animate="show"
-                        exit="exit"
-                        variants={{
-                          show: { transition: { staggerChildren: 0.15 } }
-                        }}
-                        className="flex flex-col gap-3"
-                      >
-                        <motion.div
-                          variants={{
-                            hidden: { opacity: 0, y: 15 },
-                            show: { opacity: 1, y: 0 }
-                          }}
-                          className="self-start max-w-[85%] p-3 rounded-2xl rounded-tl-none bg-zinc-950/60 border border-zinc-900/60 text-zinc-500 italic text-center mx-auto"
-                        >
-                          <p className="leading-relaxed">El paciente no asiste. Pasan 15 minutos de la hora agendada...</p>
-                        </motion.div>
-                        
-                        <motion.div
-                          variants={{
-                            hidden: { opacity: 0, y: 15 },
-                            show: { opacity: 1, y: 0, transition: { delay: 0.4 } }
-                          }}
-                          className="self-end max-w-[85%] p-3 rounded-2xl rounded-tr-none bg-zinc-800/80 border border-zinc-700/40 text-zinc-300"
-                        >
-                          <p className="leading-relaxed">Hola! ¿Estás en camino? Teníamos agendado para hoy a las 16:00 hs.</p>
-                        </motion.div>
-
-                        <motion.div
-                          variants={{
-                            hidden: { opacity: 0, y: 15 },
-                            show: { opacity: 1, y: 0, transition: { delay: 0.9 } }
-                          }}
-                          className="self-start max-w-[85%] p-3 rounded-2xl rounded-tl-none bg-zinc-900 border border-white/[0.04] text-zinc-200"
-                        >
-                          <p className="leading-relaxed">¡Uyy perdón! Me super olvidé, se me re pasó el día. Mil disculpas, lo dejamos para otro momento...</p>
+                          <p className="font-bold text-[8px] text-rose-400 uppercase tracking-widest mb-1">Riesgo de Algoritmo</p>
+                          <p className="leading-relaxed">Depender 100% de redes sociales para que te encuentren te vuelve vulnerable a cambios de algoritmo o cuentas suspendidas.</p>
                         </motion.div>
                       </motion.div>
                     )}
@@ -865,7 +810,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4. SECCIÓN LA SOLUCIÓN (Pack Gestión Automatizada) */}
+      {/* SECCIÓN LA SOLUCIÓN */}
       <section id="solution" className="relative py-24 md:py-32 z-10">
         <div className="max-w-7xl mx-auto px-6">
           
@@ -921,34 +866,195 @@ export default function Home() {
             <div className="p-8 rounded-3xl bg-gradient-to-r from-cyan-500/10 to-indigo-500/10 border border-cyan-500/20 backdrop-blur-md shadow-2xl relative overflow-hidden group">
               <div className="absolute inset-0 bg-white/[0.01] pointer-events-none" />
               <p className="font-serif text-base md:text-lg italic text-cyan-200 leading-relaxed">
-                "Un sistema de reservas online no es solo comodidad para tus pacientes; es la frontera que separa a los profesionales ocupados de los profesionales rentables y tranquilos."
+                "Un sistema de reservas online no es solo comodidad para tus clientes; es la frontera que separa a los profesionales ocupados de los profesionales rentables y tranquilos."
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 5. PRECIOS TRANSPARENTES + DYNAMIC CALCULATOR */}
+      {/* PRECIOS TRANSPARENTES */}
       <section id="pricing" className="relative py-24 md:py-32 z-10 border-t border-white/[0.02] bg-[#090909]/40">
         <div className="max-w-7xl mx-auto px-6">
           
           {/* Section Header */}
           <div className="text-center max-w-3xl mx-auto mb-16 md:mb-24">
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-light tracking-tight text-white mb-6">
-              Sin sorpresas. <span className="font-light italic text-transparent bg-clip-text bg-gradient-to-r from-cyan-200 to-indigo-200">Transparencia total.</span>
+              Inversión <span className="font-light italic text-transparent bg-clip-text bg-gradient-to-r from-cyan-200 to-indigo-200">clara y al detalle.</span>
             </h2>
             <p className="text-base md:text-lg text-zinc-400 font-light leading-relaxed">
-              Inversión clara y un servicio boutique enfocado al detalle. Armá tu presupuesto interactivo abajo seleccionando los agregados que tu consultorio necesita.
+              Ofrecemos planes claros adaptados a la etapa de tu negocio independiente, con soporte continuo y sin sorpresas.
             </p>
           </div>
 
-          {/* Interactive Pricing Card */}
-          <div className="max-w-4xl mx-auto">
-            <div className="relative backdrop-blur-xl bg-white/[0.02] border border-cyan-500/20 shadow-[0_24px_80px_rgba(0,0,0,0.6)] rounded-3xl p-8 md:p-12 overflow-hidden">
+          {/* Glass Pricing Plans Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto mb-20 items-stretch">
+            
+            {/* Plan 1: Desarrollo Semilla */}
+            <SpotlightCard className="p-8 flex flex-col justify-between min-h-[480px] border-white/[0.08]" glowColor="rgba(34, 211, 238, 0.12)">
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full bg-cyan-950/40 border border-cyan-900/40 text-cyan-300">
+                    Plan Web
+                  </span>
+                  <span className="text-zinc-500 text-xs font-medium">Pago único</span>
+                </div>
+                <h3 className="font-serif text-2xl font-semibold text-white mb-2">Desarrollo Semilla</h3>
+                <p className="text-zinc-400 font-light text-sm leading-relaxed mb-6">
+                  Diseño y maquetación de tu página web (Landing Page) adaptada a tu negocio. Espacio claro para mostrar tus servicios, tu historia, ubicación y enlaces a redes.
+                </p>
+                <div className="h-px bg-white/[0.06] mb-6" />
+                <ul className="flex flex-col gap-3 text-xs text-zinc-300 font-light">
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-cyan-400" />
+                    <span>Diseño visual moderno a medida</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-cyan-400" />
+                    <span>Secciones de servicios y trayectoria</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-cyan-400" />
+                    <span>Enlaces a redes y ubicación</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-cyan-400" />
+                    <span>Optimizado para buscadores (SEO)</span>
+                  </li>
+                </ul>
+              </div>
+              
+              <div className="mt-8">
+                <div className="flex items-baseline gap-1.5 mb-4">
+                  <span className="text-zinc-500 text-sm">$</span>
+                  <span className="text-3xl font-serif font-bold text-white tracking-tight">280.000</span>
+                  <span className="text-zinc-400 text-xs font-light">ARS</span>
+                </div>
+                <a 
+                  href="https://wa.me/5491112345678?text=Hola%20Estudio%20Crea,%20quiero%20el%20Plan%20Desarrollo%20Semilla%20para%20mi%20web"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block w-full py-3 rounded-xl text-center text-xs font-bold uppercase tracking-wider bg-white text-zinc-950 hover:bg-cyan-400 hover:text-zinc-950 transition-colors duration-300 shadow-md font-semibold"
+                >
+                  Elegir Plan
+                </a>
+              </div>
+            </SpotlightCard>
+
+            {/* Plan 2: Gestión de Turnos */}
+            <SpotlightCard className="p-8 flex flex-col justify-between min-h-[480px] border-cyan-500/30 relative" glowColor="rgba(168, 85, 247, 0.12)">
+              {/* Featured Badge */}
+              <div className="absolute top-0 right-8 -translate-y-1/2 bg-gradient-to-r from-cyan-500 to-indigo-500 text-zinc-950 px-3.5 py-1 rounded-full text-[9px] font-black tracking-wider uppercase shadow-md">
+                Recomendado
+              </div>
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full bg-purple-950/40 border border-purple-900/40 text-purple-300">
+                    Automatización
+                  </span>
+                  <span className="text-zinc-500 text-xs font-medium">A Medida</span>
+                </div>
+                <h3 className="font-serif text-2xl font-semibold text-white mb-2">Gestión de Turnos</h3>
+                <p className="text-zinc-400 font-light text-sm leading-relaxed mb-6">
+                  Todo lo del Plan Semilla + la integración de sistema de reservas (Calendly/TidyCal) o flujos automatizados básicos para que tus clientes agenden solos sin que tengas que responder manualmente.
+                </p>
+                <div className="h-px bg-white/[0.06] mb-6" />
+                <ul className="flex flex-col gap-3 text-xs text-zinc-300 font-light">
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-purple-400" />
+                    <span className="font-semibold text-white">Todo lo del Plan Semilla</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-purple-400" />
+                    <span>Integración Calendly o TidyCal</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-purple-400" />
+                    <span>Flujo de recordatorios automático</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-purple-400" />
+                    <span>Reducción activa de inasistencias</span>
+                  </li>
+                </ul>
+              </div>
+              
+              <div className="mt-8">
+                <div className="mb-4">
+                  <span className="text-2xl font-serif font-bold text-white tracking-tight">A Medida</span>
+                  <span className="text-zinc-500 text-xs font-light block">Configuración y flujos personalizados</span>
+                </div>
+                <a 
+                  href="https://wa.me/5491112345678?text=Hola%20Estudio%20Crea,%20quiero%20consultar%20por%20el%20Plan%20de%20Gestión%20de%20Turnos"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block w-full py-3 rounded-xl text-center text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-cyan-500 to-indigo-500 text-white hover:opacity-90 transition-opacity duration-300 shadow-md font-semibold"
+                >
+                  Consultar WhatsApp
+                </a>
+              </div>
+            </SpotlightCard>
+
+            {/* Plan 3: Soporte Mensual */}
+            <SpotlightCard className="p-8 flex flex-col justify-between min-h-[480px] border-white/[0.08]" glowColor="rgba(16, 185, 129, 0.12)">
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full bg-emerald-950/40 border border-emerald-900/40 text-emerald-300">
+                    Suscripción
+                  </span>
+                  <span className="text-zinc-500 text-xs font-medium">Continuo</span>
+                </div>
+                <h3 className="font-serif text-2xl font-semibold text-white mb-2">Soporte Mensual</h3>
+                <p className="text-zinc-400 font-light text-sm leading-relaxed mb-6">
+                  Actualizaciones menores (textos, links, imágenes) y garantía de funcionamiento y hosting. Nos ocupamos del mantenimiento técnico para tu tranquilidad total.
+                </p>
+                <div className="h-px bg-white/[0.06] mb-6" />
+                <ul className="flex flex-col gap-3 text-xs text-zinc-300 font-light">
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>Hosting Premium Vercel incluido</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>Certificado SSL y estabilidad activa</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>Actualización ágil de textos e imágenes</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>Garantía de funcionamiento continuo</span>
+                  </li>
+                </ul>
+              </div>
+              
+              <div className="mt-8">
+                <div className="flex items-baseline gap-1.5 mb-4">
+                  <span className="text-zinc-500 text-sm">$</span>
+                  <span className="text-3xl font-serif font-bold text-white tracking-tight">15.000</span>
+                  <span className="text-zinc-400 text-xs font-light">/mes</span>
+                </div>
+                <a 
+                  href="https://wa.me/5491112345678?text=Hola%20Estudio%20Crea,%20quiero%20sumar%20el%20Soporte%20Mensual%20de%20$15.000"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block w-full py-3 rounded-xl text-center text-xs font-bold uppercase tracking-wider bg-white/[0.04] border border-white/[0.08] hover:bg-white/[0.08] text-white transition-colors duration-300 font-semibold"
+                >
+                  Adquirir Soporte
+                </a>
+              </div>
+            </SpotlightCard>
+
+          </div>
+
+          {/* Interactive Pricing Estimator (Calculator Tool) */}
+          <div className="max-w-4xl mx-auto mb-20">
+            <div className="relative backdrop-blur-xl bg-white/[0.02] border border-white/[0.08] shadow-[0_24px_80px_rgba(0,0,0,0.6)] rounded-3xl p-8 md:p-12 overflow-hidden">
               
               {/* Highlight badge top-right */}
               <div className="absolute top-0 right-0 bg-gradient-to-l from-cyan-500 to-indigo-500 text-zinc-950 px-8 py-2 rounded-bl-3xl text-[9px] font-black tracking-widest uppercase shadow-md">
-                Pack Gestión Web
+                Estimador de Proyecto
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
@@ -956,9 +1062,9 @@ export default function Home() {
                 {/* Configurator Controls (Left Column) */}
                 <div className="lg:col-span-7 flex flex-col gap-6 text-left">
                   <div>
-                    <h3 className="font-serif text-2xl md:text-3xl font-light text-white mb-2">Diseño y Turnero Semilla</h3>
+                    <h3 className="font-serif text-2xl md:text-3xl font-light text-white mb-2">Simulador de Adicionales</h3>
                     <p className="text-zinc-400 text-sm font-light leading-relaxed">
-                      El esqueleto digital a tu medida. Diseñamos la landing page de alto impacto e integramos la pasarela de reservas automatizada y sincronizada.
+                      Partiendo de la base de <strong>Desarrollo Semilla ($280.000)</strong>, simula el costo de agregar flujos automatizados de pago, asistentes de Inteligencia Artificial o turneros compartidos.
                     </p>
                   </div>
 
@@ -1045,7 +1151,7 @@ export default function Home() {
                 {/* Price Display Summary Card (Right Column) */}
                 <div className="lg:col-span-5 w-full bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6 flex flex-col items-center justify-center text-center shadow-inner gap-4">
                   <div className="w-full">
-                    <span className="text-[10px] text-zinc-500 font-bold uppercase tracking-wider">Pago Único (Desarrollo)</span>
+                    <span className="text-[10px] text-zinc-500 font-bold uppercase tracking-wider">Desarrollo (Pago Único)</span>
                     <div className="flex items-baseline justify-center gap-1 mt-1">
                       <span className="text-zinc-500 text-lg">$</span>
                       <motion.span 
@@ -1063,7 +1169,7 @@ export default function Home() {
                   <div className="w-full h-px bg-white/[0.06]" />
 
                   <div className="w-full">
-                    <span className="text-[10px] text-zinc-500 font-bold uppercase tracking-wider">Mantenimiento Mensual</span>
+                    <span className="text-[10px] text-zinc-500 font-bold uppercase tracking-wider">Soporte + Mantenimiento</span>
                     <div className="flex items-baseline justify-center gap-1 mt-1">
                       <span className="text-cyan-500 text-sm">$</span>
                       <motion.span 
@@ -1077,15 +1183,17 @@ export default function Home() {
                       <span className="text-zinc-400 text-xs font-light">/mes</span>
                     </div>
                     <p className="text-[9px] text-zinc-500 leading-relaxed max-w-[200px] mx-auto mt-2">
-                      Hosting premium en Vercel, certificado SSL y parches de estabilidad continuos.
+                      Incluye hosting premium en Vercel, certificado SSL y actualizaciones técnicas.
                     </p>
                   </div>
 
                   <a 
-                    href="#booking"
+                    href={`https://wa.me/5491112345678?text=Hola%20Estudio%20Crea,%20quiero%20cotizar%20mi%20proyecto.%20Base:%20Desarrollo%20Semilla%20con%20adicionales%20de:%20${includePayments ? 'Pasarela%20de%20Pagos%20' : ''}${includeChatbot ? 'Asistente%20WhatsApp%20IA%20' : ''}${includeMultiProfessional ? 'Turnero%20Multi-Profesional' : ''}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="mt-4 w-full py-4 rounded-xl text-center text-xs font-bold uppercase tracking-widest bg-white text-zinc-950 hover:bg-cyan-400 hover:text-zinc-950 transition-colors duration-300 shadow-xl"
                   >
-                    Contratar Pack
+                    Cotizar Configuración
                   </a>
                 </div>
 
@@ -1093,10 +1201,33 @@ export default function Home() {
 
             </div>
           </div>
+
+          {/* Bloque Final: ¿Tu negocio necesita algo diferente? */}
+          <div className="mt-16 text-center max-w-3xl mx-auto">
+            <div className="p-8 md:p-12 rounded-3xl bg-gradient-to-r from-cyan-500/10 to-indigo-500/10 border border-cyan-500/20 backdrop-blur-md shadow-2xl relative overflow-hidden group">
+              <div className="absolute inset-0 bg-white/[0.01] pointer-events-none" />
+              <h3 className="font-serif text-2xl md:text-3xl font-light text-white mb-3">
+                ¿Tu negocio necesita algo diferente?
+              </h3>
+              <p className="text-zinc-400 font-light text-sm md:text-base leading-relaxed max-w-2xl mx-auto mb-8">
+                Si buscás una estructura a medida para tu clínica, comercio o marca personal, contanos tu idea.
+              </p>
+              <a 
+                href="https://wa.me/5491112345678?text=Hola%20Estudio%20Crea,%20busco%20una%20estructura%20a%20medida%20para%20mi%20idea%20de%20proyecto."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-xs font-bold uppercase tracking-widest bg-white text-zinc-950 hover:bg-cyan-400 hover:text-zinc-950 transition-all duration-300 shadow-xl font-semibold"
+              >
+                <MessageSquare className="w-4 h-4 shrink-0" />
+                <span>Cotizá tu proyecto por WhatsApp</span>
+              </a>
+            </div>
+          </div>
+
         </div>
       </section>
 
-      {/* 6. CTA & INTEGRATED MOCK CALENDAR WIDGET */}
+      {/* CTA & INTEGRATED MOCK CALENDAR WIDGET */}
       <section id="booking" className="relative py-24 md:py-32 z-10">
         <div className="max-w-7xl mx-auto px-6">
           
@@ -1155,7 +1286,7 @@ export default function Home() {
               {/* Dynamic Content Panel */}
               <div className="min-h-[420px] relative rounded-2xl bg-zinc-950/45 border border-white/[0.04] p-6 flex flex-col justify-between overflow-hidden shadow-inner">
                 
-                {/* 1. MOCK DEMO FLOW */}
+                {/* MOCK DEMO FLOW */}
                 {bookingTab === 'demo' && (
                   <div className="flex-1 flex flex-col justify-between h-full">
                     <AnimatePresence mode="wait">
@@ -1335,7 +1466,7 @@ export default function Home() {
                             </div>
                           </div>
 
-                          <div className="md:col-span-7 pl-0 md:pl-6 border-l border-white/[0.04]">
+                          <div className="md:col-span-7 pr-0 md:pl-6 border-l border-white/[0.04]">
                             <form onSubmit={handleBookingSubmit} className="flex flex-col gap-4">
                               <div className="flex flex-col gap-1 text-left">
                                 <label className="text-[10px] font-bold uppercase tracking-wider text-zinc-500">Nombre Completo</label>
@@ -1344,7 +1475,7 @@ export default function Home() {
                                   <input 
                                     type="text" 
                                     required
-                                    placeholder="Dr. Matías Gómez"
+                                    placeholder="Matias Gomez"
                                     value={formData.name}
                                     onChange={(e) => setFormData({...formData, name: e.target.value})}
                                     className="w-full bg-white/[0.03] border border-white/[0.08] focus:border-cyan-500/50 rounded-xl py-3 pl-10 pr-4 text-sm text-white outline-none transition-colors"
@@ -1359,7 +1490,7 @@ export default function Home() {
                                   <input 
                                     type="text" 
                                     required
-                                    placeholder="Odontología / Psicología / Kinesiología"
+                                    placeholder="Odontología / Psicología / Consultor"
                                     value={formData.specialty}
                                     onChange={(e) => setFormData({...formData, specialty: e.target.value})}
                                     className="w-full bg-white/[0.03] border border-white/[0.08] focus:border-cyan-500/50 rounded-xl py-3 pl-10 pr-4 text-sm text-white outline-none transition-colors"
@@ -1443,7 +1574,7 @@ export default function Home() {
                   </div>
                 )}
 
-                {/* 2. REAL CODE INTEGRATION VIEW */}
+                {/* REAL CODE INTEGRATION VIEW */}
                 {bookingTab === 'embed' && (
                   <motion.div 
                     initial={{ opacity: 0 }}

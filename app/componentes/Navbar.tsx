@@ -43,83 +43,91 @@ export default function Navbar() {
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
       scrolled 
-        ? 'py-4 bg-[#070707]/80 backdrop-blur-xl border-b border-white/[0.08] shadow-[0_12px_40px_rgba(0,0,0,0.6)]' 
+        ? 'py-4 bg-black/20 backdrop-blur-xl border-b border-white/[0.06] shadow-[0_8px_32px_rgba(0,0,0,0.25)]' 
         : 'py-6 bg-transparent border-b border-transparent'
     }`}>
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between md:grid md:grid-cols-3">
         
-        {/* Logo with elegant typeface */}
-        <a href="#hero" className="flex items-center gap-2.5 group">
-          <span className="font-serif text-2xl font-semibold tracking-tight text-white group-hover:text-cyan-400 transition-colors duration-300">
-            Estudio Crea
-          </span>
-          <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse mt-2" />
-        </a>
-
-        {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-1.5 bg-white/[0.02] border border-white/[0.05] p-1 rounded-full backdrop-blur-md">
-          <a 
-            href="#pain" 
-            className={`text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-full transition-all duration-300 ${
-              activeSection === 'pain' 
-                ? 'bg-white/10 text-white border border-white/10 shadow-lg' 
-                : 'text-zinc-400 hover:text-white border border-transparent'
-            }`}
-          >
-            Fricciones
-          </a>
-          <a 
-            href="#solution" 
-            className={`text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-full transition-all duration-300 ${
-              activeSection === 'solution' 
-                ? 'bg-white/10 text-white border border-white/10 shadow-lg' 
-                : 'text-zinc-400 hover:text-white border border-transparent'
-            }`}
-          >
-            Solución
-          </a>
-          <a 
-            href="#pricing" 
-            className={`text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-full transition-all duration-300 ${
-              activeSection === 'pricing' 
-                ? 'bg-white/10 text-white border border-white/10 shadow-lg' 
-                : 'text-zinc-400 hover:text-white border border-transparent'
-            }`}
-          >
-            Precios
-          </a>
-          <a 
-            href="#booking" 
-            className={`text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-full transition-all duration-300 ${
-              activeSection === 'booking' 
-                ? 'bg-white/10 text-white border border-white/10 shadow-lg' 
-                : 'text-zinc-400 hover:text-white border border-transparent'
-            }`}
-          >
-            Turnero
-          </a>
-        </nav>
-
-        {/* Header Action Button */}
-        <div className="hidden md:block">
-          <a 
-            href="https://wa.me/5491112345678?text=Hola%20Estudio%20Crea,%20quiero%20consultar%20por%20un%20proyecto%20web"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-5 py-2.5 rounded-full text-[10px] font-bold tracking-widest uppercase backdrop-blur-xl bg-white/[0.04] border border-white/[0.08] hover:border-cyan-500/40 hover:bg-cyan-500/10 text-white transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:scale-[1.03]"
-          >
-            Consultar por WhatsApp
+        {/* Left Column - Logo */}
+        <div className="flex justify-start">
+          <a href="#hero" className="flex items-center group">
+            <img 
+              src="/iconoCrea.png" 
+              alt="Estudio Crea" 
+              className="h-5 md:h-6 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+            />
           </a>
         </div>
 
-        {/* Mobile Menu Button */}
-        <button 
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-2.5 rounded-full bg-white/[0.03] border border-white/[0.08] text-zinc-400 hover:text-white transition-colors"
-          aria-label="Toggle Menu"
-        >
-          {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </button>
+        {/* Middle Column - Desktop Navigation Links (Centered) */}
+        <div className="hidden md:flex justify-center">
+          <nav className="flex items-center gap-1.5 bg-white/[0.04] border border-white/[0.06] p-1 rounded-full backdrop-blur-md">
+            <a 
+              href="#pain" 
+              className={`text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-full transition-all duration-300 ${
+                activeSection === 'pain' 
+                  ? 'bg-white/10 text-white border border-white/10 shadow-lg' 
+                  : 'text-zinc-300 hover:text-white border border-transparent'
+              }`}
+            >
+              Fricciones
+            </a>
+            <a 
+              href="#solution" 
+              className={`text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-full transition-all duration-300 ${
+                activeSection === 'solution' 
+                  ? 'bg-white/10 text-white border border-white/10 shadow-lg' 
+                  : 'text-zinc-300 hover:text-white border border-transparent'
+              }`}
+            >
+              Solución
+            </a>
+            <a 
+              href="#pricing" 
+              className={`text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-full transition-all duration-300 ${
+                activeSection === 'pricing' 
+                  ? 'bg-white/10 text-white border border-white/10 shadow-lg' 
+                  : 'text-zinc-300 hover:text-white border border-transparent'
+              }`}
+            >
+              Precios
+            </a>
+            <a 
+              href="#booking" 
+              className={`text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-full transition-all duration-300 ${
+                activeSection === 'booking' 
+                  ? 'bg-white/10 text-white border border-white/10 shadow-lg' 
+                  : 'text-zinc-300 hover:text-white border border-transparent'
+              }`}
+            >
+              Turnero
+            </a>
+          </nav>
+        </div>
+
+        {/* Right Column - Actions / Mobile Button */}
+        <div className="flex justify-end items-center">
+          {/* Header Action Button */}
+          <div className="hidden md:block">
+            <a 
+              href="https://wa.me/5491112345678?text=Hola%20Estudio%20Crea,%20quiero%20consultar%20por%20un%20proyecto%20web"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-5 py-2.5 rounded-full text-[10px] font-bold tracking-widest uppercase backdrop-blur-xl bg-white/[0.08] border border-white/[0.12] hover:border-cyan-500/40 hover:bg-cyan-500/10 text-white transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.15)] hover:scale-[1.03]"
+            >
+              Consultar por WhatsApp
+            </a>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button 
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2.5 rounded-full bg-white/[0.03] border border-white/[0.08] text-zinc-400 hover:text-white transition-colors"
+            aria-label="Toggle Menu"
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Navigation Drawer */}
@@ -130,7 +138,7 @@ export default function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden border-t border-white/[0.06] bg-[#070707]/95 backdrop-blur-2xl overflow-hidden"
+            className="md:hidden border-t border-white/[0.06] bg-black/60 backdrop-blur-2xl overflow-hidden"
           >
             <div className="px-6 py-6 flex flex-col gap-4">
               <a 

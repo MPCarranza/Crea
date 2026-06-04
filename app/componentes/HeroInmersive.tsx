@@ -23,11 +23,7 @@ const SLIDES = [
     imgForeground: "",
     type: "direction",
     title: "Una dirección clara",
-    highlight: "da resultados más altos",
-    topRightText: [
-      '"Distinguite, dejando que tu página web hable por vos"',
-      '"Se trata de hacer lo que mejor sabés hacer, apreciando tu tiempo"'
-    ]
+    highlight: "da resultados más altos"
   },
   {
     id: 3,
@@ -48,7 +44,7 @@ const SLIDES = [
     imgForeground: "",
     type: "tuweb",
     title: "deja que tu web hable por vos",
-    subtitle: "POR QUE DESCONECTARSE ES UN LUJO"
+    subtitle: "PORQUE DESCONECTARSE ES UN LUJO"
   }
 ];
 
@@ -79,26 +75,29 @@ useEffect(() => {
   const slide = SLIDES[current];
 
   return (
-    <section className={`relative w-full min-h-screen ${slide.bg} transition-colors duration-1000 overflow-hidden flex items-center justify-center px-6 md:px-12 lg:px-24`}>
+    <section id="hero" className={`relative w-full min-h-screen ${slide.bg} transition-colors duration-1000 overflow-hidden flex items-center justify-center px-6 md:px-12 lg:px-24`}>
       
+      {/* Gradiente superior para asegurar contraste con la Navbar */}
+      <div className="absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-black/60 via-black/25 to-transparent z-20 pointer-events-none" />
+
       {/* ─── CAPAS DE IMÁGENES SURREALISTAS (PARALLAX ASOCIADO AL RATÓN) ─── */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
         {/* Capa Fondo - Estático */}
         <div 
           className="absolute inset-0 z-0 opacity-100"
         >
-          <AnimatePresence mode="wait">
+          <AnimatePresence>
             <motion.img 
               key={slide.id}
               src={slide.imgBackground} 
               onError={(e) => {
                 e.currentTarget.src = "/fondoDos.png";
               }}
-              initial={{ opacity: 0, scale: 1.05 }}
-              animate={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 1 }}
-              className="w-full h-full object-cover"
+              transition={{ duration: 1.2, ease: "easeInOut" }}
+              className="absolute inset-0 w-full h-full object-cover"
             />
           </AnimatePresence>
         </div>
@@ -109,16 +108,16 @@ useEffect(() => {
           transition={{ type: "spring", stiffness: 60, damping: 25 }}
           className="absolute inset-0 z-10 flex items-center justify-center"
         >
-          <AnimatePresence mode="wait">
+          <AnimatePresence>
             {slide.imgMidground && (
               <motion.img 
                 key={slide.id}
                 src={slide.imgMidground} 
-                initial={{ opacity: 0, scale: 1.05 }}
-                animate={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.8 }}
-                className="w-full h-full object-cover"
+                transition={{ duration: 1.2, ease: "easeInOut" }}
+                className="absolute inset-0 w-full h-full object-cover"
               />
             )}
           </AnimatePresence>
@@ -129,7 +128,7 @@ useEffect(() => {
           animate={{ x: mousePos.x * 1.4, y: mousePos.y * 1.4 }}
           className="absolute inset-0 z-20 pointer-events-none flex items-center justify-center"
         >
-          <AnimatePresence mode="wait">
+          <AnimatePresence>
             {slide.imgForeground && (
               <motion.img 
                 key={slide.id}
@@ -138,7 +137,7 @@ useEffect(() => {
                 animate={{ opacity: 0.5, scale: 1, rotate: 0 }}
                 exit={{ opacity: 0, scale: 1.1 }}
                 transition={{ duration: 0.9, ease: "easeOut" }}
-                className="w-[250px] h-[250px] md:w-[350px] md:h-[350px] object-contain mix-blend-lighten"
+                className="absolute w-[250px] h-[250px] md:w-[350px] md:h-[350px] object-contain mix-blend-lighten"
               />
             )}
           </AnimatePresence>
@@ -196,19 +195,9 @@ useEffect(() => {
 
               {slide.type === "direction" && (
                 <div className="relative w-full flex flex-col items-center">
-                  {/* Texto pequeño en esquina superior derecha (solo para pantallas medianas/grandes) */}
-                  {slide.topRightText && (
-                    <div className="absolute top-[-4rem] right-0 text-right max-w-sm hidden lg:block space-y-1 select-none z-40 opacity-70">
-                      {slide.topRightText.map((text, tIdx) => (
-                        <p key={tIdx} className="text-white text-[11px] font-sans tracking-wider leading-relaxed">
-                          {text}
-                        </p>
-                      ))}
-                    </div>
-                  )}
                   <h1 className="font-sans font-semibold text-white text-4xl md:text-7xl tracking-tight leading-[1.1] max-w-5xl mx-auto drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
                     {slide.title} <br />
-                    <span className="font-sans font-semibold text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-cyan-300">
+                    <span className="text-white">
                       {slide.highlight}
                     </span>
                   </h1>
@@ -226,49 +215,43 @@ useEffect(() => {
                   <h1 className="font-sans font-semibold text-white text-4xl md:text-7xl tracking-tight leading-none drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)] lowercase">
                     {slide.title}
                   </h1>
-                  <p className="font-sans text-xs md:text-sm tracking-[0.25em] text-white/80 uppercase mt-4 select-none">
+                  <p className="font-sans text-xs md:text-sm tracking-[0.25em] text-[#5a5a5a] uppercase mt-4 select-none">
                     {slide.subtitle}
                   </p>
                 </div>
               )}
 
-              {/* Botones de acción estables */}
-              <div className="flex flex-wrap gap-4 items-center justify-center pt-8">
-                <button className="px-8 py-4 rounded-xl bg-[#fcfcfd] text-[#070708] font-sans text-sm font-medium tracking-wide hover:scale-[1.02] transition-all duration-300 shadow-[0_4px_30px_rgba(255,255,255,0.1)]">
-                  Adquirir Portafolio Premium
-                </button>
-                <button className="px-8 py-4 rounded-xl backdrop-blur-md bg-white/[0.03] border border-white/[0.08] text-[#fcfcfd] font-sans text-sm font-medium tracking-wide hover:bg-white/[0.08] transition-all duration-300">
-                  Ver Demostración
-                </button>
-              </div>
             </motion.div>
           </AnimatePresence>
+
         </div>
 
-        {/* Controles del Slider Vertical Lateral derecho - Absoluto para no desplazar el centro */}
-        <div className="absolute right-6 lg:right-12 top-1/2 -translate-y-1/2 z-40 hidden lg:flex flex-col items-end gap-3 pointer-events-auto">
+        {/* Controles del Slider Vertical Lateral derecho - Panel de Cristal Premium */}
+        <div className="absolute right-6 lg:right-12 top-1/2 -translate-y-1/2 z-40 hidden lg:flex flex-col items-center gap-1 bg-white/[0.02] border border-white/[0.03] px-1 py-3.5 rounded-full backdrop-blur-md shadow-[0_8px_32px_rgba(0,0,0,0.3)] pointer-events-auto">
           {SLIDES.map((s, idx) => (
             <button
               key={s.id}
               onClick={() => setCurrent(idx)}
-              className="h-12 flex items-center gap-4 group text-right transition-all"
+              className="h-8 w-4 flex items-center justify-center group transition-all"
             >
-              <span className={`text-xs font-mono tracking-widest uppercase transition-opacity duration-300 ${current === idx ? 'text-white opacity-100 font-bold' : 'text-white/30 opacity-0 group-hover:opacity-50'}`}>
-                {s.tag}
-              </span>
-              <div className={`w-1.5 rounded-full transition-all duration-500 ${current === idx ? 'h-8 bg-[#a78bfa]' : 'h-2 bg-white/20 group-hover:bg-white/40'}`} />
+              <div className={`w-1 rounded-full transition-all duration-500 ${current === idx ? 'h-5 bg-white shadow-[0_0_8px_rgba(255,255,255,0.5)]' : 'h-1 bg-white/20 group-hover:bg-white/50 group-hover:scale-125'}`} />
             </button>
           ))}
         </div>
 
       </div>
 
-      {/* ─── SIGNATURE PIECE DE CIERRE (TU MARCA) ─── */}
-      <div className="absolute bottom-6 left-6 md:left-12 z-40">
-        <p className="text-xs font-mono text-white/20 tracking-widest uppercase">
-          Crea estudio, <span className="text-white/40">creamos soluciones.</span>
-        </p>
+      {/* Botones de acción estables fijos en la parte inferior */}
+      <div className="absolute bottom-20 left-1/2 -translate-x-1/2 z-40 flex flex-row gap-3 md:gap-4 items-center justify-center w-auto px-6">
+        <button className="px-5 md:px-8 py-3 md:py-4 rounded-xl bg-[#fcfcfd] text-[#070708] font-sans text-xs md:text-sm font-medium tracking-wide hover:scale-[1.02] transition-all duration-300 shadow-[0_4px_30px_rgba(255,255,255,0.1)] whitespace-nowrap">
+          Adquirir Portafolio Premium
+        </button>
+        <button className="px-5 md:px-8 py-3 md:py-4 rounded-xl backdrop-blur-md bg-white/[0.03] border border-white/[0.08] text-[#fcfcfd] font-sans text-xs md:text-sm font-medium tracking-wide hover:bg-white/[0.08] transition-all duration-300 whitespace-nowrap">
+          Ver Demostración
+        </button>
       </div>
+
+
 
     </section>
   );

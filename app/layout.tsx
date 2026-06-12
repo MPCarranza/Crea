@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Inter } from "next/font/google";
+import { DM_Sans, Inter } from "next/font/google";
 import "./globals.css";
 
-const serifFont = Playfair_Display({
-  variable: "--font-serif",
+const dmSans = DM_Sans({
+  variable: "--font-dm-sans",
   subsets: ["latin"],
   display: "swap",
-  style: ["normal", "italic"],
 });
 
 const sansFont = Inter({
@@ -35,7 +34,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${serifFont.variable} ${sansFont.variable} h-full antialiased`}
+      className={`${dmSans.variable} ${sansFont.variable} h-full antialiased`}
     >
       {/* Eliminamos bg-[#0a0a0a] y text-zinc-100 para que use tus variables globales fluidas */}
       <body className="min-h-full flex flex-col font-sans">

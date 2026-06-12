@@ -1,13 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  --background: #070708;
-  --foreground: #fcfcfd;
+  --background: #faf9f6;
+  --foreground: #111111;
+  --border: rgba(18, 19, 22, 0.08);
 }
 
 @theme {
   /* Mapeo correcto de variables tipográficas para Next.js Font Optimization */
-  --font-serif: var(--font-serif), Georgia, serif;
+  --font-serif: var(--font-dm-sans), sans-serif;
   --font-sans: var(--font-sans), system-ui, -apple-system, sans-serif;
 }
 
@@ -31,10 +32,10 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.15);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(0, 0, 0, 0.3);
 }

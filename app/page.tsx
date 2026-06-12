@@ -12,15 +12,15 @@ import Footer from './componentes/Footer';
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen bg-[#070707] text-zinc-100 selection:bg-cyan-500/30 selection:text-cyan-200 overflow-x-hidden font-sans">
+    <div className="relative min-h-screen bg-[#faf9f6] text-[#111111] selection:bg-cyan-500/20 selection:text-cyan-900 overflow-x-hidden font-sans">
       
       {/* 1. ULTRA-PREMIUM GRID & NOISE ANALOG TEXTURE */}
       <div className="fixed inset-0 pointer-events-none z-0 select-none overflow-hidden">
         {/* Subtle grid line backdrop */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:5rem_5rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-80" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.025)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.025)_1px,transparent_1px)] bg-[size:5rem_5rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-80" />
         
         {/* SVG Noise filter for a graphite, premium textured paper look */}
-        <svg className="absolute inset-0 w-full h-full opacity-[0.015]" xmlns="http://www.w3.org/2000/svg">
+        <svg className="absolute inset-0 w-full h-full opacity-[0.02]" xmlns="http://www.w3.org/2000/svg">
           <filter id="noise">
             <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
             <feColorMatrix type="matrix" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.1 0" />
@@ -43,7 +43,7 @@ export default function Home() {
             repeat: Infinity,
             ease: "easeInOut"
           }}
-          className="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] rounded-full bg-cyan-500/5 blur-[120px] mix-blend-screen"
+          className="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] rounded-full bg-cyan-500/8 blur-[120px] mix-blend-multiply"
         />
 
         {/* Purple orbe on the lower left */}
@@ -58,7 +58,7 @@ export default function Home() {
             repeat: Infinity,
             ease: "easeInOut"
           }}
-          className="absolute bottom-1/3 left-1/4 w-[550px] h-[550px] rounded-full bg-purple-500/5 blur-[140px] mix-blend-screen"
+          className="absolute bottom-1/3 left-1/4 w-[550px] h-[550px] rounded-full bg-purple-500/8 blur-[140px] mix-blend-multiply"
         />
       </div>
 

@@ -3,12 +3,25 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+interface Slide {
+  id: number;
+  tag: string;
+  bg: string;
+  imgBackground: string;
+  imgMidground: string;
+  imgForeground: string;
+  type: string;
+  title?: string;
+  highlight?: string;
+  subtitle?: string;
+}
+
 // Datos de las diapositivas con el enfoque estético de tus capturas
-const SLIDES = [
+const SLIDES: Slide[] = [
   {
     id: 1,
     tag: "Estudio Crea",
-    bg: "bg-[#070708]",
+    bg: "bg-[#faf9f6]",
     imgBackground: "/fondo.jpg",
     imgMidground: "/medio.png",
     imgForeground: "",
@@ -17,7 +30,7 @@ const SLIDES = [
   {
     id: 2,
     tag: "Dirección",
-    bg: "bg-[#0b0c10]",
+    bg: "bg-[#f5f3ed]",
     imgBackground: "/fondoDos.png",
     imgMidground: "/medioDos.png",
     imgForeground: "",
@@ -27,24 +40,13 @@ const SLIDES = [
   },
   {
     id: 3,
-    tag: "El Salto",
-    bg: "bg-[#0a0512]",
-    imgBackground: "/fondoTres.png",
-    imgMidground: "/medioTres.png",
-    imgForeground: "",
-    type: "salto",
-    title: "Es tiempo que des el salto"
-  },
-  {
-    id: 4,
     tag: "Tu Web",
-    bg: "bg-[#070708]",
+    bg: "bg-[#faf9f6]",
     imgBackground: "/fondo.jpg",
     imgMidground: "/medio.png",
     imgForeground: "",
     type: "tuweb",
-    title: "deja que tu web hable por vos",
-    subtitle: "PORQUE DESCONECTARSE ES UN LUJO"
+    title: "Desconectarse es un lujo"
   }
 ];
 
@@ -78,7 +80,7 @@ useEffect(() => {
     <section id="hero" className={`relative w-full min-h-screen ${slide.bg} transition-colors duration-1000 overflow-hidden flex items-center justify-center px-6 md:px-12 lg:px-24`}>
       
       {/* Gradiente superior para asegurar contraste con la Navbar */}
-      <div className="absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-black/60 via-black/25 to-transparent z-20 pointer-events-none" />
+      <div className="absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-black/80 via-black/40 to-transparent z-20 pointer-events-none" />
 
       {/* ─── CAPAS DE IMÁGENES SURREALISTAS (PARALLAX ASOCIADO AL RATÓN) ─── */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
@@ -104,7 +106,7 @@ useEffect(() => {
 
         {/* Capa Media - Elementos intermedios flotantes */}
         <motion.div 
-          animate={slide.id === 3 ? { x: mousePos.x * 0.7, y: mousePos.y * 0.7 } : { x: 0, y: 0 }}
+          animate={{ x: mousePos.x * 0.5, y: mousePos.y * 0.5 }}
           transition={{ type: "spring", stiffness: 60, damping: 25 }}
           className="absolute inset-0 z-10 flex items-center justify-center"
         >
@@ -145,7 +147,7 @@ useEffect(() => {
       </div>
 
       {/* ─── MÁSCARA DE RED ESTILO APPLE / ANTIGRAVITY ─── */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff02_1px,transparent_1px),linear-gradient(to_bottom,#ffffff02_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_60%,transparent_100%)] z-2 pointer-events-none" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#00000004_1px,transparent_1px),linear-gradient(to_bottom,#00000004_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_60%,transparent_100%)] z-2 pointer-events-none" />
 
       {/* ─── CONTENEDOR DE CONTENIDO PRINCIPAL (TEXTO EDITORIAL) ─── */}
       <div className="relative max-w-7xl w-full z-30 flex flex-col items-center justify-center min-h-[50vh] text-center px-6">
@@ -172,7 +174,7 @@ useEffect(() => {
                   <img 
                     src="/logoHero.png" 
                     alt="Estudio Crea" 
-                    className="max-w-[90%] md:max-w-2xl h-auto object-contain drop-shadow-[0_10px_30px_rgba(0,0,0,0.6)]"
+                    className="max-w-[90%] md:max-w-2xl h-auto object-contain drop-shadow-[0_10px_30px_rgba(0,0,0,0.15)]"
                     onError={(e) => {
                       // Fallback en caso de que logoHero.png no exista en public
                       e.currentTarget.style.display = 'none';
@@ -204,20 +206,17 @@ useEffect(() => {
                 </div>
               )}
 
-              {slide.type === "salto" && (
-                <h1 className="font-sans font-semibold text-white text-4xl md:text-7xl tracking-tight max-w-4xl mx-auto drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
-                  {slide.title}
-                </h1>
-              )}
 
               {slide.type === "tuweb" && (
                 <div className="flex flex-col items-center space-y-6">
-                  <h1 className="font-sans font-semibold text-white text-4xl md:text-7xl tracking-tight leading-none drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)] lowercase">
+                  <h1 className="font-sans font-semibold text-white text-4xl md:text-7xl tracking-tight leading-none drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
                     {slide.title}
                   </h1>
-                  <p className="font-sans text-xs md:text-sm tracking-[0.25em] text-[#5a5a5a] uppercase mt-4 select-none">
-                    {slide.subtitle}
-                  </p>
+                  {slide.subtitle && (
+                    <p className="font-sans text-xs md:text-sm tracking-[0.25em] text-white/60 uppercase mt-4 select-none">
+                      {slide.subtitle}
+                    </p>
+                  )}
                 </div>
               )}
 
@@ -227,14 +226,14 @@ useEffect(() => {
         </div>
 
         {/* Controles del Slider Vertical Lateral derecho - Panel de Cristal Premium */}
-        <div className="absolute right-6 lg:right-12 top-1/2 -translate-y-1/2 z-40 hidden lg:flex flex-col items-center gap-1 bg-white/[0.02] border border-white/[0.03] px-1 py-3.5 rounded-full backdrop-blur-md shadow-[0_8px_32px_rgba(0,0,0,0.3)] pointer-events-auto">
+        <div className="absolute right-6 lg:right-12 top-1/2 -translate-y-1/2 z-40 hidden lg:flex flex-col items-center gap-1 bg-white/[0.04] border border-white/[0.08] px-1 py-3.5 rounded-full backdrop-blur-md shadow-[0_8px_32px_rgba(0,0,0,0.15)] pointer-events-auto">
           {SLIDES.map((s, idx) => (
             <button
               key={s.id}
               onClick={() => setCurrent(idx)}
               className="h-8 w-4 flex items-center justify-center group transition-all"
             >
-              <div className={`w-1 rounded-full transition-all duration-500 ${current === idx ? 'h-5 bg-white shadow-[0_0_8px_rgba(255,255,255,0.5)]' : 'h-1 bg-white/20 group-hover:bg-white/50 group-hover:scale-125'}`} />
+              <div className={`w-1 rounded-full transition-all duration-500 ${current === idx ? 'h-5 bg-white shadow-[0_0_8px_rgba(255,255,255,0.4)]' : 'h-1 bg-white/20 group-hover:bg-white/50 group-hover:scale-125'}`} />
             </button>
           ))}
         </div>
@@ -243,8 +242,8 @@ useEffect(() => {
 
       {/* Botones de acción estables fijos en la parte inferior */}
       <div className="absolute bottom-20 left-1/2 -translate-x-1/2 z-40 flex flex-row gap-3 md:gap-4 items-center justify-center w-auto px-6">
-        <button className="px-5 md:px-8 py-3 md:py-4 rounded-xl bg-[#fcfcfd] text-[#070708] font-sans text-xs md:text-sm font-medium tracking-wide hover:scale-[1.02] transition-all duration-300 shadow-[0_4px_30px_rgba(255,255,255,0.1)] whitespace-nowrap">
-          Adquirir Portafolio Premium
+        <button className="px-5 md:px-8 py-3 md:py-4 rounded-xl bg-white text-neutral-950 font-sans text-xs md:text-sm font-semibold tracking-wide hover:scale-[1.02] transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.2)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.55)] border border-transparent whitespace-nowrap">
+          Tu página en 48hs
         </button>
         <button className="px-5 md:px-8 py-3 md:py-4 rounded-xl backdrop-blur-md bg-white/[0.03] border border-white/[0.08] text-[#fcfcfd] font-sans text-xs md:text-sm font-medium tracking-wide hover:bg-white/[0.08] transition-all duration-300 whitespace-nowrap">
           Ver Demostración

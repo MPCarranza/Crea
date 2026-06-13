@@ -63,6 +63,16 @@ export default function Navbar() {
         <div className="hidden md:flex justify-center">
           <nav className="flex items-center gap-1.5 bg-white/[0.04] border border-white/[0.06] p-1 rounded-full backdrop-blur-md">
             <a 
+              href="#showcase" 
+              className={`text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-full transition-all duration-300 ${
+                activeSection === 'showcase' 
+                  ? 'bg-white/10 text-white border border-white/10 shadow-lg' 
+                  : 'text-zinc-300 hover:text-white border border-transparent'
+              }`}
+            >
+              Modelos
+            </a>
+            <a 
               href="#pain" 
               className={`text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-full transition-all duration-300 ${
                 activeSection === 'pain' 
@@ -141,6 +151,13 @@ export default function Navbar() {
             className="md:hidden border-t border-white/[0.06] bg-black/60 backdrop-blur-2xl overflow-hidden"
           >
             <div className="px-6 py-6 flex flex-col gap-4">
+              <a 
+                href="#showcase" 
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-sm font-semibold uppercase tracking-wider text-zinc-300 hover:text-white py-2 border-b border-white/[0.02]"
+              >
+                Modelos
+              </a>
               <a 
                 href="#pain" 
                 onClick={() => setMobileMenuOpen(false)}

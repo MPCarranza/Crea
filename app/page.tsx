@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 
 import Navbar from './componentes/Navbar';
 import HeroInmersive from './componentes/HeroInmersive';
+import ShowcaseSection from './componentes/ShowcaseSection';
 import PainSection from './componentes/PainSection';
 import SolutionSection from './componentes/SolutionSection';
 import PricingSection from './componentes/PricingSection';
@@ -65,6 +66,7 @@ export default function Home() {
       {/* 3. MODULAR COMPONENTS */}
       <Navbar />
       <HeroInmersive />
+      <ShowcaseSection />
       <PainSection />
       <SolutionSection />
       <PricingSection />

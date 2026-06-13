@@ -435,7 +435,7 @@ export default function BookingSection() {
                   <div className="bg-neutral-900 p-4 rounded-xl border border-black/[0.15] text-left relative group">
                     <pre className="text-[11px] font-mono text-neutral-200 overflow-x-auto whitespace-pre leading-relaxed select-all max-h-[160px] pb-2">
                       {`<!-- Estudio Crea Turnero Widget Integration -->
-<div class="estudio-crea-widget" style="width:100%;height:650px;border-radius:24px;overflow:hidden;background:#faf9f6;">
+<div class="estudio-crea-widget" style="width:100%;height:650px;border-radius:24px;overflow:hidden;background:#050505;">
   <iframe 
     src="https://calendly.com/tu-usuario/reunion-diagnostica" 
     width="100%" 

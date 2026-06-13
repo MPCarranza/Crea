@@ -35,9 +35,10 @@ export default function RootLayout({
     <html
       lang="es"
       className={`${dmSans.variable} ${sansFont.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
       {/* Eliminamos bg-[#0a0a0a] y text-zinc-100 para que use tus variables globales fluidas */}
-      <body className="min-h-full flex flex-col font-sans">
+      <body className="min-h-full flex flex-col font-sans" suppressHydrationWarning>
         {children}
       </body>
     </html>

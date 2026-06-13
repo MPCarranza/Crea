@@ -90,4 +90,4 @@ export const AVAILABLE_TIMES: string[] = ['09:30 hs', '11:00 hs', '14:30 hs', '1
 /**
  * Anchor routes for smooth scroll tracking
  */
-export const SCROLL_SECTIONS: string[] = ['hero', 'pain', 'solution', 'pricing', 'booking'];
+export const SCROLL_SECTIONS: string[] = ['hero', 'showcase', 'pain', 'solution', 'pricing', 'booking'];

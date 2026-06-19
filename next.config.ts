@@ -1,6 +1,5 @@
 import type { NextConfig } from "next";
 
-// Strict Content Security Policy (CSP) to mitigate XSS and Data Injection attacks
 const cspHeader = `
   default-src 'self';
   script-src 'self' 'unsafe-eval' 'unsafe-inline';
@@ -11,6 +10,7 @@ const cspHeader = `
   base-uri 'self';
   form-action 'self' https://wa.me;
   frame-ancestors 'none';
+  frame-src 'self' https://calendly.com https://*.calendly.com https://tidycal.com https://*.tidycal.com;
   block-all-mixed-content;
   upgrade-insecure-requests;
 `;

@@ -1,82 +1,29 @@
 'use client';
 
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Zap, Clock, Laptop, User, Building, Smartphone, 
-  CheckCircle2, Check, Copy 
-} from 'lucide-react';
-import { AVAILABLE_DATES, AVAILABLE_TIMES } from '../utils/constants';
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { Zap, RefreshCw, ExternalLink, Mail } from 'lucide-react';
 
 export default function BookingSection() {
-  const [bookingTab, setBookingTab] = useState<'demo' | 'embed'>('demo');
-  const [bookingStep, setBookingStep] = useState<number>(1);
-  const [selectedDate, setSelectedDate] = useState<number | null>(null);
-  const [selectedTime, setSelectedTime] = useState<string | null>(null);
-  
-  const [formData, setFormData] = useState({
-    name: '',
-    specialty: '',
-    phone: ''
-  });
+  const widgetUrl = 'https://calendly.com/estudiocrea2026/30min?back=1';
+  const [isIframeLoading, setIsIframeLoading] = useState(true);
 
-  const [copiedCode, setCopiedCode] = useState(false);
-
-  // Enterprise-Grade client-side Input Sanitizer to neutralize HTML/XSS script payloads
-  const sanitizeInput = (text: string): string => {
-    if (!text) return '';
-    return text
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#x27;")
-      .replace(/\//g, "&#x2F;")
-      .replace(/javascript:/gi, "") // Neutralize active URI schemes
-      .replace(/onerror/gi, "")
-      .replace(/onload/gi, "")
-      .trim();
-  };
-
-  const handleBookingSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    const sanitizedName = sanitizeInput(formData.name);
-    const sanitizedSpecialty = sanitizeInput(formData.specialty);
-    const sanitizedPhone = sanitizeInput(formData.phone);
-
-    if (sanitizedName && sanitizedSpecialty && sanitizedPhone) {
-      setFormData({
-        name: sanitizedName,
-        specialty: sanitizedSpecialty,
-        phone: sanitizedPhone
-      });
-      setBookingStep(4);
+  // Fallback loader timer
+  useEffect(() => {
+    if (isIframeLoading) {
+      const timer = setTimeout(() => {
+        setIsIframeLoading(false);
+      }, 4000);
+      return () => clearTimeout(timer);
     }
-  };
-
-  const copyEmbedCode = () => {
-    const code = `<!-- Estudio Crea Turnero Widget Integration -->
-<div class="estudio-crea-widget" style="width:100%;height:650px;border-radius:24px;overflow:hidden;background:#050505;">
-  <iframe 
-    src="https://calendly.com/tu-usuario/reunion-diagnostica" 
-    width="100%" 
-    height="100%" 
-    frameborder="0"
-    style="border:none;"
-  ></iframe>
-</div>`;
-    navigator.clipboard.writeText(code);
-    setCopiedCode(true);
-    setTimeout(() => setCopiedCode(false), 2000);
-  };
+  }, [isIframeLoading]);
 
   return (
-    <section id="booking" className="relative py-24 md:py-32 z-10 bg-[#faf9f6]">
+    <section id="booking" className="relative py-24 md:py-32 z-10 bg-[#f4f6fa]">
       <div className="max-w-7xl mx-auto px-6">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-12">
           <motion.div 
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -84,386 +31,133 @@ export default function BookingSection() {
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyan-50 border border-cyan-200 text-cyan-700 text-xs font-bold uppercase tracking-wider mb-6"
           >
             <Zap className="w-3.5 h-3.5" />
-            <span>Sólo 3 cupos de diseño al mes</span>
+            <span>Turnos Online</span>
           </motion.div>
 
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-neutral-900 mb-6">
-            Lanzamiento exclusivo: Reservá uno de nuestros <span className="font-bold italic text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-indigo-600">3 cupos mensuales.</span>
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-neutral-900 mb-6 leading-tight">
+            Tu agenda en piloto automático. <span className="font-bold italic text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-indigo-600 px-1 py-0.5 inline-block">Sencillo y real.</span>
           </h2>
           <p className="text-base md:text-lg text-neutral-600 font-light leading-relaxed">
-            Asegura tu desarrollo este mes. Selecciona una hora en nuestra demo interactiva o mirá cómo integrar tu widget real de Calendly/TidyCal con carga suavizada.
+            No reinventes la rueda con agendas custom propensas a errores. Conectamos tus calendarios para que puedas verlos en Google calendar o en Calendly, con señas y reservas opcionales y te enseñamos a usarlos de manera rápida e intuitiva.
           </p>
         </div>
 
-        {/* Turnero Widget Container */}
-        <div className="w-full max-w-4xl mx-auto">
-          <div className="relative w-full rounded-3xl backdrop-blur-xl bg-white/60 border border-black/[0.08] shadow-[0_24px_80px_rgba(0,0,0,0.04)] p-6 md:p-8 flex flex-col overflow-hidden">
+        {/* Marketing Urgency Notice */}
+        <div className="max-w-4xl mx-auto mb-12 text-center">
+          <div className="p-8 md:p-12 rounded-3xl bg-gradient-to-r from-cyan-50 to-indigo-50 border border-cyan-100 backdrop-blur-md shadow-sm relative overflow-hidden group">
+            <div className="absolute inset-0 bg-white/[0.01] pointer-events-none" />
             
-            {/* Glass Header & Tabs */}
-            <div className="flex flex-col sm:flex-row items-center justify-between border-b border-black/[0.06] pb-4 mb-6 gap-4">
-              <div className="flex items-center gap-2">
-                <div className="w-2.5 h-2.5 rounded-full bg-cyan-600" />
-                <span className="text-xs text-neutral-500 font-semibold uppercase tracking-wider">Reunión Diagnóstica - 15 min</span>
-              </div>
-
-              {/* Tab Switcher */}
-              <div className="flex bg-black/[0.02] border border-black/[0.06] rounded-full p-1">
-                <button 
-                  onClick={() => setBookingTab('demo')}
-                  className={`text-[10px] font-bold uppercase tracking-wider px-4 py-1.5 rounded-full transition-all duration-300 ${
-                    bookingTab === 'demo' ? 'bg-black/10 text-neutral-900 shadow-sm' : 'text-neutral-500 hover:text-neutral-700'
-                  }`}
-                >
-                  Demo Interactiva
-                </button>
-                <button 
-                  onClick={() => setBookingTab('embed')}
-                  className={`text-[10px] font-bold uppercase tracking-wider px-4 py-1.5 rounded-full transition-all duration-300 ${
-                    bookingTab === 'embed' ? 'bg-black/10 text-neutral-900 shadow-sm' : 'text-neutral-500 hover:text-neutral-700'
-                  }`}
-                >
-                  Código de Integración
-                </button>
-              </div>
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-50 border border-indigo-150 text-indigo-700 text-[10px] font-bold uppercase tracking-wider mb-6 shadow-3xs select-none">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-600"></span>
+              </span>
+              <span>Quedan 2 cupos para este mes</span>
             </div>
 
-            {/* Dynamic Content Panel */}
-            <div className="min-h-[420px] relative rounded-2xl bg-white/50 border border-black/[0.05] p-6 flex flex-col justify-between overflow-hidden shadow-inner">
+            {/* Title */}
+            <h3 className="font-serif text-2xl md:text-3xl font-bold text-neutral-900 mb-4 leading-tight">
+              Solo aceptamos <span className="font-bold italic text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-indigo-600 px-1.5 py-0.5 inline-block">3 proyectos al mes.</span>
+            </h3>
+
+            {/* Description */}
+            <p className="text-neutral-600 font-light text-sm md:text-base leading-relaxed max-w-2xl mx-auto">
+              Para garantizar la máxima dedicación y acabados de nivel internacional, limitamos nuestro cupo de desarrollo mensual.
+            </p>
+            <p className="text-neutral-800 font-semibold text-sm md:text-base leading-relaxed max-w-2xl mx-auto mt-4">
+              👉 Conseguí un cupo en nuestro calendario ya mientras aprendes como funciona el proceso de automatización o comunicate con nosotros a través de nuestras redes sociales.
+            </p>
+
+            {/* Social Media Links inside Scarcity Box */}
+            <div className="flex items-center justify-center gap-4 mt-6 pt-6 border-t border-cyan-100/50">
+              <a 
+                href="https://instagram.com/estudiocrea.oficial" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-white border border-cyan-100 flex items-center justify-center text-neutral-700 hover:text-indigo-600 hover:border-indigo-200 hover:shadow-sm transition-all duration-300 group/icon cursor-pointer"
+                title="Instagram (@estudiocrea.oficial)"
+              >
+                <svg className="w-5 h-5 fill-none stroke-current stroke-2 transition-transform duration-300 group-hover/icon:scale-110" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                </svg>
+              </a>
+              <a 
+                href="https://www.tiktok.com/@estudiocrea.oficial" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-white border border-cyan-100 flex items-center justify-center text-neutral-700 hover:text-indigo-600 hover:border-indigo-200 hover:shadow-sm transition-all duration-300 group/icon cursor-pointer"
+                title="TikTok (@estudiocrea.oficial)"
+              >
+                <svg className="w-4 h-4 fill-current transition-transform duration-300 group-hover/icon:scale-110" viewBox="0 0 24 24">
+                  <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.02 1.59 4.23.86.99 2 1.68 3.28 2.03.02 1.34 0 2.68.01 4.02-1.28-.08-2.52-.57-3.52-1.39-.77-.6-1.39-1.38-1.82-2.27v7.58c.03 1.83-.54 3.65-1.63 5.09-1.23 1.62-3.13 2.64-5.15 2.76-2.09.13-4.24-.62-5.7-2.12C1.94 18.35 1.05 15.93 1.32 13.5c.21-2.19 1.48-4.21 3.42-5.26 1.47-.79 3.19-.99 4.77-.6v4.06c-.95-.31-1.99-.21-2.85.31-.95.53-1.64 1.53-1.85 2.6-.28 1.33.22 2.75 1.25 3.6 1.05.86 2.53.97 3.69.28.84-.46 1.39-1.35 1.48-2.31.02-2.11.01-4.21.01-6.32V0c.32.02.66-.02.97.02z" />
+                </svg>
+              </a>
+              <a 
+                href="mailto:estudiocrea2026@gmail.com" 
+                className="w-10 h-10 rounded-full bg-white border border-cyan-100 flex items-center justify-center text-neutral-700 hover:text-indigo-600 hover:border-indigo-200 hover:shadow-sm transition-all duration-300 group/icon cursor-pointer"
+                title="Email (estudiocrea2026@gmail.com)"
+              >
+                <Mail className="w-5 h-5 transition-transform duration-300 group-hover/icon:scale-110" />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Unified Interface Container (Centered Iframe) */}
+        <div className="w-full max-w-4xl mx-auto">
+          {/* Mock Browser Container */}
+          <div className="w-full rounded-3xl border border-black/[0.08] shadow-[0_20px_50px_rgba(0,0,0,0.06)] overflow-hidden bg-neutral-900 transition-all duration-500">
+            {/* Browser Title Bar */}
+            <div className="flex items-center justify-between px-4 py-3 border-b border-neutral-800 bg-[#161616]">
+              {/* Red, Yellow, Green mock controls */}
+              <div className="flex gap-1.5 shrink-0">
+                <span className="w-2.5 h-2.5 rounded-full bg-red-400 opacity-80" />
+                <span className="w-2.5 h-2.5 rounded-full bg-yellow-400 opacity-80" />
+                <span className="w-2.5 h-2.5 rounded-full bg-green-400 opacity-80" />
+              </div>
               
-              {/* MOCK DEMO FLOW */}
-              {bookingTab === 'demo' && (
-                <div className="flex-1 flex flex-col justify-between h-full">
-                  <AnimatePresence mode="wait">
-                    
-                    {/* Step 1: Select Date */}
-                    {bookingStep === 1 && (
-                      <motion.div 
-                        key="step-1"
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -20 }}
-                        className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center"
-                      >
-                        <div className="md:col-span-5 flex flex-col justify-between gap-4">
-                          <div>
-                            <h4 className="font-serif text-xl font-medium text-neutral-900 mb-2">Elegí la fecha</h4>
-                            <p className="text-neutral-600 text-xs font-light leading-relaxed">
-                              Selecciona un día habilitado en nuestro consultorio para tener tu videollamada diagnóstica gratuita de 15 minutos por Google Meet.
-                            </p>
-                          </div>
-                          <div className="flex flex-col gap-2.5 text-xs text-neutral-600 font-light">
-                            <div className="flex items-center gap-2">
-                              <Clock className="w-4 h-4 text-cyan-600" />
-                              <span>15 minutos de videollamada</span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <Laptop className="w-4 h-4 text-cyan-600" />
-                              <span>Diagnóstico 100% Gratuito</span>
-                            </div>
-                          </div>
-                        </div>
+              {/* Address Bar */}
+              <div className="border border-neutral-800 text-[9px] font-mono py-1 px-4 rounded-xl w-[50%] md:w-[60%] text-center overflow-hidden text-ellipsis whitespace-nowrap bg-neutral-900 text-neutral-400 font-medium">
+                {widgetUrl}
+              </div>
+              
+              <a 
+                href={widgetUrl} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="hover:opacity-80 transition-opacity shrink-0 text-neutral-400"
+                title="Abrir en pestaña nueva"
+              >
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+            </div>
 
-                        <div className="md:col-span-7 flex flex-col pl-0 md:pl-6 border-l border-black/[0.04] gap-4">
-                          <div className="flex justify-between items-center text-xs font-semibold text-neutral-700">
-                            <span>Junio 2026</span>
-                            <span className="text-[10px] text-cyan-600 uppercase tracking-widest">Estudio Crea</span>
-                          </div>
-                          
-                          {/* Visual Grid */}
-                          <div className="grid grid-cols-7 gap-2">
-                            {Array.from({ length: 28 }).map((_, i) => {
-                              const isAvailable = AVAILABLE_DATES.includes(i);
-                              const isSelected = selectedDate === i;
-                              return (
-                                <div 
-                                  key={i} 
-                                  onClick={() => isAvailable && setSelectedDate(i)}
-                                  className={`aspect-square rounded-lg flex items-center justify-center text-xs font-bold transition-all duration-300 ${
-                                    isAvailable 
-                                      ? isSelected 
-                                        ? 'bg-cyan-600 text-white border border-cyan-500 shadow-sm cursor-pointer'
-                                        : 'bg-cyan-50 border border-cyan-200 text-cyan-700 cursor-pointer hover:bg-cyan-100' 
-                                      : 'bg-black/[0.02] text-neutral-300 border border-transparent select-none pointer-events-none'
-                                  }`}
-                                >
-                                  {i + 1}
-                                </div>
-                              );
-                            })}
-                          </div>
-
-                          <div className="flex justify-between items-center text-[10px] text-neutral-500 pt-2">
-                            <span>Zona: America/Argentina/Buenos_Aires</span>
-                            {selectedDate !== null ? (
-                              <button 
-                                onClick={() => setBookingStep(2)}
-                                className="px-4 py-2 bg-neutral-900 text-white font-bold uppercase tracking-wider rounded-lg hover:bg-cyan-600 transition-colors"
-                              >
-                                Siguiente
-                              </button>
-                            ) : (
-                              <span className="text-cyan-600 font-semibold">Seleccioná un día (celestes)</span>
-                            )}
-                          </div>
-                        </div>
-                      </motion.div>
-                    )}
-
-                    {/* Step 2: Select Time */}
-                    {bookingStep === 2 && (
-                      <motion.div 
-                        key="step-2"
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -20 }}
-                        className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center"
-                      >
-                        <div className="md:col-span-5 flex flex-col justify-between gap-4">
-                          <div>
-                            <button 
-                              onClick={() => setBookingStep(1)}
-                              className="text-xs text-cyan-600 hover:underline mb-2 block"
-                            >
-                              &larr; Volver a fechas
-                            </button>
-                            <h4 className="font-serif text-xl font-medium text-neutral-900 mb-2">Elegí la hora</h4>
-                            <p className="text-neutral-600 text-xs font-light leading-relaxed">
-                              Seleccioná uno de los horarios disponibles en tiempo real para el día **{selectedDate !== null ? selectedDate + 1 : ''} de Junio**.
-                            </p>
-                          </div>
-                          <div className="bg-black/[0.02] border border-black/[0.06] rounded-xl p-3 text-xs text-neutral-600">
-                            <span className="font-semibold text-neutral-900 block mb-1">Día seleccionado:</span>
-                            <span>{selectedDate !== null ? selectedDate + 1 : ''} de Junio, 2026</span>
-                          </div>
-                        </div>
-
-                        <div className="md:col-span-7 flex flex-col pl-0 md:pl-6 border-l border-black/[0.04] gap-4">
-                          <h5 className="text-xs font-bold uppercase tracking-wider text-neutral-500 mb-2">Horarios Disponibles</h5>
-                          
-                          <div className="flex flex-col gap-2">
-                            {AVAILABLE_TIMES.map((time) => {
-                              const isSelected = selectedTime === time;
-                              return (
-                                <div 
-                                  key={time}
-                                  onClick={() => setSelectedTime(time)}
-                                  className={`py-3 px-6 rounded-xl border text-center text-sm font-semibold transition-all duration-300 cursor-pointer ${
-                                    isSelected 
-                                      ? 'bg-cyan-600 border-cyan-500 text-white shadow-sm' 
-                                      : 'bg-black/[0.02] border-black/[0.06] hover:bg-black/[0.04] text-neutral-700'
-                                  }`}
-                                >
-                                  {time}
-                                </div>
-                              );
-                            })}
-                          </div>
-
-                          <div className="flex justify-end pt-2">
-                            {selectedTime ? (
-                              <button 
-                                onClick={() => setBookingStep(3)}
-                                className="px-6 py-2.5 bg-neutral-900 text-white font-bold uppercase tracking-wider rounded-lg hover:bg-cyan-600 transition-colors shadow-md"
-                              >
-                                Siguiente paso &rarr;
-                              </button>
-                            ) : (
-                              <span className="text-cyan-600 text-[10px] uppercase tracking-widest font-semibold">Seleccioná un horario</span>
-                            )}
-                          </div>
-                        </div>
-                      </motion.div>
-                    )}
-
-                    {/* Step 3: Enter Form Data */}
-                    {bookingStep === 3 && (
-                      <motion.div 
-                        key="step-3"
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -20 }}
-                        className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center"
-                      >
-                        <div className="md:col-span-5 flex flex-col justify-between gap-4">
-                          <div>
-                            <button 
-                              onClick={() => setBookingStep(2)}
-                              className="text-xs text-cyan-600 hover:underline mb-2 block"
-                            >
-                              &larr; Volver a horarios
-                            </button>
-                            <h4 className="font-serif text-xl font-medium text-neutral-900 mb-2">Tus Datos</h4>
-                            <p className="text-neutral-600 text-xs font-light leading-relaxed">
-                              Danos tu nombre y especialidad profesional para que podamos preparar la llamada diagnóstica.
-                            </p>
-                          </div>
-                          
-                          <div className="bg-black/[0.02] border border-black/[0.06] rounded-xl p-4 text-xs text-neutral-600 flex flex-col gap-2">
-                            <div>
-                              <span className="font-semibold text-neutral-900 block">Día y Hora:</span>
-                              <span>{selectedDate !== null ? selectedDate + 1 : ''} de Junio, {selectedTime}</span>
-                            </div>
-                            <div>
-                              <span className="font-semibold text-neutral-900 block">Canal:</span>
-                              <span>Google Meet (Videollamada)</span>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="md:col-span-7 pr-0 md:pl-6 border-l border-black/[0.04]">
-                          <form onSubmit={handleBookingSubmit} className="flex flex-col gap-4">
-                            <div className="flex flex-col gap-1 text-left">
-                              <label className="text-[10px] font-bold uppercase tracking-wider text-neutral-500">Nombre Completo</label>
-                              <div className="relative">
-                                <User className="w-4 h-4 text-neutral-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                                <input 
-                                  type="text" 
-                                  required
-                                  placeholder="Matias Gomez"
-                                  value={formData.name}
-                                  onChange={(e) => setFormData({...formData, name: e.target.value})}
-                                  className="w-full bg-white border border-black/[0.12] focus:border-cyan-600 rounded-xl py-3 pl-10 pr-4 text-sm text-neutral-900 outline-none transition-colors"
-                                />
-                              </div>
-                            </div>
-
-                            <div className="flex flex-col gap-1 text-left">
-                              <label className="text-[10px] font-bold uppercase tracking-wider text-neutral-500">Especialidad / Rubro</label>
-                              <div className="relative">
-                                <Building className="w-4 h-4 text-neutral-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                                <input 
-                                  type="text" 
-                                  required
-                                  placeholder="Odontología / Psicología / Consultor"
-                                  value={formData.specialty}
-                                  onChange={(e) => setFormData({...formData, specialty: e.target.value})}
-                                  className="w-full bg-white border border-black/[0.12] focus:border-cyan-600 rounded-xl py-3 pl-10 pr-4 text-sm text-neutral-900 outline-none transition-colors"
-                                />
-                              </div>
-                            </div>
-
-                            <div className="flex flex-col gap-1 text-left">
-                              <label className="text-[10px] font-bold uppercase tracking-wider text-neutral-500">Número de WhatsApp</label>
-                              <div className="relative">
-                                <Smartphone className="w-4 h-4 text-neutral-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                                <input 
-                                  type="tel" 
-                                  required
-                                  placeholder="+54 9 11 1234-5678"
-                                  value={formData.phone}
-                                  onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                                  className="w-full bg-white border border-black/[0.12] focus:border-cyan-600 rounded-xl py-3 pl-10 pr-4 text-sm text-neutral-900 outline-none transition-colors"
-                                />
-                              </div>
-                            </div>
-
-                            <button 
-                              type="submit"
-                              className="w-full mt-2 py-3.5 bg-gradient-to-r from-cyan-600 to-indigo-600 text-white font-bold uppercase tracking-wider rounded-xl transition-transform hover:scale-[1.01] active:scale-[0.99] shadow-md flex items-center justify-center gap-2"
-                            >
-                              <CheckCircle2 className="w-4 h-4" />
-                              <span>Confirmar Reserva de Diagnóstico</span>
-                            </button>
-                          </form>
-                        </div>
-                      </motion.div>
-                    )}
-
-                    {/* Step 4: Success Screen */}
-                    {bookingStep === 4 && (
-                      <motion.div 
-                        key="step-4"
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.95 }}
-                        className="flex flex-col items-center justify-center text-center py-6"
-                      >
-                        <div className="w-16 h-16 rounded-full bg-cyan-50 border border-cyan-200 flex items-center justify-center text-cyan-600 mb-6 shadow-sm">
-                          <Check className="w-8 h-8 stroke-[3]" />
-                        </div>
-
-                        <h3 className="font-serif text-2xl font-semibold text-neutral-900 mb-2">¡Reserva Diagnóstica Confirmada!</h3>
-                        <p className="text-neutral-600 text-sm font-light leading-relaxed max-w-md mb-8 font-sans">
-                          Felicitaciones <strong>{formData.name}</strong>. Tu espacio quedó bloqueado con éxito para el día <strong>{selectedDate !== null ? selectedDate + 1 : ''} de Junio a las {selectedTime}</strong>.
-                        </p>
-
-                        {/* Preview of automated notification they'll buy */}
-                        <div className="w-full max-w-sm rounded-2xl bg-black/[0.02] border border-black/[0.06] p-4 text-left shadow-inner">
-                          <div className="flex items-center justify-between border-b border-black/[0.04] pb-2.5 mb-3">
-                            <span className="text-[9px] text-cyan-600 font-bold uppercase tracking-widest font-mono">WhatsApp Autómata Demo</span>
-                            <span className="text-[9px] text-neutral-400">Recién enviado</span>
-                          </div>
-                          <div className="p-3 bg-neutral-100 rounded-xl rounded-tl-none border border-black/[0.04] text-xs text-neutral-800 leading-relaxed font-sans">
-                            <span className="font-bold text-cyan-600 block mb-1">RECORDATORIO OFICIAL</span>
-                            Hola {formData.name}, te recordamos tu llamada diagnóstica de agenda con <strong>Estudio Crea</strong> programada para mañana a las {selectedTime}.<br /><br />
-                            Para ingresar, utilizá este link de Meet:<br />
-                            <span className="text-cyan-700 font-mono underline cursor-pointer">meet.google.com/crea-diagnostico</span>
-                          </div>
-                        </div>
-
-                        <button 
-                          onClick={() => {
-                            setBookingStep(1);
-                            setSelectedDate(null);
-                            setSelectedTime(null);
-                          }}
-                          className="mt-8 text-xs text-neutral-500 hover:text-neutral-900 transition-colors underline"
-                        >
-                          Volver a simular otra reserva
-                        </button>
-                      </motion.div>
-                    )}
-
-                  </AnimatePresence>
+            {/* Browser Iframe Content */}
+            <div className="relative w-full overflow-hidden bg-white h-[650px]">
+              
+              {/* Smooth state loader spinner */}
+              {isIframeLoading && (
+                <div className="absolute inset-0 z-20 bg-[#f4f6fa]/95 flex flex-col items-center justify-center gap-3 backdrop-blur-xs">
+                  <RefreshCw className="w-6 h-6 text-cyan-600 animate-spin" />
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">
+                    Cargando turnero real...
+                  </span>
                 </div>
               )}
 
-              {/* REAL CODE INTEGRATION VIEW */}
-              {bookingTab === 'embed' && (
-                <motion.div 
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="flex-1 flex flex-col justify-between"
-                >
-                  <div>
-                    <h4 className="font-serif text-xl font-medium text-neutral-900 mb-2">Incrustar Turnero Real</h4>
-                    <p className="text-neutral-600 text-xs font-light leading-relaxed mb-6">
-                      Este componente digital está diseñado de forma modular. Para integrar tu agenda nativa de <strong>Calendly</strong> o <strong>TidyCal</strong>, copia el código de abajo y pégalo directamente en la sección del widget de <code>app/page.tsx</code>.
-                    </p>
-                  </div>
-
-                  <div className="bg-neutral-900 p-4 rounded-xl border border-black/[0.15] text-left relative group">
-                    <pre className="text-[11px] font-mono text-neutral-200 overflow-x-auto whitespace-pre leading-relaxed select-all max-h-[160px] pb-2">
-                      {`<!-- Estudio Crea Turnero Widget Integration -->
-<div class="estudio-crea-widget" style="width:100%;height:650px;border-radius:24px;overflow:hidden;background:#050505;">
-  <iframe 
-    src="https://calendly.com/tu-usuario/reunion-diagnostica" 
-    width="100%" 
-    height="100%" 
-    frameborder="0"
-    style="border:none;"
-  ></iframe>
-</div>`}
-                    </pre>
-                    
-                    <button 
-                      onClick={copyEmbedCode}
-                      className="absolute top-3 right-3 bg-white/10 border border-white/20 hover:bg-cyan-500 hover:text-neutral-900 text-white hover:border-cyan-400 p-2 rounded-lg transition-all duration-300"
-                      title="Copy Code"
-                    >
-                      {copiedCode ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-                    </button>
-                  </div>
-
-                  <div className="text-[11px] text-neutral-500 font-light mt-4 flex items-center gap-2">
-                    <Check className="w-3.5 h-3.5 text-cyan-600 shrink-0" />
-                    <span>El contenedor tiene soporte responsive pre-optimizado y control de scroll nativo desactivado para evitar interrupciones de navegación.</span>
-                  </div>
-                </motion.div>
-              )}
-
+              <iframe 
+                src={widgetUrl} 
+                width="100%" 
+                height="100%" 
+                frameBorder="0"
+                style={{ border: 'none', display: 'block' }}
+                onLoad={() => setIsIframeLoading(false)}
+                allow="geolocation; microphone; camera; clipboard-write"
+              />
             </div>
-
           </div>
         </div>
 

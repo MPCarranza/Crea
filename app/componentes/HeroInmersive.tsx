@@ -242,11 +242,11 @@ useEffect(() => {
 
       {/* Botones de acción estables fijos en la parte inferior */}
       <div className="absolute bottom-20 left-1/2 -translate-x-1/2 z-40 flex flex-row gap-3 md:gap-4 items-center justify-center w-auto px-6">
-        <button className="px-5 md:px-8 py-3 md:py-4 rounded-xl bg-white text-neutral-950 font-sans text-xs md:text-sm font-semibold tracking-wide hover:scale-[1.02] transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.2)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.55)] border border-transparent whitespace-nowrap">
-          Tu página en 48hs
+        <button className="px-5 md:px-8 py-3 md:py-4 rounded-xl bg-gradient-to-r from-cyan-600 to-indigo-600 text-white font-sans text-xs md:text-sm font-bold tracking-wide hover:scale-[1.02] hover:brightness-95 transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.2)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.55)] border border-transparent whitespace-nowrap cursor-pointer">
+          QUIERO MI WEB
         </button>
-        <button className="px-5 md:px-8 py-3 md:py-4 rounded-xl backdrop-blur-md bg-white/[0.03] border border-white/[0.08] text-[#fcfcfd] font-sans text-xs md:text-sm font-medium tracking-wide hover:bg-white/[0.08] transition-all duration-300 whitespace-nowrap">
-          Ver Demostración
+        <button className="px-5 md:px-8 py-3 md:py-4 rounded-xl backdrop-blur-md bg-white/[0.03] border border-white/[0.08] text-[#fcfcfd] font-sans text-xs md:text-sm font-medium tracking-wide hover:bg-white/[0.08] transition-all duration-300 whitespace-nowrap cursor-pointer">
+          DUDAS
         </button>
       </div>
 

@@ -1,8 +1,8 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, ArrowUpRight, Laptop, CalendarCheck2, Star, Users, Music } from 'lucide-react';
+import { Sparkles, ArrowUpRight, Laptop, CalendarCheck2, Star, Users, Music, Palette, Briefcase, Heart } from 'lucide-react';
 import SpotlightCard from './SpotlightCard';
 
 interface ProfessionCase {
@@ -19,142 +19,518 @@ interface ProfessionCase {
 }
 
 export default function ShowcaseSection() {
-  const CASES: ProfessionCase[] = [
+  const [isWhatsAppOpen, setIsWhatsAppOpen] = useState(false);
+
+  const ROW_1_CASES: ProfessionCase[] = [
     {
-      tag: "Estética & Uñas",
-      title: "Manicuristas & Salones",
-      description: "Muestra tu catálogo de Nail Art y servicios con fotos reales. Seña previa integrada para evitar ausencias de última hora.",
+      tag: "Producto Semillero - Web Inicial",
+      title: "Landing Page + WhatsApp",
+      description: "Tu web de marca personal con diseño premium de alta conversión. Incluye un botón flotante de WhatsApp para canalizar consultas y agendar de forma manual y cercana.",
       url: "www.marianails.com",
       icon: <Sparkles className="w-5 h-5 text-amber-500" />,
       themeColor: "rgba(245, 158, 11, 0.12)",
-      mockupBg: "bg-[#fdf8f6]",
+      mockupBg: "bg-[#fdfbf7]",
       mockupHeaderColor: "bg-[#f9f5ed]",
-      imagePath: "/showcase-nails.png",
+      imagePath: "",
       mockupContent: (
-        <div className="w-full h-full flex font-serif bg-[#fdf8f6] p-2.5 gap-2 items-center justify-between">
-          {/* Left Asymmetric elegant crop */}
-          <div className="w-[45%] h-[95%] rounded-tl-full rounded-br-full overflow-hidden border border-amber-900/15 shadow-xs shrink-0 bg-[#fbf5f0]">
-            <img 
-              src="/showcase-nails.png" 
-              alt="María Nails" 
-              className="w-full h-full object-cover select-none" 
-            />
+        <div className="w-full h-full flex flex-col justify-between font-sans bg-[#fdfbf9] p-2.5 relative text-neutral-900 selection:bg-neutral-200/50">
+          {/* Header */}
+          <div className="flex justify-between items-center border-b border-black/[0.05] pb-1.5">
+            <span className="text-[9px] font-serif font-bold tracking-wider text-amber-950 uppercase">M. Nails Salon</span>
+            <div className="flex gap-2 text-[5.5px] uppercase tracking-widest text-neutral-400 font-medium">
+              <span>Servicios</span>
+              <span>Galería</span>
+              <span>Contacto</span>
+            </div>
           </div>
           
-          {/* Right Boutique Details */}
-          <div className="flex-1 h-[95%] flex flex-col justify-between p-0.5">
-            <div>
-              <div className="flex justify-between items-center mb-1 border-b border-amber-900/10 pb-1">
-                <span className="text-[9px] font-bold text-amber-900 italic">M. Nails</span>
-                <span className="text-[5.5px] bg-[#2b1810] text-[#fdfbf7] px-1 py-0.5 rounded-xs tracking-wider uppercase font-semibold">Spa</span>
-              </div>
-              <h4 className="text-[8.5px] font-bold text-neutral-800 leading-tight">Premium Care</h4>
-              <p className="text-[6.5px] text-neutral-500 italic mt-0.5">Elegí tu diseño y reservá.</p>
-              
-              <div className="mt-1.5 space-y-0.5">
-                <p className="text-[6px] text-neutral-700 leading-none">Nail Art • $18.500</p>
-                <p className="text-[6px] text-neutral-600 leading-none">Semi-Perm • $12.000</p>
-              </div>
+          {/* Main Content */}
+          <div className="my-auto flex gap-3 items-center">
+            {/* Elegant Professional Photo */}
+            <div className="w-[40%] h-[90px] rounded-lg overflow-hidden border border-amber-900/10 shadow-xs shrink-0 bg-[#fbf5f0]">
+              <img 
+                src="/showcase-nails.png" 
+                alt="María Nails Professional" 
+                className="w-full h-full object-cover select-none" 
+              />
             </div>
             
-            <button 
-              type="button"
-              onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
-              className="w-full py-1 border border-amber-950 bg-transparent text-amber-950 text-[7px] font-bold uppercase tracking-widest hover:bg-amber-950 hover:text-white transition-all rounded-xs"
-            >
-              Reservar Cita
-            </button>
+            <div className="text-left flex-1">
+              <span className="text-[5px] font-bold text-amber-800 uppercase tracking-widest bg-amber-50 px-1 py-0.5 rounded border border-amber-200/40">Estética & Nails</span>
+              <h4 className="font-serif text-[10px] leading-snug font-medium tracking-tight text-neutral-900 mt-1">
+                Cuidado premium y diseños <span className="italic text-neutral-500 font-light">que cuentan tu historia</span>.
+              </h4>
+              <div className="mt-1 flex flex-col gap-0.5 text-[5px] text-neutral-500 font-light">
+                <span>✦ Nail Art Experto</span>
+                <span>✦ Esculpidas Modernas</span>
+              </div>
+            </div>
           </div>
+          
+          {/* Footer of the mock site */}
+          <div className="flex justify-between items-center pt-1.5 border-t border-black/[0.04] mt-auto">
+            <span className="text-[5.5px] text-neutral-400">Palermo, Buenos Aires</span>
+          </div>
+
+          {/* Floating WhatsApp button mockup */}
+          <button
+            type="button"
+            onClick={(e) => { 
+              e.preventDefault(); 
+              e.stopPropagation(); 
+              setIsWhatsAppOpen(!isWhatsAppOpen); 
+            }}
+            className="absolute bottom-3 right-3 flex items-center gap-1 bg-[#25D366] text-white rounded-full px-2 py-1 shadow-lg shadow-emerald-500/10 border border-emerald-400/20 hover:scale-105 transition-transform cursor-pointer"
+          >
+            <div className="relative flex h-1 w-1 shrink-0">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-1 w-1 bg-white"></span>
+            </div>
+            <span className="text-[5px] font-bold tracking-wider font-sans uppercase">Escribir</span>
+            <svg className="w-2.5 h-2.5 fill-current shrink-0" viewBox="0 0 24 24">
+              <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.96 9.96 0 0 0 1.333 4.982L2 22l5.156-1.352a9.943 9.943 0 0 0 4.854 1.258h.004c5.507 0 9.99-4.478 9.99-9.984 0-2.667-1.037-5.176-2.922-7.062C17.198 3.037 14.687 2 12.012 2zm5.792 14.15c-.247.697-1.207 1.272-1.658 1.328-.45.056-.902.083-2.906-.723-2.56-1.029-4.214-3.64-4.341-3.812-.127-.172-1.032-1.372-1.032-2.618 0-1.246.65-1.855.882-2.1.23-.245.506-.308.675-.308.169 0 .338.001.485.008.156.007.366-.06.572.441.21.512.72 1.754.783 1.881.063.127.106.276.02.446-.085.17-.127.276-.254.425-.127.15-.266.333-.38.446-.127.127-.26.265-.113.519.148.254.656 1.082 1.408 1.751.97.863 1.789 1.13 2.043 1.257.254.127.4.106.55-.064.15-.17.639-.744.81-1 .17-.255.339-.213.571-.127.233.085 1.479.697 1.733.824.254.128.423.191.486.3.064.109.064.634-.183 1.332z" />
+            </svg>
+          </button>
+
+          {/* Simulated WhatsApp Chat Box Popup */}
+          {isWhatsAppOpen && (
+            <div className="absolute inset-x-2 bottom-2 top-10 bg-[#e5ddd5] rounded-xl overflow-hidden shadow-2xl border border-black/[0.08] flex flex-col z-20 animate-in fade-in slide-in-from-bottom-2 duration-300">
+              {/* Chat Header */}
+              <div className="bg-[#075e54] text-white px-2 py-1.5 flex items-center justify-between">
+                <div className="flex items-center gap-1.5">
+                  <img 
+                    src="/showcase-nails.png" 
+                    alt="María Nails Avatar" 
+                    className="w-5 h-5 rounded-full object-cover border border-white/20" 
+                  />
+                  <div className="text-left">
+                    <p className="text-[7.5px] font-bold leading-none">María Nails</p>
+                    <p className="text-[5px] text-[#25D366] font-medium leading-none mt-0.5">En línea</p>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setIsWhatsAppOpen(false);
+                  }}
+                  className="text-white hover:opacity-80 text-[8px] font-bold p-0.5 cursor-pointer"
+                >
+                  ✕
+                </button>
+              </div>
+
+              {/* Chat Conversation */}
+              <div className="flex-1 p-2 flex flex-col gap-1.5 overflow-y-auto">
+                <div className="self-start bg-white text-neutral-800 p-1.5 rounded-lg rounded-tl-none max-w-[85%] text-left shadow-2xs">
+                  <p className="text-[6.5px] leading-tight">¡Hola! ¿Tenés turnos libres para esta semana?</p>
+                  <span className="text-[4.5px] text-neutral-400 block text-right mt-0.5">14:15</span>
+                </div>
+                <div className="self-end bg-[#dcf8c6] text-neutral-800 p-1.5 rounded-lg rounded-tr-none max-w-[85%] text-left shadow-2xs">
+                  <p className="text-[6.5px] leading-tight">¡Hola! Sí, nos queda un lugar mañana a las 17:30 hs. ¿Te lo reservo?</p>
+                  <span className="text-[4.5px] text-neutral-400 block text-right mt-0.5">14:16</span>
+                </div>
+              </div>
+
+              {/* Chat Input Bar */}
+              <div className="bg-[#f0f0f0] p-1.5 flex gap-1 items-center border-t border-neutral-300/30">
+                <div className="flex-1 bg-white rounded-full px-2 py-0.5 text-left text-[6.5px] text-neutral-400">
+                  Escribir mensaje...
+                </div>
+                <div className="w-4 h-4 bg-[#128c7e] rounded-full flex items-center justify-center text-white shrink-0">
+                  <svg className="w-1.5 h-1.5 fill-current transform rotate-45" viewBox="0 0 24 24">
+                    <path d="M2 21l21-9L2 3v7l15 2-15 2v7z" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       )
     },
     {
-      tag: "Bienestar & Clases",
-      title: "Profesoras de Yoga & Coachs",
-      description: "Venta de packs mensuales y reservas fluidas para clases grupales. Control de cupos máximos en tiempo real de forma autónoma.",
-      url: "www.pranayogaflow.com",
-      icon: <Star className="w-5 h-5 text-purple-500" />,
-      themeColor: "rgba(168, 85, 247, 0.12)",
-      mockupBg: "bg-[#fafaff]",
-      mockupHeaderColor: "bg-[#f5f5ff]",
-      imagePath: "/showcase-yoga.png",
-      mockupContent: (
-        <div className="w-full h-full relative overflow-hidden font-sans">
-          {/* Full Cover Image Background */}
-          <img 
-            src="/showcase-yoga.png" 
-            alt="Prana Yoga Flow" 
-            className="w-full h-full object-cover absolute inset-0 select-none" 
-          />
-          {/* Subtle Dark/Indigo overlay */}
-          <div className="absolute inset-0 bg-indigo-950/20" />
-          
-          {/* Glassmorphic floating card on the RIGHT side to avoid covering the meditating girl */}
-          <div className="absolute top-2 bottom-2 right-2 w-[48%] bg-white/80 backdrop-blur-xs border border-white/45 p-1.5 rounded-lg shadow-md flex flex-col justify-between z-10">
-            <div>
-              <div className="flex justify-between items-center mb-1">
-                <span className="text-[8.5px] font-bold text-purple-950 tracking-wide uppercase">PRANA</span>
-                <span className="text-[6px] bg-purple-200/80 text-purple-900 px-1.5 py-0.5 rounded-full font-bold leading-none">3 libres</span>
-              </div>
-              <p className="text-[7.5px] font-medium text-neutral-800 leading-tight">Vinyasa Flow</p>
-              <p className="text-[5.5px] text-neutral-600 mt-1 leading-tight">Clases grupales y retiros.</p>
-            </div>
-            
-            <button 
-              type="button"
-              onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
-              className="w-full py-1 rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-[7px] font-semibold tracking-wide hover:opacity-95 transition-all mt-1 shadow-sm text-center"
-            >
-              Reservar Clases
-            </button>
-          </div>
-        </div>
-      )
-    },
-    {
-      tag: "Salud Mental",
+      tag: "Turnos Integrados - Calendly",
       title: "Psicólogas & Terapeutas",
-      description: "Gestión de sesiones virtuales o presenciales. Recordatorios automáticos por WhatsApp y cobro simplificado de sesiones.",
+      description: "Gestión de sesiones virtuales o presenciales con turnero Calendly integrado. Recordatorios automáticos por WhatsApp y cobro simplificado de sesiones.",
       url: "www.ramospsicologia.com",
       icon: <CalendarCheck2 className="w-5 h-5 text-emerald-500" />,
       themeColor: "rgba(16, 185, 129, 0.12)",
       mockupBg: "bg-[#fcfdfc]",
       mockupHeaderColor: "bg-[#f5faf6]",
-      imagePath: "/showcase-therapy.png",
+      imagePath: "",
       mockupContent: (
-        <div className="w-full h-full relative p-2 flex gap-2 items-center bg-[#f6f4ee]">
-          {/* Polaroid image mockup on the left */}
-          <div className="w-[38%] h-[95%] bg-white p-1 shadow-md border border-neutral-300/30 rotate-[-3deg] shrink-0 overflow-hidden flex flex-col justify-between">
-            <img 
-              src="/showcase-therapy.png" 
-              alt="Lic. Sofía Ramos" 
-              className="w-full h-[75%] object-cover select-none" 
-            />
-            <div className="text-[5.5px] text-neutral-500 text-center font-serif leading-none py-0.5 italic">
-              Sofía Ramos R.
-            </div>
-          </div>
-          
-          {/* Structured cream sheet on the right */}
-          <div className="flex-1 h-[95%] bg-white border border-emerald-900/10 p-2 rounded shadow-2xs flex flex-col justify-between relative rotate-[1deg]">
+        <div className="w-full h-full flex font-sans bg-[#f5f3ee] p-2.5 gap-2.5 items-stretch selection:bg-emerald-200/50">
+          {/* Left Column: Therapist Bio */}
+          <div className="w-[45%] flex flex-col justify-between text-left">
             <div>
-              <div className="flex justify-between items-center mb-1 border-b border-emerald-50 pb-0.5">
-                <span className="text-[8.5px] font-bold text-emerald-950 leading-none">Lic. Ramos</span>
-                <span className="text-[5.5px] bg-emerald-50 text-emerald-700 px-1 py-0.5 rounded-sm font-semibold">Online</span>
-              </div>
-              <h4 className="text-[8.5px] font-bold text-neutral-800 leading-tight">Psicoterapia</h4>
-              <p className="text-[6px] text-neutral-500 font-light mt-0.5">Consultorio Palermo o Zoom.</p>
+              <span className="text-[7px] font-bold text-neutral-400 uppercase tracking-widest">Lic. Sofía Ramos</span>
               
-              <div className="mt-1 space-y-0.5">
-                <p className="text-[5.5px] text-neutral-600 font-medium leading-none">Videollamada • 50m</p>
-                <p className="text-[5.5px] text-neutral-600 font-medium leading-none mt-0.5 font-sans">Particular / MPago</p>
+              {/* Photo Container */}
+              <div className="w-full h-[65px] rounded-lg overflow-hidden border border-emerald-200/50 mt-1 mb-1 shrink-0 bg-emerald-50">
+                <img 
+                  src="/showcase-therapy.png" 
+                  alt="Lic. Sofía Ramos Portrait" 
+                  className="w-full h-full object-cover select-none" 
+                />
               </div>
+              
+              <div className="mb-1">
+                <h4 className="font-serif text-[9px] font-bold text-neutral-800 leading-tight">Psicoterapia Clínica</h4>
+                <p className="text-[5px] text-neutral-400">Mat. 48259</p>
+              </div>
+              
+              <p className="text-[6px] text-neutral-500 font-light leading-relaxed">
+                Espacio de escucha activa y contención profesional.
+              </p>
             </div>
             
+            <div className="border-t border-black/[0.05] pt-1">
+              <span className="text-[5px] text-neutral-400 block font-light">Modalidad</span>
+              <span className="text-[7px] font-semibold text-neutral-700">Online / Consultorio Palermo</span>
+            </div>
+          </div>
+
+          {/* Right Column: Calendly Integrated Slot Selector */}
+          <div className="flex-1 bg-white rounded-xl border border-black/[0.05] p-2 flex flex-col justify-between shadow-xs">
+            <div>
+              <div className="flex justify-between items-center border-b border-black/[0.04] pb-1.5 mb-1.5">
+                <span className="text-[7px] font-bold text-neutral-700">Sesión Diagnóstica</span>
+                <span className="text-[5px] font-bold text-emerald-700 bg-emerald-50 px-1 py-0.5 rounded uppercase tracking-wider">Calendly</span>
+              </div>
+              
+              <div className="space-y-1.5">
+                {/* Simulated Slots */}
+                <div className="p-1.5 rounded-lg border border-black/[0.04] bg-neutral-50 flex justify-between items-center hover:border-emerald-200 hover:bg-emerald-50/20 transition-all cursor-pointer">
+                  <span className="text-[6.5px] text-neutral-700 font-medium">Lunes 22, 16:00 hs</span>
+                  <span className="text-[5px] text-emerald-600 font-bold">Disponible</span>
+                </div>
+                <div className="p-1.5 rounded-lg border border-black/[0.04] bg-neutral-50 flex justify-between items-center hover:border-emerald-200 hover:bg-emerald-50/20 transition-all cursor-pointer">
+                  <span className="text-[6.5px] text-neutral-700 font-medium">Lunes 22, 17:30 hs</span>
+                  <span className="text-[5px] text-emerald-600 font-bold">Disponible</span>
+                </div>
+              </div>
+            </div>
+
             <button 
               type="button"
               onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
-              className="w-full py-0.5 rounded bg-emerald-800 text-white text-[7.5px] font-semibold hover:bg-emerald-950 transition-colors mt-1.5"
+              className="w-full py-1 rounded-lg bg-emerald-800 text-white text-[7px] font-bold tracking-wide uppercase hover:bg-emerald-950 transition-colors mt-1 cursor-pointer"
+            >
+              Agendar Sesión
+            </button>
+          </div>
+        </div>
+      )
+    },
+    {
+      tag: "Turnos Integrados - Calendly",
+      title: "Centros & Equipos",
+      description: "Múltiples profesionales y agendas enlazadas bajo una misma interfaz de Calendly para equipos. Distribución automática de turnos y control centralizado.",
+      url: "www.kinesiologia-integrativa.com",
+      icon: <Users className="w-5 h-5 text-indigo-500" />,
+      themeColor: "rgba(99, 102, 241, 0.12)",
+      mockupBg: "bg-[#fafbff]",
+      mockupHeaderColor: "bg-[#f2f2fb]",
+      imagePath: "",
+      mockupContent: (
+        <div className="w-full h-full flex font-sans bg-[#f1f0f6] p-2.5 gap-2.5 items-stretch selection:bg-indigo-200/50">
+          {/* Left Column: Team Profiles */}
+          <div className="w-[45%] flex flex-col justify-between text-left">
+            <div>
+              <span className="text-[7px] font-bold text-neutral-400 uppercase tracking-widest">Kinesiología Integral</span>
+              
+              {/* Team Photo */}
+              <div className="w-full h-[55px] rounded-lg overflow-hidden border border-indigo-100/30 my-1 shrink-0 bg-neutral-100">
+                <img 
+                  src="/showcase-team.png" 
+                  alt="Centro Kinesio Team" 
+                  className="w-full h-full object-cover select-none" 
+                />
+              </div>
+              
+              <div className="space-y-1">
+                <div className="flex items-center gap-1">
+                  <div className="w-2.5 h-2.5 rounded-full bg-indigo-100 flex items-center justify-center text-[4px] font-bold text-indigo-700">PG</div>
+                  <span className="text-[6px] text-neutral-700 leading-none">Dr. Pedro Gomez</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <div className="w-2.5 h-2.5 rounded-full bg-emerald-100 flex items-center justify-center text-[4px] font-bold text-emerald-700">LR</div>
+                  <span className="text-[6px] text-neutral-700 leading-none">Lic. Laura Rossi</span>
+                </div>
+              </div>
+            </div>
+            
+            <div className="border-t border-black/[0.05] pt-1 mt-1">
+              <span className="text-[5px] text-neutral-400 block font-light">Sesiones</span>
+              <span className="text-[6px] font-medium text-neutral-700">RPG • Kinesiología • Osteopatía</span>
+            </div>
+          </div>
+
+          {/* Right Column: Calendly Integrated Slot Selector */}
+          <div className="flex-1 bg-white rounded-xl border border-black/[0.05] p-2 flex flex-col justify-between shadow-xs">
+            <div>
+              <div className="flex justify-between items-center border-b border-black/[0.04] pb-1.5 mb-1.5">
+                <span className="text-[7px] font-bold text-neutral-700">Elegir Profesional</span>
+                <span className="text-[5px] font-bold text-indigo-700 bg-indigo-50 px-1 py-0.5 rounded uppercase tracking-wider">Calendly</span>
+              </div>
+              
+              <div className="space-y-1.5">
+                {/* Simulated Slots */}
+                <div className="p-1.5 rounded-lg border border-indigo-500/25 bg-indigo-500/5 flex justify-between items-center cursor-pointer">
+                  <span className="text-[6.5px] text-indigo-950 font-medium">Pedro Gómez (Trauma)</span>
+                  <span className="text-[5.5px] text-indigo-700 font-bold">Elegido</span>
+                </div>
+                <div className="p-1.5 rounded-lg border border-black/[0.04] bg-neutral-50 flex justify-between items-center hover:border-indigo-200 hover:bg-indigo-50/20 transition-all cursor-pointer">
+                  <span className="text-[6.5px] text-neutral-700 font-medium">Laura Rossi (Respiratoria)</span>
+                  <span className="text-[5.5px] text-neutral-450">Ver Agenda</span>
+                </div>
+              </div>
+            </div>
+
+            <button 
+              type="button"
+              onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
+              className="w-full py-1 rounded-lg bg-indigo-600 text-white text-[7px] font-bold tracking-wide uppercase hover:bg-indigo-700 transition-colors mt-1 cursor-pointer"
+            >
+              Continuar Reserva
+            </button>
+          </div>
+        </div>
+      )
+    },
+    {
+      tag: "Producto Semillero - Web Inicial",
+      title: "Creadores & Influencers",
+      description: "Tu media kit y portfolio interactivo en un solo lugar. Gráficos de audiencia en tiempo real, links a tus redes y formulario directo para marcas.",
+      url: "www.lucasvisuals.com",
+      icon: <Star className="w-5 h-5 text-fuchsia-400" />,
+      themeColor: "rgba(240, 77, 255, 0.16)",
+      mockupBg: "bg-[#0b0813] border-fuchsia-500/20",
+      mockupHeaderColor: "bg-[#140f24] border-fuchsia-500/10",
+      imagePath: "/showcase-creator.png",
+      mockupContent: (
+        <div className="w-full h-full flex flex-col justify-between font-sans bg-[#0b0813] p-2.5 relative text-white selection:bg-fuchsia-500/20">
+          <div className="flex justify-between items-center border-b border-white/[0.08] pb-1.5">
+            <span className="text-[9px] font-bold tracking-wider text-fuchsia-400 uppercase">Lucas.Visuals</span>
+            <span className="text-[5px] font-bold text-fuchsia-400 bg-fuchsia-500/10 border border-fuchsia-500/20 px-1 py-0.5 rounded-full uppercase tracking-wider">Media Kit 2026</span>
+          </div>
+          
+          <div className="my-auto flex gap-3 items-center">
+            <div className="w-[40%] h-[90px] rounded-lg overflow-hidden border border-fuchsia-500/20 shadow-md shrink-0 bg-[#140f24]">
+              <img 
+                src="/showcase-creator.png" 
+                alt="Lucas Creator" 
+                className="w-full h-full object-cover select-none" 
+              />
+            </div>
+            
+            <div className="text-left flex-1 space-y-1">
+              <span className="text-[4.5px] font-bold text-fuchsia-300 uppercase tracking-widest bg-fuchsia-500/10 px-1 py-0.5 rounded border border-fuchsia-500/20">Digital Creator</span>
+              <h4 className="text-[9.5px] leading-tight font-black tracking-tight text-white mt-0.5">
+                Lucas Gómez
+              </h4>
+              <p className="text-[5.5px] text-fuchsia-300 font-medium">Visuals & Travel Vlogs</p>
+              <div className="flex flex-col gap-0.5 mt-1 text-[5px] text-neutral-400">
+                <span>✦ 450K total followers</span>
+                <span>✦ 4.8% engagement rate</span>
+              </div>
+            </div>
+          </div>
+          
+          <div className="flex justify-between items-center pt-1.5 border-t border-white/[0.08] mt-auto">
+            <span className="text-[5px] text-neutral-400">Marcas: info@lucasgomez.com</span>
+            <button
+              type="button"
+              onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
+              className="px-2 py-0.5 rounded-full bg-fuchsia-600 text-white font-bold text-[5px] uppercase tracking-wider hover:bg-fuchsia-700 transition-all cursor-pointer"
+            >
+              Tarifas 🚀
+            </button>
+          </div>
+        </div>
+      )
+    },
+    {
+      tag: "Producto Semillero - Web Inicial",
+      title: "Abogados & Consultores",
+      description: "Tu presencia jurídica digital con agendamiento de consultoría y pago de seña en un solo flujo. Genera confianza y asegura tu agenda profesional.",
+      url: "www.estudioarce.com",
+      icon: <Briefcase className="w-5 h-5 text-indigo-400" />,
+      themeColor: "rgba(99, 102, 241, 0.16)",
+      mockupBg: "bg-[#FAF9F6] border-indigo-950/15",
+      mockupHeaderColor: "bg-[#f1f0ec] border-indigo-950/10",
+      imagePath: "/showcase-lawyer.png",
+      mockupContent: (
+        <div className="w-full h-full flex flex-col justify-between font-sans bg-[#FAF9F6] p-2.5 relative text-neutral-900 selection:bg-indigo-100">
+          <div className="flex justify-between items-center border-b border-black/[0.05] pb-1.5">
+            <span className="text-[8.5px] font-serif font-black tracking-wider text-indigo-950 uppercase">Estudio Arce</span>
+            <span className="text-[5px] font-bold text-indigo-800 bg-indigo-50 px-1.5 py-0.5 rounded uppercase tracking-wider">Asesoría Legal</span>
+          </div>
+          
+          <div className="my-auto flex gap-3 items-center">
+            <div className="w-[40%] h-[90px] rounded-lg overflow-hidden border border-indigo-950/10 shadow-xs shrink-0 bg-[#fbfbf9]">
+              <img 
+                src="/showcase-lawyer.png" 
+                alt="Estudio Arce Lawyer" 
+                className="w-full h-full object-cover select-none" 
+              />
+            </div>
+            
+            <div className="text-left flex-1 space-y-1">
+              <span className="text-[4.5px] font-bold text-indigo-950 uppercase tracking-widest bg-indigo-50 px-1 py-0.5 rounded border border-indigo-200/50">Dr. Valentín Arce</span>
+              <h4 className="font-serif text-[9.5px] leading-snug font-medium tracking-tight text-neutral-900 mt-1">
+                Consultoría <span className="italic text-neutral-550 font-light">Especializada</span>
+              </h4>
+              <p className="text-[5px] text-neutral-500">Comercial • Laboral • Civil</p>
+            </div>
+          </div>
+          
+          <div className="flex justify-between items-center pt-1.5 border-t border-black/[0.04] mt-auto">
+            <span className="text-[5px] text-neutral-400">San Isidro, BA</span>
+            <button
+              type="button"
+              onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
+              className="px-2 py-0.5 rounded-md bg-indigo-950 text-white font-bold text-[5px] uppercase tracking-wider hover:bg-indigo-900 transition-all cursor-pointer"
+            >
+              Consulta 📅
+            </button>
+          </div>
+        </div>
+      )
+    }
+  ];
+
+  const ROW_2_CASES: ProfessionCase[] = [
+    {
+      tag: "Turnos Integrados - Calendly",
+      title: "Profesoras de Yoga & Coachs",
+      description: "Venta de packs mensuales y reservas fluidas integradas directamente con Calendly. Control de cupos máximos en tiempo real para clases grupales de forma autónoma.",
+      url: "www.pranayogaflow.com",
+      icon: <Star className="w-5 h-5 text-purple-500" />,
+      themeColor: "rgba(168, 85, 247, 0.12)",
+      mockupBg: "bg-[#f8f8fb]",
+      mockupHeaderColor: "bg-[#f0f0f5]",
+      imagePath: "",
+      mockupContent: (
+        <div className="w-full h-full flex font-sans bg-[#f7f6f2] p-2.5 gap-2.5 items-stretch selection:bg-purple-200/50">
+          {/* Left Column: Details */}
+          <div className="w-[45%] flex flex-col justify-between text-left">
+            <div>
+              <span className="text-[7px] font-bold text-neutral-400 uppercase tracking-widest">Estudio Prana</span>
+              
+              {/* Photo Container */}
+              <div className="w-full h-[65px] rounded-lg overflow-hidden border border-purple-200/50 mt-1 mb-1 shrink-0 bg-purple-50">
+                <img 
+                  src="/showcase-yoga.png" 
+                  alt="Yoga Instructor" 
+                  className="w-full h-full object-cover select-none" 
+                />
+              </div>
+              
+              <div className="mb-1">
+                <h4 className="font-serif text-[9px] font-bold text-neutral-800 leading-tight">Clases de Vinyasa</h4>
+                <p className="text-[5px] text-neutral-400">Prof. Clara Ramos</p>
+              </div>
+            </div>
+            
+            <div className="border-t border-black/[0.05] pt-1">
+              <span className="text-[5px] text-neutral-400 block font-light">Duración</span>
+              <span className="text-[7px] font-semibold text-neutral-700">60m • Presencial</span>
+            </div>
+          </div>
+
+          {/* Right Column: Calendly Integrated Slot Selector */}
+          <div className="flex-1 bg-white rounded-xl border border-black/[0.05] p-2 flex flex-col justify-between shadow-xs">
+            <div>
+              <div className="flex justify-between items-center border-b border-black/[0.04] pb-1.5 mb-1.5">
+                <span className="text-[7px] font-bold text-neutral-700">Reservar</span>
+                <span className="text-[5px] font-bold text-purple-700 bg-purple-50 px-1 py-0.5 rounded uppercase tracking-wider">Calendly</span>
+              </div>
+              
+              <div className="space-y-1">
+                {/* Simulated Slots */}
+                <div className="p-1 rounded-lg border border-purple-500/25 bg-purple-500/5 flex justify-between items-center cursor-pointer">
+                  <span className="text-[6.5px] text-purple-950 font-medium">Vie 19, 09:30</span>
+                </div>
+                <div className="p-1 rounded-lg border border-black/[0.04] bg-neutral-50 flex justify-between items-center hover:border-purple-200 hover:bg-purple-50/20 transition-all cursor-pointer">
+                  <span className="text-[6.5px] text-neutral-700 font-medium">Vie 19, 11:30</span>
+                </div>
+              </div>
+            </div>
+
+            <button 
+              type="button"
+              onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
+              className="w-full py-1 rounded-lg bg-purple-600 text-white text-[7px] font-bold tracking-wide uppercase hover:bg-purple-700 transition-colors mt-1 cursor-pointer"
+            >
+              Confirmar
+            </button>
+          </div>
+        </div>
+      )
+    },
+    {
+      tag: "Turnos Integrados - Calendly",
+      title: "Médicas & Consultorios",
+      description: "Organización de turnos por especialidades utilizando Calendly. Selección de obras sociales y carga optimizada para evitar cancelaciones repetidas.",
+      url: "www.drasilviamartinez.com",
+      icon: <Laptop className="w-5 h-5 text-cyan-500" />,
+      themeColor: "rgba(6, 182, 212, 0.12)",
+      mockupBg: "bg-[#fcfeff]",
+      mockupHeaderColor: "bg-[#f2fafc]",
+      imagePath: "",
+      mockupContent: (
+        <div className="w-full h-full flex font-sans bg-[#edf3f6] p-2.5 gap-2.5 items-stretch selection:bg-cyan-200/50">
+          {/* Left Column: Clinic Details */}
+          <div className="w-[45%] flex flex-col justify-between text-left">
+            <div>
+              <span className="text-[7px] font-bold text-neutral-400 uppercase tracking-widest">Dra. Silvia Martínez</span>
+              
+              {/* Photo Container */}
+              <div className="w-full h-[65px] rounded-lg overflow-hidden border border-cyan-200/50 mt-1 mb-1 shrink-0 bg-cyan-50">
+                <img 
+                  src="/showcase-doctor.png" 
+                  alt="Dra. Silvia Martínez Portrait" 
+                  className="w-full h-full object-cover select-none" 
+                />
+              </div>
+              
+              <div className="mb-1">
+                <h4 className="text-[9px] font-bold text-neutral-800 leading-tight">Pediatría</h4>
+                <p className="text-[5px] text-neutral-400">Mat. 98451</p>
+              </div>
+            </div>
+            
+            <div className="border-t border-black/[0.05] pt-1">
+              <span className="text-[5px] text-neutral-400 block font-light">Coberturas</span>
+              <span className="text-[6px] font-medium text-neutral-700">OSDE • Swiss Medical</span>
+            </div>
+          </div>
+
+          {/* Right Column: Calendly Integrated Slot Selector */}
+          <div className="flex-1 bg-white rounded-xl border border-black/[0.05] p-2 flex flex-col justify-between shadow-xs">
+            <div>
+              <div className="flex justify-between items-center border-b border-black/[0.04] pb-1.5 mb-1.5">
+                <span className="text-[7px] font-bold text-neutral-700">Turno</span>
+                <span className="text-[5px] font-bold text-cyan-700 bg-cyan-50 px-1 py-0.5 rounded uppercase tracking-wider">Calendly</span>
+              </div>
+              
+              <div className="space-y-1">
+                {/* Simulated Slots */}
+                <div className="p-1 rounded-lg border border-black/[0.04] bg-neutral-50 flex justify-between items-center hover:border-cyan-200 hover:bg-cyan-50/20 transition-all cursor-pointer">
+                  <span className="text-[6.5px] text-neutral-700 font-medium">Miér 24, 09:00</span>
+                </div>
+                <div className="p-1 rounded-lg border border-black/[0.04] bg-neutral-50 flex justify-between items-center hover:border-cyan-200 hover:bg-cyan-50/20 transition-all cursor-pointer">
+                  <span className="text-[6.5px] text-neutral-700 font-medium">Miér 24, 10:30</span>
+                </div>
+              </div>
+            </div>
+
+            <button 
+              type="button"
+              onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
+              className="w-full py-1 rounded-lg bg-cyan-700 text-white text-[7px] font-bold tracking-wide uppercase hover:bg-cyan-850 transition-colors mt-1 cursor-pointer"
             >
               Agendar
             </button>
@@ -163,167 +539,170 @@ export default function ShowcaseSection() {
       )
     },
     {
-      tag: "Medicina & Turnos",
-      title: "Médicas & Consultorios",
-      description: "Organización de turnos por especialidades. Selección de obras sociales y carga optimizada para evitar cancelaciones repetidas.",
-      url: "www.drasilviamartinez.com",
-      icon: <Laptop className="w-5 h-5 text-cyan-500" />,
-      themeColor: "rgba(6, 182, 212, 0.12)",
-      mockupBg: "bg-[#fcfeff]",
-      mockupHeaderColor: "bg-[#f2fafc]",
-      imagePath: "/showcase-doctor.png",
-      mockupContent: (
-        <div className="w-full h-full flex font-sans bg-[#f1f5f9]">
-          {/* Fake Sidebar */}
-          <div className="w-[12%] bg-cyan-950 flex flex-col items-center py-2 gap-2 text-cyan-400 shrink-0 h-full">
-            <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 mb-2" />
-            <span className="w-3.5 h-2 bg-cyan-800 rounded-xs" />
-            <span className="w-3.5 h-2 bg-cyan-800 rounded-xs opacity-50" />
-            <span className="w-3.5 h-2 bg-cyan-800 rounded-xs opacity-30" />
-          </div>
-          
-          {/* Dashboard Main Area */}
-          <div className="flex-1 flex flex-col justify-between p-2.5 bg-white">
-            <div>
-              <div className="flex justify-between items-start mb-1.5">
-                <div>
-                  <h4 className="text-[9px] font-bold text-neutral-900 leading-none">Dra. Silvia Martínez</h4>
-                  <span className="text-[6px] text-cyan-600 font-medium leading-none">Pediatría & Clínicas</span>
-                </div>
-                <span className="text-[5.5px] border border-cyan-300 text-cyan-700 px-1 py-0.5 rounded-xs font-semibold uppercase tracking-wider shrink-0 bg-cyan-50/50">Mat. 98451</span>
-              </div>
-              <div className="border-t border-neutral-100 my-1" />
-              
-              <div className="flex items-center gap-2 mt-1.5">
-                <img 
-                  src="/showcase-doctor.png" 
-                  alt="Dra. Silvia Martínez" 
-                  className="w-7 h-7 rounded-full object-cover border border-neutral-100 shrink-0" 
-                />
-                <div className="flex-1">
-                  <p className="text-[6px] text-neutral-700 leading-tight">Coberturas médicas:</p>
-                  <p className="text-[5.5px] text-neutral-500 font-medium mt-0.5 leading-none">OSDE • Swiss • Particular</p>
-                </div>
-              </div>
-            </div>
-            <button 
-              type="button"
-              onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
-              className="w-full py-1 bg-cyan-800 hover:bg-cyan-950 text-white text-[7.5px] font-bold uppercase tracking-wider transition-colors mt-1 rounded-none text-center bg-cyan-800"
-            >
-              Solicitar Turno
-            </button>
-          </div>
-        </div>
-      )
-    },
-    {
-      tag: "Sincronización Múltiple",
-      title: "Centros & Equipos",
-      description: "Múltiples profesionales y agendas enlazadas bajo una misma interfaz. Distribución automática de turnos y control centralizado.",
-      url: "www.kinesiologia-integrativa.com",
-      icon: <Users className="w-5 h-5 text-indigo-500" />,
-      themeColor: "rgba(99, 102, 241, 0.12)",
-      mockupBg: "bg-[#fafbff]",
-      mockupHeaderColor: "bg-[#f2f2fb]",
-      imagePath: "/showcase-team.png",
-      mockupContent: (
-        <div className="w-full h-full flex font-sans bg-[#fafbff] p-2 gap-2 items-center justify-between">
-          {/* Left arched photo mask */}
-          <div className="w-[35%] h-[95%] rounded-t-full overflow-hidden border border-black/[0.04] shrink-0 bg-neutral-100">
-            <img 
-              src="/showcase-team.png" 
-              alt="Centro Kinesio" 
-              className="w-full h-full object-cover select-none" 
-            />
-          </div>
-          
-          {/* Right Cards Deck */}
-          <div className="flex-1 h-full flex flex-col justify-between p-0.5">
-            <div>
-              <div className="flex justify-between items-center mb-1">
-                <span className="text-[8.5px] font-bold text-indigo-950 leading-none">Centro Kinesio</span>
-                <span className="text-[5px] bg-indigo-50 text-indigo-700 px-1 py-0.5 rounded font-bold border border-indigo-100/50">4 Kines</span>
-              </div>
-              
-              <div className="mt-1 space-y-1">
-                <div className="flex items-center gap-1.5 p-1 rounded-md bg-white border border-indigo-100/30 shadow-3xs">
-                  <div className="w-3.5 h-3.5 rounded-full bg-indigo-100 flex items-center justify-center text-[5px] font-bold text-indigo-700">PG</div>
-                  <div className="flex-1 text-[6px]">
-                    <p className="font-semibold text-neutral-800 leading-none">Pedro Gómez</p>
-                    <p className="text-[5px] text-neutral-500 leading-none mt-0.5">Traumatología</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-1.5 p-1 rounded-md bg-white border border-neutral-100 shadow-3xs">
-                  <div className="w-3.5 h-3.5 rounded-full bg-neutral-200 flex items-center justify-center text-[5px] font-bold text-neutral-600">LR</div>
-                  <div className="flex-1 text-[6px]">
-                    <p className="font-semibold text-neutral-700 leading-none">Laura Rossi</p>
-                    <p className="text-[5px] text-neutral-500 leading-none mt-0.5">Respiratoria</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <button 
-              type="button"
-              onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
-              className="w-full py-1 rounded bg-indigo-600 hover:bg-indigo-700 text-white text-[7.5px] font-medium tracking-wide transition-colors mt-1 flex items-center justify-center"
-            >
-              Elegir Profesional
-            </button>
-          </div>
-        </div>
-      )
-    },
-    {
-      tag: "Música & Talleres",
+      tag: "Turnos Integrados - Calendly",
       title: "Clases & Ensayos",
-      description: "Reservas de horarios específicos de clases de música, ensayos o masterclasses. Envío dinámico de apuntes y enlaces tras agendar.",
+      description: "Reservas de clases particulares, talleres o masterclasses mediante Calendly. Envío dinámico de enlaces de videollamada y material tras agendar.",
       url: "www.estudioclave.com",
       icon: <Music className="w-5 h-5 text-rose-500" />,
       themeColor: "rgba(244, 63, 94, 0.12)",
       mockupBg: "bg-[#121212]",
       mockupHeaderColor: "bg-[#1a1a1a]",
-      imagePath: "/showcase-music.png",
+      imagePath: "",
       mockupContent: (
-        <div className="w-full h-full flex font-sans bg-[#121212] p-2 gap-2.5 items-center justify-between">
-          {/* Left sleek dark cover */}
-          <div className="w-[42%] h-[95%] rounded border border-neutral-800 overflow-hidden shrink-0 bg-neutral-900 shadow-sm">
-            <img 
-              src="/showcase-music.png" 
-              alt="Estudio Clave" 
-              className="w-full h-full object-cover select-none" 
-            />
-          </div>
-          
-          {/* Right sleek dark panel */}
-          <div className="flex-1 h-[95%] bg-[#1a1a1a] border border-neutral-800 p-2 rounded flex flex-col justify-between">
+        <div className="w-full h-full flex font-sans bg-[#121214] p-2.5 gap-2.5 items-stretch text-white selection:bg-rose-500/20">
+          {/* Left Column: Academy Details */}
+          <div className="w-[45%] flex flex-col justify-between text-left">
             <div>
-              <div className="flex justify-between items-center mb-1 pb-0.5 border-b border-neutral-800">
-                <span className="text-[8.5px] font-mono font-bold text-rose-400 tracking-wider">ESTUDIO CLAVE</span>
-                <span className="text-[5.5px] text-neutral-400 uppercase font-sans tracking-[1px] font-medium">Online</span>
-              </div>
-              <h4 className="text-[8.5px] font-bold text-white leading-tight mt-1">Clases de Guitarra</h4>
-              <p className="text-[6px] text-neutral-400 font-light mt-0.5 leading-tight">Clases particulares 1-a-1.</p>
+              <span className="text-[7px] font-mono font-bold text-rose-400 uppercase tracking-widest">Estudio Clave</span>
               
-              <div className="mt-1.5 space-y-0.5 font-mono">
-                <div className="flex items-center justify-between p-0.5 border-b border-dashed border-neutral-800/80">
-                  <span className="text-[5.5px] text-neutral-350">Guitarra (60m)</span>
-                  <span className="text-[6.5px] font-bold text-rose-400">$10K</span>
+              {/* Academy Photo */}
+              <div className="w-full h-[55px] rounded-lg overflow-hidden border border-white/[0.06] my-1 shrink-0 bg-neutral-900">
+                <img 
+                  src="/showcase-music.png" 
+                  alt="Guitar Lesson" 
+                  className="w-full h-full object-cover select-none" 
+                />
+              </div>
+              
+              <h4 className="font-serif text-[9px] font-bold text-neutral-150 leading-tight">Clases de Guitarra</h4>
+            </div>
+            
+            <div className="border-t border-white/[0.06] pt-1 mt-1">
+              <span className="text-[7px] font-mono font-bold text-rose-400">$10.000 / clase</span>
+            </div>
+          </div>
+
+          {/* Right Column: Calendly Integrated Slot Selector */}
+          <div className="flex-1 bg-[#1a1a1e] rounded-xl border border-white/[0.06] p-2 flex flex-col justify-between shadow-md">
+            <div>
+              <div className="flex justify-between items-center border-b border-white/[0.05] pb-1.5 mb-1.5">
+                <span className="text-[7px] font-bold text-neutral-200">Reserva</span>
+                <span className="text-[5px] font-bold text-rose-400 bg-rose-950/30 px-1 py-0.5 rounded uppercase tracking-wider">Calendly</span>
+              </div>
+              
+              <div className="space-y-1">
+                {/* Simulated Slots */}
+                <div className="p-1 rounded-lg border border-white/[0.05] bg-[#242429] flex justify-between items-center hover:border-rose-400 hover:bg-rose-900/5 transition-all cursor-pointer">
+                  <span className="text-[6.5px] text-neutral-300 font-medium">Sáb 20, 10:00</span>
                 </div>
-                <div className="flex items-center justify-between p-0.5 border-b border-dashed border-neutral-800/80">
-                  <span className="text-[5.5px] text-neutral-400">Canto Grupal</span>
-                  <span className="text-[6.5px] font-bold text-rose-450 text-rose-400">Sáb</span>
+                <div className="p-1 rounded-lg border border-white/[0.05] bg-[#242429] flex justify-between items-center hover:border-rose-400 hover:bg-rose-900/5 transition-all cursor-pointer">
+                  <span className="text-[6.5px] text-neutral-350 font-medium">Sáb 20, 11:30</span>
                 </div>
               </div>
             </div>
-            
+
             <button 
               type="button"
               onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
-              className="w-full py-1 rounded bg-rose-500 text-neutral-950 hover:bg-rose-600 text-[7.5px] font-bold uppercase tracking-wider transition-colors mt-1"
+              className="w-full py-1 rounded-lg bg-rose-500 text-neutral-950 text-[7px] font-bold tracking-wide uppercase hover:bg-rose-600 transition-colors mt-1 cursor-pointer"
             >
-              Reservar Clase
+              Agendar
+            </button>
+          </div>
+        </div>
+      )
+    },
+    {
+      tag: "Producto Semillero - Web Inicial",
+      title: "Diseñadores & Freelancers",
+      description: "Muestra tu portfolio de trabajos en alta resolución con filtros interactivos, tarifas y tu disponibilidad actual en tiempo real para nuevos proyectos.",
+      url: "www.valentinadesign.com",
+      icon: <Palette className="w-5 h-5 text-cyan-400" />,
+      themeColor: "rgba(34, 211, 238, 0.16)",
+      mockupBg: "bg-[#080d0f] border-cyan-500/20",
+      mockupHeaderColor: "bg-[#11191c] border-cyan-500/10",
+      imagePath: "/showcase-designer.png",
+      mockupContent: (
+        <div className="w-full h-full flex flex-col justify-between font-sans bg-[#080d0f] p-2.5 relative text-white selection:bg-cyan-500/20">
+          <div className="flex justify-between items-center border-b border-white/[0.08] pb-1.5">
+            <span className="text-[9px] font-bold tracking-wider text-cyan-400 uppercase">Valen.Studio</span>
+            <div className="flex items-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="text-[5px] font-bold text-emerald-400 uppercase tracking-widest">Disponible</span>
+            </div>
+          </div>
+          
+          <div className="my-auto flex gap-3 items-center">
+            <div className="w-[40%] h-[90px] rounded-lg overflow-hidden border border-cyan-500/20 shadow-md shrink-0 bg-[#11191c]">
+              <img 
+                src="/showcase-designer.png" 
+                alt="Valentina Design Work" 
+                className="w-full h-full object-cover select-none" 
+              />
+            </div>
+            
+            <div className="text-left flex-1 space-y-1">
+              <span className="text-[4.5px] font-bold text-cyan-300 uppercase tracking-widest bg-cyan-500/10 px-1 py-0.5 rounded border border-cyan-500/20">Brand Designer</span>
+              <h4 className="text-[9.5px] leading-tight font-black tracking-tight text-white mt-0.5">
+                Valentina Arce
+              </h4>
+              <p className="text-[5.5px] text-cyan-300 font-medium">UX/UI & Webflow</p>
+              <div className="flex flex-col gap-0.5 mt-1 text-[5px] text-neutral-400">
+                <span>✦ +50 marcas creadas</span>
+                <span>✦ Freelance Activa</span>
+              </div>
+            </div>
+          </div>
+          
+          <div className="flex justify-between items-center pt-1.5 border-t border-white/[0.08] mt-auto">
+            <span className="text-[5px] text-neutral-400">Buenos Aires, ARG</span>
+            <button
+              type="button"
+              onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
+              className="px-2 py-0.5 rounded-full bg-cyan-500 text-neutral-950 font-bold text-[5px] uppercase tracking-wider hover:bg-cyan-400 transition-all cursor-pointer"
+            >
+              Portfolio ✨
+            </button>
+          </div>
+        </div>
+      )
+    },
+    {
+      tag: "Producto Semillero - Web Inicial",
+      title: "Estéticas & Spas",
+      description: "Tu catálogo digital de tratamientos de alta gama con reserva inmediata de turnos. Mapeo visual de servicios y confirmación automática.",
+      url: "www.auraspa.com",
+      icon: <Heart className="w-5 h-5 text-rose-400" />,
+      themeColor: "rgba(244, 63, 94, 0.16)",
+      mockupBg: "bg-[#fffbfb] border-rose-200/50",
+      mockupHeaderColor: "bg-[#ffeded] border-rose-200/30",
+      imagePath: "/showcase-spa.png",
+      mockupContent: (
+        <div className="w-full h-full flex flex-col justify-between font-sans bg-[#fffbfb] p-2.5 relative text-neutral-900 selection:bg-rose-100">
+          <div className="flex justify-between items-center border-b border-black/[0.05] pb-1.5">
+            <span className="text-[9px] font-serif font-bold tracking-wider text-rose-950 uppercase">Aura Spa</span>
+            <div className="flex gap-2 text-[5px] uppercase tracking-widest text-neutral-400 font-medium">
+              <span>Servicios</span>
+              <span>Contacto</span>
+            </div>
+          </div>
+          
+          <div className="my-auto flex gap-3 items-center">
+            <div className="w-[40%] h-[90px] rounded-lg overflow-hidden border border-rose-900/10 shadow-xs shrink-0 bg-[#fff5f5]">
+              <img 
+                src="/showcase-spa.png" 
+                alt="Aura Spa Treatment" 
+                className="w-full h-full object-cover select-none" 
+              />
+            </div>
+            
+            <div className="text-left flex-1 space-y-1">
+              <span className="text-[4.5px] font-bold text-rose-800 uppercase tracking-widest bg-rose-50 px-1 py-0.5 rounded border border-rose-200/40">Wellness Center</span>
+              <h4 className="font-serif text-[9.5px] leading-snug font-medium tracking-tight text-neutral-950 mt-1">
+                Revitalizá <span className="italic text-neutral-550 font-light">cuerpo & mente</span>
+              </h4>
+              <p className="text-[5px] text-neutral-500">Masajes Holísticos</p>
+            </div>
+          </div>
+          
+          <div className="flex justify-between items-center pt-1.5 border-t border-black/[0.04] mt-auto">
+            <span className="text-[5px] text-neutral-400">Palermo Soho</span>
+            <button
+              type="button"
+              onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
+              className="px-2 py-0.5 rounded-full bg-rose-600 text-white font-bold text-[5px] uppercase tracking-wider hover:bg-rose-700 transition-all cursor-pointer"
+            >
+              Turnos 🌸
             </button>
           </div>
         </div>
@@ -332,11 +711,37 @@ export default function ShowcaseSection() {
   ];
 
   return (
-    <section id="showcase" className="relative py-24 md:py-32 z-10 bg-white">
-      <div className="max-w-7xl mx-auto px-6">
-        
+    <section id="showcase" className="relative py-24 md:py-32 z-10 bg-white overflow-hidden">
+      
+      {/* Dynamic Style Block for Marquee animations */}
+      <style>{`
+        @keyframes marquee-left {
+          0% { transform: translate3d(0, 0, 0); }
+          100% { transform: translate3d(-50%, 0, 0); }
+        }
+        @keyframes marquee-right {
+          0% { transform: translate3d(-50%, 0, 0); }
+          100% { transform: translate3d(0, 0, 0); }
+        }
+        .animate-marquee-left {
+          animation: marquee-left 40s linear infinite;
+        }
+        .animate-marquee-right {
+          animation: marquee-right 40s linear infinite;
+        }
+        .pause-hover:hover .animate-marquee-left,
+        .pause-hover:hover .animate-marquee-right {
+          animation-play-state: paused;
+        }
+        .mask-gradient-marquee {
+          -webkit-mask-image: linear-gradient(to right, transparent, white 15%, white 85%, transparent);
+          mask-image: linear-gradient(to right, transparent, white 15%, white 85%, transparent);
+        }
+      `}</style>
+
+      <div className="max-w-7xl mx-auto px-6 mb-16">
         {/* Header de la Sección */}
-        <div className="text-center max-w-3xl mx-auto mb-16 md:mb-24">
+        <div className="text-center max-w-3xl mx-auto">
           <motion.div 
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -347,64 +752,136 @@ export default function ShowcaseSection() {
             <span>DESCONECTARSE ES UN LUJO</span>
           </motion.div>
           
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-neutral-900 mb-6">
-            Tu esfuerzo es único. <span className="font-bold italic text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-indigo-600 to-indigo-500">Tu web también debería serlo.</span>
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-neutral-900 mb-6 leading-tight">
+            Tu esfuerzo es único. <span className="font-bold italic text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-indigo-600 to-indigo-500 px-1 py-0.5 inline-block">Tu web también debería serlo.</span>
           </h2>
           <p className="text-base md:text-lg text-neutral-600 font-light leading-relaxed">
             Diseñamos sitios web 100% personalizados para que amplíes tu alcance, generes confianza y conviertas más visitas en clientes. Porque detrás de cada experiencia hay horas de esfuerzo que merecen ser mostradas de la mejor manera.
           </p>
         </div>
+      </div>
 
-        {/* Grid de Modelos / Casos de Uso */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {CASES.map((item, idx) => (
-            <SpotlightCard
-              key={idx}
-              glowColor={item.themeColor}
-              className="p-6 flex flex-col justify-between min-h-[440px] border border-black/[0.06] hover:border-black/[0.12] transition-all duration-300"
-            >
-              <div>
-                
-                {/* Cabecera del Navegador Mockup */}
-                <div className="w-full rounded-xl border border-black/[0.08] shadow-xs overflow-hidden mb-6 flex flex-col h-[180px]">
-                  {/* Top Bar del Mockup */}
-                  <div className={`flex items-center justify-between px-3 py-2 ${item.mockupHeaderColor} border-b border-black/[0.06]`}>
-                    <div className="flex gap-1 shrink-0">
-                      <span className="w-2 h-2 rounded-full bg-neutral-300" />
-                      <span className="w-2 h-2 rounded-full bg-neutral-300" />
-                      <span className="w-2 h-2 rounded-full bg-neutral-300" />
+      {/* Marquees Container (Edge-to-Edge) */}
+      <div className="w-full flex flex-col gap-6 md:gap-8 relative z-20">
+        
+        {/* Row 1: Right-scrolling Marquee */}
+        <div className="w-full overflow-hidden mask-gradient-marquee py-4 pause-hover">
+          <div className="flex gap-6 w-max animate-marquee-right">
+            {[...ROW_1_CASES, ...ROW_1_CASES].map((item, idx) => (
+              <div key={idx} className="w-[340px] sm:w-[380px] shrink-0">
+                <SpotlightCard
+                  glowColor={item.themeColor}
+                  className="p-6 flex flex-col justify-between min-h-[440px] border border-black/[0.06] hover:border-black/[0.12] transition-all duration-300 bg-white"
+                >
+                  <div>
+                    {/* Cabecera del Navegador Mockup */}
+                    <div className="w-full rounded-xl border border-black/[0.08] shadow-xs overflow-hidden mb-6 flex flex-col h-[180px]">
+                      {/* Top Bar del Mockup */}
+                      <div className={`flex items-center justify-between px-3 py-2 ${item.mockupHeaderColor} border-b border-black/[0.06]`}>
+                        <div className="flex gap-1 shrink-0">
+                          <span className="w-2 h-2 rounded-full bg-neutral-300" />
+                          <span className="w-2 h-2 rounded-full bg-neutral-300" />
+                          <span className="w-2 h-2 rounded-full bg-neutral-300" />
+                        </div>
+                        {/* Fake URL Bar */}
+                        <div className="bg-white/80 border border-black/[0.04] text-[8px] text-neutral-400 py-0.5 px-3 rounded-md w-[60%] text-center overflow-hidden text-ellipsis whitespace-nowrap select-none font-medium">
+                          {item.url}
+                        </div>
+                        <a
+                          href={`https://${item.url}`}
+                          onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
+                          className="text-neutral-400 hover:text-neutral-600 transition-colors"
+                        >
+                          <ArrowUpRight className="w-3 h-3 shrink-0" />
+                        </a>
+                      </div>
+                      {/* Contenido del Mockup */}
+                      <div className={`flex-1 ${item.mockupBg} overflow-hidden relative`}>
+                        {item.mockupContent}
+                      </div>
                     </div>
-                    {/* Fake URL Bar */}
-                    <div className="bg-white/80 border border-black/[0.04] text-[8px] text-neutral-400 py-0.5 px-3 rounded-md w-[60%] text-center overflow-hidden text-ellipsis whitespace-nowrap select-none font-medium">
-                      {item.url}
-                    </div>
-                    <ArrowUpRight className="w-3 h-3 text-neutral-400 shrink-0" />
-                  </div>
-                  {/* Contenido del Mockup */}
-                  <div className={`flex-1 ${item.mockupBg} overflow-hidden relative`}>
-                    {item.mockupContent}
-                  </div>
-                </div>
 
-                {/* Info Text */}
-                <div className="text-left">
-                  <div className="flex items-center gap-2 mb-2">
-                    {item.icon}
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-500">
-                      {item.tag}
-                    </span>
+                    {/* Info Text */}
+                    <div className="text-left">
+                      <div className="flex items-center gap-2 mb-2">
+                        {item.icon}
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-500">
+                          {item.tag}
+                        </span>
+                      </div>
+                      <h3 className="text-lg font-bold text-neutral-900 mb-2 tracking-tight">
+                        {item.title}
+                      </h3>
+                      <p className="text-neutral-600 font-light text-xs leading-relaxed">
+                        {item.description}
+                      </p>
+                    </div>
                   </div>
-                  <h3 className="text-lg font-bold text-neutral-900 mb-2 tracking-tight">
-                    {item.title}
-                  </h3>
-                  <p className="text-neutral-600 font-light text-xs leading-relaxed">
-                    {item.description}
-                  </p>
-                </div>
+                </SpotlightCard>
               </div>
-            </SpotlightCard>
-          ))}
+            ))}
+          </div>
         </div>
+
+        {/* Row 2: Left-scrolling Marquee */}
+        <div className="w-full overflow-hidden mask-gradient-marquee py-4 pause-hover">
+          <div className="flex gap-6 w-max animate-marquee-left">
+            {[...ROW_2_CASES, ...ROW_2_CASES].map((item, idx) => (
+              <div key={idx} className="w-[340px] sm:w-[380px] shrink-0">
+                <SpotlightCard
+                  glowColor={item.themeColor}
+                  className="p-6 flex flex-col justify-between min-h-[440px] border border-black/[0.06] hover:border-black/[0.12] transition-all duration-300 bg-white"
+                >
+                  <div>
+                    {/* Cabecera del Navegador Mockup */}
+                    <div className="w-full rounded-xl border border-black/[0.08] shadow-xs overflow-hidden mb-6 flex flex-col h-[180px]">
+                      {/* Top Bar del Mockup */}
+                      <div className={`flex items-center justify-between px-3 py-2 ${item.mockupHeaderColor} border-b border-black/[0.06]`}>
+                        <div className="flex gap-1 shrink-0">
+                          <span className="w-2 h-2 rounded-full bg-neutral-300" />
+                          <span className="w-2 h-2 rounded-full bg-neutral-300" />
+                          <span className="w-2 h-2 rounded-full bg-neutral-300" />
+                        </div>
+                        {/* Fake URL Bar */}
+                        <div className="bg-white/80 border border-black/[0.04] text-[8px] text-neutral-400 py-0.5 px-3 rounded-md w-[60%] text-center overflow-hidden text-ellipsis whitespace-nowrap select-none font-medium">
+                          {item.url}
+                        </div>
+                        <a
+                          href={`https://${item.url}`}
+                          onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
+                          className="text-neutral-400 hover:text-neutral-600 transition-colors"
+                        >
+                          <ArrowUpRight className="w-3 h-3 shrink-0" />
+                        </a>
+                      </div>
+                      {/* Contenido del Mockup */}
+                      <div className={`flex-1 ${item.mockupBg} overflow-hidden relative`}>
+                        {item.mockupContent}
+                      </div>
+                    </div>
+
+                    {/* Info Text */}
+                    <div className="text-left">
+                      <div className="flex items-center gap-2 mb-2">
+                        {item.icon}
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-500">
+                          {item.tag}
+                        </span>
+                      </div>
+                      <h3 className="text-lg font-bold text-neutral-900 mb-2 tracking-tight">
+                        {item.title}
+                      </h3>
+                      <p className="text-neutral-600 font-light text-xs leading-relaxed">
+                        {item.description}
+                      </p>
+                    </div>
+                  </div>
+                </SpotlightCard>
+              </div>
+            ))}
+          </div>
+        </div>
+
       </div>
     </section>
   );

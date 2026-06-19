@@ -8,9 +8,16 @@ export interface PainPoint {
   id: string;
   icon: React.ReactNode;
   title: string;
-  subtitle: string;
-  description: string;
-  stat: string;
+  problem: {
+    subtitle: string;
+    description: string;
+    stat: string;
+  };
+  solution: {
+    subtitle: string;
+    description: string;
+    stat: string;
+  };
 }
 
 /**
@@ -30,19 +37,33 @@ export interface Benefit {
 export const PAIN_POINTS: PainPoint[] = [
   {
     id: 'pain-1',
-    icon: <MessageSquare className="w-6 h-6 text-cyan-400" />,
-    title: 'Disponibilidad Asincrónica',
-    subtitle: 'El drenaje silencioso de tu tiempo',
-    description: 'Pasar horas respondiendo precios, ubicaciones u horarios por mensajería quita energía que podrías usar en tu trabajo real o en tu descanso.',
-    stat: 'Docenas de mensajes repetitivos diarios'
+    icon: <CalendarCheck2 className="w-6 h-6 text-cyan-400" />,
+    title: 'Disponibilidad',
+    problem: {
+      subtitle: 'Coordinación manual agotadora',
+      description: 'Responder consultas sobre precios y horarios los fines de semana o por las noches consume tu energía y tiempo libre.',
+      stat: 'Gestión de turnos manual y lenta'
+    },
+    solution: {
+      subtitle: 'Sistema de Turnos Automatizado',
+      description: 'Tus clientes reservan de forma autónoma mediante tu turnero de Calendly integrado. La confirmación e instrucciones se envían solas por email.',
+      stat: 'Confirmaciones automáticas por email'
+    }
   },
   {
     id: 'pain-2',
     icon: <Laptop className="w-6 h-6 text-purple-400" />,
-    title: 'Visibilidad Propia',
-    subtitle: 'La trampa de las redes sociales',
-    description: 'No tener un espacio propio en internet hace que dependas al 100% de los cambios de algoritmo de las redes sociales para que la gente te encuentre.',
-    stat: 'Dependencia inestable de plataformas externas'
+    title: 'Visibilidad',
+    problem: {
+      subtitle: 'La trampa de las redes sociales',
+      description: 'No tener un espacio propio en internet hace que dependas al 100% de los cambios de algoritmo de las redes sociales para que la gente te encuentre.',
+      stat: 'Dependencia inestable de plataformas externas'
+    },
+    solution: {
+      subtitle: 'Tu Propia Landing Page Profesional',
+      description: 'Un sitio web a medida de alta gama optimizado para Google que te da autoridad y donde tus clientes te encuentran directamente y sin intermediarios.',
+      stat: 'Landing page desarrollada a medida'
+    }
   }
 ];
 
@@ -60,7 +81,7 @@ export const BENEFITS: Benefit[] = [
   {
     icon: <CalendarCheck2 className="w-6 h-6 text-purple-400" />,
     title: 'Confirmaciones Automáticas',
-    description: 'Envío automático de notificaciones por WhatsApp o email 24 horas antes del turno. Los pacientes confirman o cancelan con un clic, liberando la agenda a tiempo.',
+    description: 'Envío automático de notificaciones por email de hasta 24 horas antes del turno. Los pacientes confirman o cancelan con un clic, liberando la agenda a tiempo.',
     tag: '99% de asistencia',
     glowColor: 'rgba(168, 85, 247, 0.12)'
   },

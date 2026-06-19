@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Laptop } from 'lucide-react';
+import { Laptop, Mail } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -14,11 +14,48 @@ export default function Footer() {
             <span className="text-xs text-zinc-400 font-light">Especialistas en Interfaces Inmersivas y Sistemas Autónomos.</span>
           </div>
 
-          <div className="flex items-center gap-8 text-xs text-zinc-300 font-semibold uppercase tracking-wider">
-            <a href="#hero" className="hover:text-white transition-colors duration-200">Inicio</a>
-            <a href="#pain" className="hover:text-white transition-colors duration-200">Fricciones</a>
-            <a href="#solution" className="hover:text-white transition-colors duration-200">Solución</a>
-            <a href="#pricing" className="hover:text-white transition-colors duration-200">Precios</a>
+          <div className="flex flex-col items-center md:items-end gap-4">
+            <div className="flex items-center gap-8 text-xs text-zinc-300 font-semibold uppercase tracking-wider">
+              <a href="#hero" className="hover:text-white transition-colors duration-200">Inicio</a>
+              <a href="#pain" className="hover:text-white transition-colors duration-200">Facilidades</a>
+              <a href="#solution" className="hover:text-white transition-colors duration-200">Solución</a>
+              <a href="#pricing" className="hover:text-white transition-colors duration-200">Precios</a>
+            </div>
+            
+            {/* Social Media Links */}
+            <div className="flex items-center gap-6 mt-2">
+              <a 
+                href="https://instagram.com/estudiocrea.oficial" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-zinc-400 hover:text-white transition-colors duration-200 cursor-pointer"
+                title="Instagram (@estudiocrea.oficial)"
+              >
+                <svg className="w-4.5 h-4.5 fill-none stroke-current stroke-2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                </svg>
+              </a>
+              <a 
+                href="https://www.tiktok.com/@estudiocrea.oficial" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-zinc-400 hover:text-white transition-colors duration-200 cursor-pointer"
+                title="TikTok (@estudiocrea.oficial)"
+              >
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                  <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.02 1.59 4.23.86.99 2 1.68 3.28 2.03.02 1.34 0 2.68.01 4.02-1.28-.08-2.52-.57-3.52-1.39-.77-.6-1.39-1.38-1.82-2.27v7.58c.03 1.83-.54 3.65-1.63 5.09-1.23 1.62-3.13 2.64-5.15 2.76-2.09.13-4.24-.62-5.7-2.12C1.94 18.35 1.05 15.93 1.32 13.5c.21-2.19 1.48-4.21 3.42-5.26 1.47-.79 3.19-.99 4.77-.6v4.06c-.95-.31-1.99-.21-2.85.31-.95.53-1.64 1.53-1.85 2.6-.28 1.33.22 2.75 1.25 3.6 1.05.86 2.53.97 3.69.28.84-.46 1.39-1.35 1.48-2.31.02-2.11.01-4.21.01-6.32V0c.32.02.66-.02.97.02z" />
+                </svg>
+              </a>
+              <a 
+                href="mailto:estudiocrea2026@gmail.com" 
+                className="text-zinc-400 hover:text-white transition-colors duration-200 cursor-pointer"
+                title="Email (estudiocrea2026@gmail.com)"
+              >
+                <Mail className="w-4.5 h-4.5" />
+              </a>
+            </div>
           </div>
 
         </div>

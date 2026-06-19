@@ -12,11 +12,11 @@ export default function SolutionSection() {
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 md:mb-24">
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-neutral-900 mb-6">
-            Tu negocio operando en <span className="font-bold italic text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-indigo-600 to-indigo-500">piloto automático</span> las 24 horas.
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-neutral-900 mb-6 leading-tight">
+            Tu negocio operando en <span className="font-bold italic text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-indigo-600 to-indigo-500 px-1.5 py-0.5 inline-block">piloto automático</span> las 24 horas.
           </h2>
           <p className="text-base md:text-lg text-neutral-600 font-light leading-relaxed">
-            Diseñamos e implementamos un sistema digital integrado a tu marca que soluciona de raíz la fricción operativa. Olvídate de agendar a mano y mantén el control total.
+            Diseñamos e implementamos un sistema digital integrado a tu marca que soluciona de raíz la necesidad operativa. Olvídate de agendar a mano y mantén el control total.
           </p>
         </div>
 

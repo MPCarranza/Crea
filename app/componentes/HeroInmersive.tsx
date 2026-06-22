@@ -15,6 +15,7 @@ interface Slide {
   title?: string;
   highlight?: string;
   subtitle?: string;
+  mobileObjectPosition?: string;
 }
 
 // Datos de las diapositivas con el enfoque estético de tus capturas
@@ -26,7 +27,8 @@ const SLIDES: Slide[] = [
     imgBackground: "/fondo.jpg",
     imgMidground: "/medio.png",
     imgForeground: "",
-    type: "logo"
+    type: "logo",
+    mobileObjectPosition: "object-[85%_center]"
   },
   {
     id: 2,
@@ -37,7 +39,8 @@ const SLIDES: Slide[] = [
     imgForeground: "",
     type: "direction",
     title: "Una dirección clara",
-    highlight: "da resultados más altos"
+    highlight: "da resultados más altos",
+    mobileObjectPosition: "object-center"
   },
   {
     id: 3,
@@ -47,7 +50,8 @@ const SLIDES: Slide[] = [
     imgMidground: "/medio.png",
     imgForeground: "",
     type: "tuweb",
-    title: "Desconectarse es un lujo"
+    title: "Desconectarse es un lujo",
+    mobileObjectPosition: "object-[85%_center]"
   }
 ];
 
@@ -93,6 +97,8 @@ export default function HeroInmersive() {
 
   const slide = SLIDES[current];
 
+  const mobilePos = slide.mobileObjectPosition || "object-[75%_center]";
+
   return (
     <section id="hero" className={`relative w-full min-h-screen ${slide.bg} transition-colors duration-1000 overflow-hidden flex items-center justify-center px-6 md:px-12 lg:px-24`}>
       
@@ -116,7 +122,7 @@ export default function HeroInmersive() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 1.2, ease: "easeInOut" }}
-              className="absolute inset-0 w-full h-full object-cover"
+              className={`absolute inset-0 w-full h-full object-cover ${mobilePos} md:object-center`}
             />
           </AnimatePresence>
         </div>
@@ -136,7 +142,7 @@ export default function HeroInmersive() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 1.2, ease: "easeInOut" }}
-                className="absolute inset-0 w-full h-full object-cover"
+                className={`absolute inset-0 w-full h-full object-cover ${mobilePos} md:object-center`}
               />
             )}
           </AnimatePresence>

@@ -68,7 +68,7 @@ export default function Footer() {
             <span>Desarrollado con</span>
             <span className="text-cyan-400 font-bold hover:text-white transition-colors flex items-center gap-1">
               <Laptop className="w-3.5 h-3.5" />
-              <span>Next.js & Tailwind CSS v4</span>
+              <span>Estudio Crea.</span>
             </span>
           </div>
         </div>

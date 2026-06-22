@@ -46,10 +46,10 @@ export default function Navbar() {
         ? 'py-4 bg-black/20 backdrop-blur-xl border-b border-white/[0.06] shadow-[0_8px_32px_rgba(0,0,0,0.25)]' 
         : 'py-6 bg-transparent border-b border-transparent'
     }`}>
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between md:grid md:grid-cols-3">
+      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between w-full">
         
         {/* Left Column - Logo */}
-        <div className="flex justify-start">
+        <div className="flex justify-start flex-shrink-0">
           <a href="#hero" className="flex items-center group">
             <img 
               src="/iconoCrea.png" 
@@ -60,7 +60,7 @@ export default function Navbar() {
         </div>
 
         {/* Middle Column - Desktop Navigation Links (Centered) */}
-        <div className="hidden md:flex justify-center">
+        <div className="hidden lg:flex justify-center flex-grow">
           <nav className="flex items-center gap-1.5 bg-white/[0.04] border border-white/[0.06] p-1 rounded-full backdrop-blur-md">
             <a 
               href="#showcase" 
@@ -116,9 +116,9 @@ export default function Navbar() {
         </div>
 
         {/* Right Column - Actions / Mobile Button */}
-        <div className="flex justify-end items-center">
+        <div className="flex justify-end items-center flex-shrink-0">
           {/* Header Action Button */}
-          <div className="hidden md:block">
+          <div className="hidden lg:block">
             <a 
               href="https://wa.me/5493855824408?text=Hola%20Estudio%20Crea,%20quiero%20consultar%20por%20un%20proyecto%20web"
               target="_blank"
@@ -132,7 +132,7 @@ export default function Navbar() {
           {/* Mobile Menu Button */}
           <button 
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2.5 rounded-full bg-white/[0.03] border border-white/[0.08] text-zinc-400 hover:text-white transition-colors"
+            className="lg:hidden p-2.5 rounded-full bg-white/[0.03] border border-white/[0.08] text-zinc-400 hover:text-white transition-colors"
             aria-label="Toggle Menu"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -148,7 +148,7 @@ export default function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden border-t border-white/[0.06] bg-black/60 backdrop-blur-2xl overflow-hidden"
+            className="lg:hidden border-t border-white/[0.06] bg-black/60 backdrop-blur-2xl overflow-hidden"
           >
             <div className="px-6 py-6 flex flex-col gap-4">
               <a 

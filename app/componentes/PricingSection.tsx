@@ -67,7 +67,7 @@ export default function PricingSection() {
                 href="https://wa.me/5493855824408?text=Hola%20Estudio%20Crea,%20quiero%20el%20Plan%20Desarrollo%20Semilla%20para%20mi%20web"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block w-full py-3 rounded-xl text-center text-xs font-bold uppercase tracking-wider bg-neutral-900 text-white hover:bg-cyan-600 hover:text-white transition-colors duration-300 shadow-md font-semibold"
+                className="block w-full py-3 rounded-xl text-center text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-cyan-600 to-indigo-600 text-white hover:brightness-95 transition-all duration-300 shadow-md font-semibold"
               >
                 Pago Único
               </a>
@@ -118,14 +118,17 @@ export default function PricingSection() {
                 <span className="text-2xl font-serif font-bold text-neutral-900 tracking-tight">A Medida</span>
                 <span className="text-neutral-500 text-xs font-light block">Configuración y flujos personalizados</span>
               </div>
-              <a 
-                href="https://wa.me/5493855824408?text=Hola%20Estudio%20Crea,%20quiero%20consultar%20por%20el%20Plan%20de%20Gestión%20de%20Turnos"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block w-full py-3 rounded-xl text-center text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-cyan-600 to-indigo-600 text-white hover:brightness-95 transition-all duration-300 shadow-md font-semibold"
-              >
-                Consultar WhatsApp
-              </a>
+              <div className="rainbow-glow-container rounded-xl bg-transparent">
+                <div className="rainbow-glow-beam" />
+                <a 
+                  href="https://wa.me/5493855824408?text=Hola%20Estudio%20Crea,%20quiero%20consultar%20por%20el%20Plan%20de%20Gestión%20de%20Turnos"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative z-10 block w-full py-3 rounded-[11px] text-center text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-cyan-600 to-indigo-600 text-white hover:brightness-95 transition-all duration-300 shadow-md font-semibold"
+                >
+                  Consultar WhatsApp
+                </a>
+              </div>
             </div>
           </SpotlightCard>
 

@@ -39,3 +39,58 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(0, 0, 0, 0.3);
 }
+
+/* Ocultar barra de desplazamiento en Chrome, Safari y Opera */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* Ocultar barra de desplazamiento en IE, Edge y Firefox */
+.scrollbar-none {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Animated Rotating Rainbow Border Beam Glow (Start Coding style) */
+@keyframes rainbow-beam-spin {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.rainbow-glow-container {
+  position: relative;
+  overflow: hidden;
+  padding: 1.2px; /* Thin border */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.rainbow-glow-container:hover {
+  box-shadow: 0 8px 25px rgba(6, 182, 212, 0.15);
+}
+
+.rainbow-glow-beam {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300%;
+  height: 300%;
+  background: conic-gradient(
+    from 0deg,
+    #25d366 0%,
+    #eab308 20%,
+    #ec4899 40%,
+    #a855f7 60%,
+    #3b82f6 80%,
+    #06b6d4 90%,
+    #25d366 100%
+  );
+  transform: translate(-50%, -50%) rotate(0deg);
+  animation: rainbow-beam-spin 4s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}

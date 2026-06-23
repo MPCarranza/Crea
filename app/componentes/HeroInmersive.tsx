@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mail } from 'lucide-react';
+import Image from 'next/image';
 
 interface Slide {
   id: number;
@@ -28,7 +29,7 @@ const SLIDES: Slide[] = [
     imgMidground: "/medio.png",
     imgForeground: "",
     type: "logo",
-    mobileObjectPosition: "object-[85%_center]"
+    mobileObjectPosition: "85% center"
   },
   {
     id: 2,
@@ -40,7 +41,7 @@ const SLIDES: Slide[] = [
     type: "direction",
     title: "Una dirección clara",
     highlight: "da resultados más altos",
-    mobileObjectPosition: "object-center"
+    mobileObjectPosition: "center"
   },
   {
     id: 3,
@@ -51,7 +52,7 @@ const SLIDES: Slide[] = [
     imgForeground: "",
     type: "tuweb",
     title: "Desconectarse es un lujo",
-    mobileObjectPosition: "object-[85%_center]"
+    mobileObjectPosition: "85% center"
   }
 ];
 
@@ -97,33 +98,40 @@ export default function HeroInmersive() {
 
   const slide = SLIDES[current];
 
-  const mobilePos = slide.mobileObjectPosition || "object-[75%_center]";
-
   return (
-    <section id="hero" className={`relative w-full min-h-screen ${slide.bg} transition-colors duration-1000 overflow-hidden flex items-center justify-center px-6 md:px-12 lg:px-24`}>
+    <section id="hero" className={`relative w-full min-h-dvh ${slide.bg} transition-colors duration-1000 overflow-hidden flex items-center justify-center`}>
       
       {/* Gradiente superior para asegurar contraste con la Navbar */}
       <div className="absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-black/80 via-black/40 to-transparent z-20 pointer-events-none" />
 
       {/* ─── CAPAS DE IMÁGENES SURREALISTAS (PARALLAX ASOCIADO AL RATÓN) ─── */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
+      <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden select-none">
         {/* Capa Fondo - Estático */}
         <div 
-          className="absolute inset-0 z-0 opacity-100"
+          className="absolute inset-0 w-full h-full z-0 opacity-100"
         >
           <AnimatePresence>
-            <motion.img 
+            <motion.div
               key={slide.id}
-              src={slide.imgBackground} 
-              onError={(e) => {
-                e.currentTarget.src = "/fondoDos.png";
-              }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 1.2, ease: "easeInOut" }}
-              className={`absolute inset-0 w-full h-full object-cover ${mobilePos} md:object-center`}
-            />
+              className="absolute inset-0 w-full h-full"
+            >
+              <Image 
+                src={slide.imgBackground} 
+                alt={slide.tag}
+                fill
+                priority={slide.id === 1}
+                quality={85}
+                sizes="100vw"
+                style={{
+                  objectFit: 'cover',
+                  objectPosition: slide.mobileObjectPosition || 'center'
+                }}
+              />
+            </motion.div>
           </AnimatePresence>
         </div>
 
@@ -131,19 +139,31 @@ export default function HeroInmersive() {
         <motion.div 
           animate={{ x: mousePos.x * 0.5, y: mousePos.y * 0.5 }}
           transition={{ type: "spring", stiffness: 60, damping: 25 }}
-          className="absolute inset-0 z-10 flex items-center justify-center"
+          className="absolute inset-0 w-full h-full z-10"
         >
           <AnimatePresence>
             {slide.imgMidground && (
-              <motion.img 
+              <motion.div
                 key={slide.id}
-                src={slide.imgMidground} 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 1.2, ease: "easeInOut" }}
-                className={`absolute inset-0 w-full h-full object-cover ${mobilePos} md:object-center`}
-              />
+                className="absolute inset-0 w-full h-full"
+              >
+                <Image 
+                  src={slide.imgMidground} 
+                  alt={slide.tag + " midground"}
+                  fill
+                  priority={slide.id === 1}
+                  quality={85}
+                  sizes="100vw"
+                  style={{
+                    objectFit: 'cover',
+                    objectPosition: slide.mobileObjectPosition || 'center'
+                  }}
+                />
+              </motion.div>
             )}
           </AnimatePresence>
         </motion.div>
@@ -151,19 +171,29 @@ export default function HeroInmersive() {
         {/* Capa Frente - Movimiento rápido (Efecto "Wow" de Slider Revolution) */}
         <motion.div 
           animate={{ x: mousePos.x * 1.4, y: mousePos.y * 1.4 }}
-          className="absolute inset-0 z-20 pointer-events-none flex items-center justify-center"
+          className="absolute inset-0 w-full h-full z-20 pointer-events-none flex items-center justify-center"
         >
           <AnimatePresence>
             {slide.imgForeground && (
-              <motion.img 
+              <motion.div
                 key={slide.id}
-                src={slide.imgForeground} 
                 initial={{ opacity: 0, scale: 0.8, rotate: 10 }}
                 animate={{ opacity: 0.5, scale: 1, rotate: 0 }}
                 exit={{ opacity: 0, scale: 1.1 }}
                 transition={{ duration: 0.9, ease: "easeOut" }}
-                className="absolute w-[250px] h-[250px] md:w-[350px] md:h-[350px] object-contain mix-blend-lighten"
-              />
+                className="absolute w-[250px] h-[250px] md:w-[350px] md:h-[350px]"
+              >
+                <Image 
+                  src={slide.imgForeground} 
+                  alt={slide.tag + " foreground"}
+                  fill
+                  sizes="(max-width: 768px) 250px, 350px"
+                  style={{
+                    objectFit: 'contain'
+                  }}
+                  className="mix-blend-lighten"
+                />
+              </motion.div>
             )}
           </AnimatePresence>
         </motion.div>
@@ -173,7 +203,7 @@ export default function HeroInmersive() {
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#00000004_1px,transparent_1px),linear-gradient(to_bottom,#00000004_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_60%,transparent_100%)] z-2 pointer-events-none" />
 
       {/* ─── CONTENEDOR DE CONTENIDO PRINCIPAL (TEXTO EDITORIAL) ─── */}
-      <div className="relative max-w-7xl w-full z-30 flex flex-col items-center justify-center min-h-[50vh] text-center px-6">
+      <div className="relative max-w-7xl w-full z-30 flex flex-col items-center justify-center min-h-[50vh] text-center px-6 md:px-12 lg:px-24">
         
         {/* Área Central de Contenido */}
         <div className="w-full flex flex-col items-center justify-center">
@@ -194,16 +224,14 @@ export default function HeroInmersive() {
                   transition={{ type: "spring", stiffness: 60, damping: 25 }}
                   className="relative flex flex-col items-center justify-center pt-8 pb-4"
                 >
-                  <img 
+                  <Image 
                     src="/logoHero.png" 
                     alt="Estudio Crea" 
+                    width={672}
+                    height={200}
+                    style={{ height: 'auto', objectFit: 'contain' }}
+                    priority
                     className="max-w-[90%] md:max-w-2xl h-auto object-contain drop-shadow-[0_10px_30px_rgba(0,0,0,0.15)]"
-                    onError={(e) => {
-                      // Fallback en caso de que logoHero.png no exista en public
-                      e.currentTarget.style.display = 'none';
-                      const fallback = document.getElementById('logo-fallback');
-                      if (fallback) fallback.style.display = 'flex';
-                    }}
                   />
                   <div id="logo-fallback" className="hidden relative flex flex-col items-center select-none pt-4">
                     {/* "Estudio" en cursiva arriba, superpuesto */}

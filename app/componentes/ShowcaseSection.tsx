@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, ArrowUpRight, Laptop, CalendarCheck2, Star, Users, Music, Palette, Briefcase, Heart } from 'lucide-react';
+import { Sparkles, ArrowUpRight, Laptop, CalendarCheck2, Star, Users, Music, Palette, Briefcase, Heart, ChevronLeft, ChevronRight } from 'lucide-react';
 import SpotlightCard from './SpotlightCard';
+import Image from 'next/image';
 
 interface ProfessionCase {
   tag: string;
@@ -20,6 +21,136 @@ interface ProfessionCase {
 
 export default function ShowcaseSection() {
   const [isWhatsAppOpen, setIsWhatsAppOpen] = useState(false);
+  const row1Ref = React.useRef<HTMLDivElement>(null);
+  const row2Ref = React.useRef<HTMLDivElement>(null);
+
+  const [isHoveredRow1, setIsHoveredRow1] = useState(false);
+  const [isHoveredRow2, setIsHoveredRow2] = useState(false);
+  const [isPausedRow1, setIsPausedRow1] = useState(false);
+  const [isPausedRow2, setIsPausedRow2] = useState(false);
+
+  const autoScrollTimer1 = React.useRef<NodeJS.Timeout | null>(null);
+  const autoScrollTimer2 = React.useRef<NodeJS.Timeout | null>(null);
+
+  const handleScroll = (ref: React.RefObject<HTMLDivElement | null>, direction: 'left' | 'right') => {
+    if (ref.current) {
+      // Pause autoscroll for 2 seconds to let smooth scroll complete
+      if (ref === row1Ref) {
+        setIsPausedRow1(true);
+        if (autoScrollTimer1.current) clearTimeout(autoScrollTimer1.current);
+        autoScrollTimer1.current = setTimeout(() => setIsPausedRow1(false), 2000);
+      } else if (ref === row2Ref) {
+        setIsPausedRow2(true);
+        if (autoScrollTimer2.current) clearTimeout(autoScrollTimer2.current);
+        autoScrollTimer2.current = setTimeout(() => setIsPausedRow2(false), 2000);
+      }
+
+      const { scrollLeft, scrollWidth, clientWidth } = ref.current;
+      const cardWidth = typeof window !== 'undefined' && window.innerWidth < 640 ? 340 : 380;
+      const gap = 24;
+      const step = cardWidth + gap;
+      const halfScroll = scrollWidth / 2;
+
+      let currentScrollLeft = scrollLeft;
+      let scrollTo = direction === 'left' ? currentScrollLeft - step : currentScrollLeft + step;
+
+      if (direction === 'left') {
+        if (scrollTo < 0) {
+          // Warp to the second half instantly, then animate scroll left
+          currentScrollLeft = scrollLeft + halfScroll;
+          ref.current.scrollLeft = currentScrollLeft;
+          scrollTo = currentScrollLeft - step;
+        }
+      } else { // direction === 'right'
+        if (scrollTo + clientWidth > scrollWidth) {
+          // Warp to the first half instantly, then animate scroll right
+          currentScrollLeft = scrollLeft - halfScroll;
+          ref.current.scrollLeft = currentScrollLeft;
+          scrollTo = currentScrollLeft + step;
+        }
+      }
+
+      ref.current.scrollTo({ left: scrollTo, behavior: 'smooth' });
+    }
+  };
+
+  const isHoveredRow1Ref = React.useRef(false);
+  const isHoveredRow2Ref = React.useRef(false);
+  const isPausedRow1Ref = React.useRef(false);
+  const isPausedRow2Ref = React.useRef(false);
+
+  useEffect(() => { isHoveredRow1Ref.current = isHoveredRow1; }, [isHoveredRow1]);
+  useEffect(() => { isHoveredRow2Ref.current = isHoveredRow2; }, [isHoveredRow2]);
+  useEffect(() => { isPausedRow1Ref.current = isPausedRow1; }, [isPausedRow1]);
+  useEffect(() => { isPausedRow2Ref.current = isPausedRow2; }, [isPausedRow2]);
+
+  // Row 1 Autoscroll (Right-scrolling marquee: scrollLeft decreases)
+  useEffect(() => {
+    const row = row1Ref.current;
+    if (!row) return;
+
+    let animationId: number;
+    const speed = 0.4; // smooth slow speed
+    let accumulator = row.scrollLeft;
+
+    const step = () => {
+      const isHovered = isHoveredRow1Ref.current;
+      const isPaused = isPausedRow1Ref.current;
+
+      if (row && !isHovered && !isPaused) {
+        const halfScroll = row.scrollWidth / 2;
+        if (accumulator <= 1) {
+          accumulator = halfScroll;
+        }
+        accumulator -= speed;
+        row.scrollLeft = Math.round(accumulator);
+      } else if (row) {
+        // Sync accumulator with user's manual scroll position
+        accumulator = row.scrollLeft;
+      }
+      animationId = requestAnimationFrame(step);
+    };
+
+    animationId = requestAnimationFrame(step);
+    return () => {
+      cancelAnimationFrame(animationId);
+      if (autoScrollTimer1.current) clearTimeout(autoScrollTimer1.current);
+    };
+  }, []);
+
+  // Row 2 Autoscroll (Left-scrolling marquee: scrollLeft increases)
+  useEffect(() => {
+    const row = row2Ref.current;
+    if (!row) return;
+
+    let animationId: number;
+    const speed = 0.4; // smooth slow speed
+    let accumulator = row.scrollLeft;
+
+    const step = () => {
+      const isHovered = isHoveredRow2Ref.current;
+      const isPaused = isPausedRow2Ref.current;
+
+      if (row && !isHovered && !isPaused) {
+        const halfScroll = row.scrollWidth / 2;
+        accumulator += speed;
+        if (accumulator >= halfScroll) {
+          accumulator = 0;
+        }
+        row.scrollLeft = Math.round(accumulator);
+      } else if (row) {
+        // Sync accumulator with user's manual scroll position
+        accumulator = row.scrollLeft;
+      }
+      animationId = requestAnimationFrame(step);
+    };
+
+    animationId = requestAnimationFrame(step);
+    return () => {
+      cancelAnimationFrame(animationId);
+      if (autoScrollTimer2.current) clearTimeout(autoScrollTimer2.current);
+    };
+  }, []);
 
   const ROW_1_CASES: ProfessionCase[] = [
     {
@@ -47,11 +178,13 @@ export default function ShowcaseSection() {
           {/* Main Content */}
           <div className="my-auto flex gap-3 items-center">
             {/* Elegant Professional Photo */}
-            <div className="w-[40%] h-[90px] rounded-lg overflow-hidden border border-amber-900/10 shadow-xs shrink-0 bg-[#fbf5f0]">
-              <img 
+            <div className="w-[40%] h-[90px] relative rounded-lg overflow-hidden border border-amber-900/10 shadow-xs shrink-0 bg-[#fbf5f0]">
+              <Image 
                 src="/showcase-nails.png" 
                 alt="María Nails Professional" 
-                className="w-full h-full object-cover select-none" 
+                fill
+                sizes="100px"
+                className="object-cover select-none" 
               />
             </div>
             
@@ -98,11 +231,15 @@ export default function ShowcaseSection() {
               {/* Chat Header */}
               <div className="bg-[#075e54] text-white px-2 py-1.5 flex items-center justify-between">
                 <div className="flex items-center gap-1.5">
-                  <img 
-                    src="/showcase-nails.png" 
-                    alt="María Nails Avatar" 
-                    className="w-5 h-5 rounded-full object-cover border border-white/20" 
-                  />
+                  <div className="w-5 h-5 relative rounded-full overflow-hidden border border-white/20 shrink-0">
+                    <Image 
+                      src="/showcase-nails.png" 
+                      alt="María Nails Avatar" 
+                      fill
+                      sizes="20px"
+                      className="object-cover" 
+                    />
+                  </div>
                   <div className="text-left">
                     <p className="text-[7.5px] font-bold leading-none">María Nails</p>
                     <p className="text-[5px] text-[#25D366] font-medium leading-none mt-0.5">En línea</p>
@@ -167,11 +304,13 @@ export default function ShowcaseSection() {
               <span className="text-[7px] font-bold text-neutral-400 uppercase tracking-widest">Lic. Sofía Ramos</span>
               
               {/* Photo Container */}
-              <div className="w-full h-[65px] rounded-lg overflow-hidden border border-emerald-200/50 mt-1 mb-1 shrink-0 bg-emerald-50">
-                <img 
+              <div className="w-full h-[65px] relative rounded-lg overflow-hidden border border-emerald-200/50 mt-1 mb-1 shrink-0 bg-emerald-50">
+                <Image 
                   src="/showcase-therapy.png" 
                   alt="Lic. Sofía Ramos Portrait" 
-                  className="w-full h-full object-cover select-none" 
+                  fill
+                  sizes="100px"
+                  className="object-cover select-none" 
                 />
               </div>
               
@@ -241,11 +380,13 @@ export default function ShowcaseSection() {
               <span className="text-[7px] font-bold text-neutral-400 uppercase tracking-widest">Kinesiología Integral</span>
               
               {/* Team Photo */}
-              <div className="w-full h-[55px] rounded-lg overflow-hidden border border-indigo-100/30 my-1 shrink-0 bg-neutral-100">
-                <img 
+              <div className="w-full h-[55px] relative rounded-lg overflow-hidden border border-indigo-100/30 my-1 shrink-0 bg-neutral-100">
+                <Image 
                   src="/showcase-team.png" 
                   alt="Centro Kinesio Team" 
-                  className="w-full h-full object-cover select-none" 
+                  fill
+                  sizes="100px"
+                  className="object-cover select-none" 
                 />
               </div>
               
@@ -317,11 +458,13 @@ export default function ShowcaseSection() {
           </div>
           
           <div className="my-auto flex gap-3 items-center">
-            <div className="w-[40%] h-[90px] rounded-lg overflow-hidden border border-fuchsia-500/20 shadow-md shrink-0 bg-[#140f24]">
-              <img 
+            <div className="w-[40%] h-[90px] relative rounded-lg overflow-hidden border border-fuchsia-500/20 shadow-md shrink-0 bg-[#140f24]">
+              <Image 
                 src="/showcase-creator.png" 
                 alt="Lucas Creator" 
-                className="w-full h-full object-cover select-none" 
+                fill
+                sizes="100px"
+                className="object-cover select-none" 
               />
             </div>
             
@@ -369,11 +512,13 @@ export default function ShowcaseSection() {
           </div>
           
           <div className="my-auto flex gap-3 items-center">
-            <div className="w-[40%] h-[90px] rounded-lg overflow-hidden border border-indigo-950/10 shadow-xs shrink-0 bg-[#fbfbf9]">
-              <img 
+            <div className="w-[40%] h-[90px] relative rounded-lg overflow-hidden border border-indigo-950/10 shadow-xs shrink-0 bg-[#fbfbf9]">
+              <Image 
                 src="/showcase-lawyer.png" 
                 alt="Estudio Arce Lawyer" 
-                className="w-full h-full object-cover select-none" 
+                fill
+                sizes="100px"
+                className="object-cover select-none" 
               />
             </div>
             
@@ -420,11 +565,13 @@ export default function ShowcaseSection() {
               <span className="text-[7px] font-bold text-neutral-400 uppercase tracking-widest">Estudio Prana</span>
               
               {/* Photo Container */}
-              <div className="w-full h-[65px] rounded-lg overflow-hidden border border-purple-200/50 mt-1 mb-1 shrink-0 bg-purple-50">
-                <img 
+              <div className="w-full h-[65px] relative rounded-lg overflow-hidden border border-purple-200/50 mt-1 mb-1 shrink-0 bg-purple-50">
+                <Image 
                   src="/showcase-yoga.png" 
                   alt="Yoga Instructor" 
-                  className="w-full h-full object-cover select-none" 
+                  fill
+                  sizes="100px"
+                  className="object-cover select-none" 
                 />
               </div>
               
@@ -488,11 +635,13 @@ export default function ShowcaseSection() {
               <span className="text-[7px] font-bold text-neutral-400 uppercase tracking-widest">Dra. Silvia Martínez</span>
               
               {/* Photo Container */}
-              <div className="w-full h-[65px] rounded-lg overflow-hidden border border-cyan-200/50 mt-1 mb-1 shrink-0 bg-cyan-50">
-                <img 
+              <div className="w-full h-[65px] relative rounded-lg overflow-hidden border border-cyan-200/50 mt-1 mb-1 shrink-0 bg-cyan-50">
+                <Image 
                   src="/showcase-doctor.png" 
                   alt="Dra. Silvia Martínez Portrait" 
-                  className="w-full h-full object-cover select-none" 
+                  fill
+                  sizes="100px"
+                  className="object-cover select-none" 
                 />
               </div>
               
@@ -556,11 +705,13 @@ export default function ShowcaseSection() {
               <span className="text-[7px] font-mono font-bold text-rose-400 uppercase tracking-widest">Estudio Clave</span>
               
               {/* Academy Photo */}
-              <div className="w-full h-[55px] rounded-lg overflow-hidden border border-white/[0.06] my-1 shrink-0 bg-neutral-900">
-                <img 
+              <div className="w-full h-[55px] relative rounded-lg overflow-hidden border border-white/[0.06] my-1 shrink-0 bg-neutral-900">
+                <Image 
                   src="/showcase-music.png" 
                   alt="Guitar Lesson" 
-                  className="w-full h-full object-cover select-none" 
+                  fill
+                  sizes="100px"
+                  className="object-cover select-none" 
                 />
               </div>
               
@@ -623,11 +774,13 @@ export default function ShowcaseSection() {
           </div>
           
           <div className="my-auto flex gap-3 items-center">
-            <div className="w-[40%] h-[90px] rounded-lg overflow-hidden border border-cyan-500/20 shadow-md shrink-0 bg-[#11191c]">
-              <img 
+            <div className="w-[40%] h-[90px] relative rounded-lg overflow-hidden border border-cyan-500/20 shadow-md shrink-0 bg-[#11191c]">
+              <Image 
                 src="/showcase-designer.png" 
                 alt="Valentina Design Work" 
-                className="w-full h-full object-cover select-none" 
+                fill
+                sizes="100px"
+                className="object-cover select-none" 
               />
             </div>
             
@@ -678,11 +831,13 @@ export default function ShowcaseSection() {
           </div>
           
           <div className="my-auto flex gap-3 items-center">
-            <div className="w-[40%] h-[90px] rounded-lg overflow-hidden border border-rose-900/10 shadow-xs shrink-0 bg-[#fff5f5]">
-              <img 
+            <div className="w-[40%] h-[90px] relative rounded-lg overflow-hidden border border-rose-900/10 shadow-xs shrink-0 bg-[#fff5f5]">
+              <Image 
                 src="/showcase-spa.png" 
                 alt="Aura Spa Treatment" 
-                className="w-full h-full object-cover select-none" 
+                fill
+                sizes="100px"
+                className="object-cover select-none" 
               />
             </div>
             
@@ -764,122 +919,186 @@ export default function ShowcaseSection() {
       {/* Marquees Container (Edge-to-Edge) */}
       <div className="w-full flex flex-col gap-6 md:gap-8 relative z-20">
         
-        {/* Row 1: Right-scrolling Marquee */}
-        <div className="w-full overflow-hidden mask-gradient-marquee py-4 pause-hover">
-          <div className="flex gap-6 w-max animate-marquee-right">
-            {[...ROW_1_CASES, ...ROW_1_CASES].map((item, idx) => (
-              <div key={idx} className="w-[340px] sm:w-[380px] shrink-0">
-                <SpotlightCard
-                  glowColor={item.themeColor}
-                  className="p-6 flex flex-col justify-between min-h-[440px] border border-black/[0.06] hover:border-black/[0.12] transition-all duration-300 bg-white"
-                >
-                  <div>
-                    {/* Cabecera del Navegador Mockup */}
-                    <div className="w-full rounded-xl border border-black/[0.08] shadow-xs overflow-hidden mb-6 flex flex-col h-[180px]">
-                      {/* Top Bar del Mockup */}
-                      <div className={`flex items-center justify-between px-3 py-2 ${item.mockupHeaderColor} border-b border-black/[0.06]`}>
-                        <div className="flex gap-1 shrink-0">
-                          <span className="w-2 h-2 rounded-full bg-neutral-300" />
-                          <span className="w-2 h-2 rounded-full bg-neutral-300" />
-                          <span className="w-2 h-2 rounded-full bg-neutral-300" />
-                        </div>
-                        {/* Fake URL Bar */}
-                        <div className="bg-white/80 border border-black/[0.04] text-[8px] text-neutral-400 py-0.5 px-3 rounded-md w-[60%] text-center overflow-hidden text-ellipsis whitespace-nowrap select-none font-medium">
-                          {item.url}
-                        </div>
-                        <a
-                          href={`https://${item.url}`}
-                          onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
-                          className="text-neutral-400 hover:text-neutral-600 transition-colors"
-                        >
-                          <ArrowUpRight className="w-3 h-3 shrink-0" />
-                        </a>
-                      </div>
-                      {/* Contenido del Mockup */}
-                      <div className={`flex-1 ${item.mockupBg} overflow-hidden relative`}>
-                        {item.mockupContent}
-                      </div>
-                    </div>
+        {/* Row 1: Scrollable Row with Navigation Buttons */}
+        <div className="relative w-full group">
+          {/* Left Arrow */}
+          <button
+            type="button"
+            onClick={() => handleScroll(row1Ref, 'left')}
+            className="absolute left-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-white/80 hover:bg-white border border-neutral-200/50 backdrop-blur-md shadow-md flex items-center justify-center text-neutral-800 transition-all active:scale-95 cursor-pointer opacity-100 md:opacity-0 md:group-hover:opacity-100 focus:opacity-100"
+            aria-label="Scroll left"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
 
-                    {/* Info Text */}
-                    <div className="text-left">
-                      <div className="flex items-center gap-2 mb-2">
-                        {item.icon}
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-500">
-                          {item.tag}
-                        </span>
+          {/* Carousel container */}
+          <div className="w-full overflow-hidden mask-gradient-marquee py-4">
+            <div 
+              ref={row1Ref}
+              onMouseEnter={() => setIsHoveredRow1(true)}
+              onMouseLeave={() => setIsHoveredRow1(false)}
+              onTouchStart={() => setIsHoveredRow1(true)}
+              onTouchEnd={() => {
+                setTimeout(() => setIsHoveredRow1(false), 1000);
+              }}
+              className="flex gap-6 overflow-x-auto scrollbar-none px-12 md:px-24"
+            >
+              {[...ROW_1_CASES, ...ROW_1_CASES].map((item, idx) => (
+                <div key={idx} className="w-[340px] sm:w-[380px] shrink-0">
+                  <SpotlightCard
+                    glowColor={item.themeColor}
+                    className="p-6 flex flex-col justify-between min-h-[440px] border border-black/[0.06] hover:border-black/[0.12] transition-all duration-300 bg-white"
+                  >
+                    <div>
+                      {/* Cabecera del Navegador Mockup */}
+                      <div className="w-full rounded-xl border border-black/[0.08] shadow-xs overflow-hidden mb-6 flex flex-col h-[180px]">
+                        {/* Top Bar del Mockup */}
+                        <div className={`flex items-center justify-between px-3 py-2 ${item.mockupHeaderColor} border-b border-black/[0.06]`}>
+                          <div className="flex gap-1 shrink-0">
+                            <span className="w-2 h-2 rounded-full bg-neutral-300" />
+                            <span className="w-2 h-2 rounded-full bg-neutral-300" />
+                            <span className="w-2 h-2 rounded-full bg-neutral-300" />
+                          </div>
+                          {/* Fake URL Bar */}
+                          <div className="bg-white/80 border border-black/[0.04] text-[8px] text-neutral-400 py-0.5 px-3 rounded-md w-[60%] text-center overflow-hidden text-ellipsis whitespace-nowrap select-none font-medium">
+                            {item.url}
+                          </div>
+                          <a
+                            href={`https://${item.url}`}
+                            onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
+                            className="text-neutral-400 hover:text-neutral-600 transition-colors"
+                          >
+                            <ArrowUpRight className="w-3 h-3 shrink-0" />
+                          </a>
+                        </div>
+                        {/* Contenido del Mockup */}
+                        <div className={`flex-1 ${item.mockupBg} overflow-hidden relative`}>
+                          {item.mockupContent}
+                        </div>
                       </div>
-                      <h3 className="text-lg font-bold text-neutral-900 mb-2 tracking-tight">
-                        {item.title}
-                      </h3>
-                      <p className="text-neutral-600 font-light text-xs leading-relaxed">
-                        {item.description}
-                      </p>
+
+                      {/* Info Text */}
+                      <div className="text-left">
+                        <div className="flex items-center gap-2 mb-2">
+                          {item.icon}
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-500">
+                            {item.tag}
+                          </span>
+                        </div>
+                        <h3 className="text-lg font-bold text-neutral-900 mb-2 tracking-tight">
+                          {item.title}
+                        </h3>
+                        <p className="text-neutral-600 font-light text-xs leading-relaxed">
+                          {item.description}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                </SpotlightCard>
-              </div>
-            ))}
+                  </SpotlightCard>
+                </div>
+              ))}
+            </div>
           </div>
+
+          {/* Right Arrow */}
+          <button
+            type="button"
+            onClick={() => handleScroll(row1Ref, 'right')}
+            className="absolute right-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-white/80 hover:bg-white border border-neutral-200/50 backdrop-blur-md shadow-md flex items-center justify-center text-neutral-800 transition-all active:scale-95 cursor-pointer opacity-100 md:opacity-0 md:group-hover:opacity-100 focus:opacity-100"
+            aria-label="Scroll right"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
         </div>
 
-        {/* Row 2: Left-scrolling Marquee */}
-        <div className="w-full overflow-hidden mask-gradient-marquee py-4 pause-hover">
-          <div className="flex gap-6 w-max animate-marquee-left">
-            {[...ROW_2_CASES, ...ROW_2_CASES].map((item, idx) => (
-              <div key={idx} className="w-[340px] sm:w-[380px] shrink-0">
-                <SpotlightCard
-                  glowColor={item.themeColor}
-                  className="p-6 flex flex-col justify-between min-h-[440px] border border-black/[0.06] hover:border-black/[0.12] transition-all duration-300 bg-white"
-                >
-                  <div>
-                    {/* Cabecera del Navegador Mockup */}
-                    <div className="w-full rounded-xl border border-black/[0.08] shadow-xs overflow-hidden mb-6 flex flex-col h-[180px]">
-                      {/* Top Bar del Mockup */}
-                      <div className={`flex items-center justify-between px-3 py-2 ${item.mockupHeaderColor} border-b border-black/[0.06]`}>
-                        <div className="flex gap-1 shrink-0">
-                          <span className="w-2 h-2 rounded-full bg-neutral-300" />
-                          <span className="w-2 h-2 rounded-full bg-neutral-300" />
-                          <span className="w-2 h-2 rounded-full bg-neutral-300" />
-                        </div>
-                        {/* Fake URL Bar */}
-                        <div className="bg-white/80 border border-black/[0.04] text-[8px] text-neutral-400 py-0.5 px-3 rounded-md w-[60%] text-center overflow-hidden text-ellipsis whitespace-nowrap select-none font-medium">
-                          {item.url}
-                        </div>
-                        <a
-                          href={`https://${item.url}`}
-                          onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
-                          className="text-neutral-400 hover:text-neutral-600 transition-colors"
-                        >
-                          <ArrowUpRight className="w-3 h-3 shrink-0" />
-                        </a>
-                      </div>
-                      {/* Contenido del Mockup */}
-                      <div className={`flex-1 ${item.mockupBg} overflow-hidden relative`}>
-                        {item.mockupContent}
-                      </div>
-                    </div>
+        {/* Row 2: Scrollable Row with Navigation Buttons */}
+        <div className="relative w-full group">
+          {/* Left Arrow */}
+          <button
+            type="button"
+            onClick={() => handleScroll(row2Ref, 'left')}
+            className="absolute left-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-white/80 hover:bg-white border border-neutral-200/50 backdrop-blur-md shadow-md flex items-center justify-center text-neutral-800 transition-all active:scale-95 cursor-pointer opacity-100 md:opacity-0 md:group-hover:opacity-100 focus:opacity-100"
+            aria-label="Scroll left"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
 
-                    {/* Info Text */}
-                    <div className="text-left">
-                      <div className="flex items-center gap-2 mb-2">
-                        {item.icon}
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-500">
-                          {item.tag}
-                        </span>
+          {/* Carousel container */}
+          <div className="w-full overflow-hidden mask-gradient-marquee py-4">
+            <div 
+              ref={row2Ref}
+              onMouseEnter={() => setIsHoveredRow2(true)}
+              onMouseLeave={() => setIsHoveredRow2(false)}
+              onTouchStart={() => setIsHoveredRow2(true)}
+              onTouchEnd={() => {
+                setTimeout(() => setIsHoveredRow2(false), 1000);
+              }}
+              className="flex gap-6 overflow-x-auto scrollbar-none px-12 md:px-24"
+            >
+              {[...ROW_2_CASES, ...ROW_2_CASES].map((item, idx) => (
+                <div key={idx} className="w-[340px] sm:w-[380px] shrink-0">
+                  <SpotlightCard
+                    glowColor={item.themeColor}
+                    className="p-6 flex flex-col justify-between min-h-[440px] border border-black/[0.06] hover:border-black/[0.12] transition-all duration-300 bg-white"
+                  >
+                    <div>
+                      {/* Cabecera del Navegador Mockup */}
+                      <div className="w-full rounded-xl border border-black/[0.08] shadow-xs overflow-hidden mb-6 flex flex-col h-[180px]">
+                        {/* Top Bar del Mockup */}
+                        <div className={`flex items-center justify-between px-3 py-2 ${item.mockupHeaderColor} border-b border-black/[0.06]`}>
+                          <div className="flex gap-1 shrink-0">
+                            <span className="w-2 h-2 rounded-full bg-neutral-300" />
+                            <span className="w-2 h-2 rounded-full bg-neutral-300" />
+                            <span className="w-2 h-2 rounded-full bg-neutral-300" />
+                          </div>
+                          {/* Fake URL Bar */}
+                          <div className="bg-white/80 border border-black/[0.04] text-[8px] text-neutral-400 py-0.5 px-3 rounded-md w-[60%] text-center overflow-hidden text-ellipsis whitespace-nowrap select-none font-medium">
+                            {item.url}
+                          </div>
+                          <a
+                            href={`https://${item.url}`}
+                            onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
+                            className="text-neutral-400 hover:text-neutral-600 transition-colors"
+                          >
+                            <ArrowUpRight className="w-3 h-3 shrink-0" />
+                          </a>
+                        </div>
+                        {/* Contenido del Mockup */}
+                        <div className={`flex-1 ${item.mockupBg} overflow-hidden relative`}>
+                          {item.mockupContent}
+                        </div>
                       </div>
-                      <h3 className="text-lg font-bold text-neutral-900 mb-2 tracking-tight">
-                        {item.title}
-                      </h3>
-                      <p className="text-neutral-600 font-light text-xs leading-relaxed">
-                        {item.description}
-                      </p>
+
+                      {/* Info Text */}
+                      <div className="text-left">
+                        <div className="flex items-center gap-2 mb-2">
+                          {item.icon}
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-500">
+                            {item.tag}
+                          </span>
+                        </div>
+                        <h3 className="text-lg font-bold text-neutral-900 mb-2 tracking-tight">
+                          {item.title}
+                        </h3>
+                        <p className="text-neutral-600 font-light text-xs leading-relaxed">
+                          {item.description}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                </SpotlightCard>
-              </div>
-            ))}
+                  </SpotlightCard>
+                </div>
+              ))}
+            </div>
           </div>
+
+          {/* Right Arrow */}
+          <button
+            type="button"
+            onClick={() => handleScroll(row2Ref, 'right')}
+            className="absolute right-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-white/80 hover:bg-white border border-neutral-200/50 backdrop-blur-md shadow-md flex items-center justify-center text-neutral-800 transition-all active:scale-95 cursor-pointer opacity-100 md:opacity-0 md:group-hover:opacity-100 focus:opacity-100"
+            aria-label="Scroll right"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
         </div>
 
       </div>

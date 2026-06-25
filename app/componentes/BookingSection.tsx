@@ -106,59 +106,28 @@ export default function BookingSection() {
           </div>
         </div>
 
-        {/* Unified Interface Container (Centered Iframe) */}
-        <div className="w-full max-w-4xl mx-auto">
-          {/* Mock Browser Container */}
-          <div className="w-full rounded-3xl border border-black/[0.08] shadow-[0_20px_50px_rgba(0,0,0,0.06)] overflow-hidden bg-neutral-900 transition-all duration-500">
-            {/* Browser Title Bar */}
-            <div className="flex items-center justify-between px-4 py-3 border-b border-neutral-800 bg-[#161616]">
-              {/* Red, Yellow, Green mock controls */}
-              <div className="flex gap-1.5 shrink-0">
-                <span className="w-2.5 h-2.5 rounded-full bg-red-400 opacity-80" />
-                <span className="w-2.5 h-2.5 rounded-full bg-yellow-400 opacity-80" />
-                <span className="w-2.5 h-2.5 rounded-full bg-green-400 opacity-80" />
-              </div>
-              
-              {/* Address Bar */}
-              <div className="border border-neutral-800 text-[9px] font-mono py-1 px-4 rounded-xl w-[50%] md:w-[60%] text-center overflow-hidden text-ellipsis whitespace-nowrap bg-neutral-900 text-neutral-400 font-medium">
-                {widgetUrl}
-              </div>
-              
-              <a 
-                href={widgetUrl} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="hover:opacity-80 transition-opacity shrink-0 text-neutral-400"
-                title="Abrir en pestaña nueva"
-              >
-                <ExternalLink className="w-3.5 h-3.5" />
-              </a>
+        {/* Centered Iframe Container (No Mockup) */}
+        <div className="w-full max-w-4xl mx-auto rounded-3xl overflow-hidden border border-black/[0.08] shadow-[0_20px_50px_rgba(0,0,0,0.06)] bg-white relative h-[650px]">
+          
+          {/* Smooth state loader spinner */}
+          {isIframeLoading && (
+            <div className="absolute inset-0 z-20 bg-white flex flex-col items-center justify-center gap-3">
+              <RefreshCw className="w-6 h-6 text-cyan-600 animate-spin" />
+              <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-450">
+                Cargando turnero...
+              </span>
             </div>
+          )}
 
-            {/* Browser Iframe Content */}
-            <div className="relative w-full overflow-hidden bg-white h-[650px]">
-              
-              {/* Smooth state loader spinner */}
-              {isIframeLoading && (
-                <div className="absolute inset-0 z-20 bg-[#f4f6fa]/95 flex flex-col items-center justify-center gap-3 backdrop-blur-xs">
-                  <RefreshCw className="w-6 h-6 text-cyan-600 animate-spin" />
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">
-                    Cargando turnero real...
-                  </span>
-                </div>
-              )}
-
-              <iframe 
-                src={widgetUrl} 
-                width="100%" 
-                height="100%" 
-                frameBorder="0"
-                style={{ border: 'none', display: 'block' }}
-                onLoad={() => setIsIframeLoading(false)}
-                allow="geolocation; microphone; camera; clipboard-write"
-              />
-            </div>
-          </div>
+          <iframe 
+            src={widgetUrl} 
+            width="100%" 
+            height="100%" 
+            frameBorder="0"
+            style={{ border: 'none', display: 'block' }}
+            onLoad={() => setIsIframeLoading(false)}
+            allow="geolocation; microphone; camera; clipboard-write"
+          />
         </div>
 
       </div>

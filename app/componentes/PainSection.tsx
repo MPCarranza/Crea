@@ -7,11 +7,10 @@ import { PAIN_POINTS } from '../utils/constants';
 
 export default function PainSection() {
   const [selectedPain, setSelectedPain] = useState<string>('pain-1');
-  const [viewMode, setViewMode] = useState<'problem' | 'solution'>('problem');
+  const [viewMode, setViewMode] = useState<'problem' | 'solution'>('solution');
 
   const handlePainSelect = (id: string) => {
     setSelectedPain(id);
-    setViewMode('problem');
   };
 
   return (
@@ -21,10 +20,10 @@ export default function PainSection() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 md:mb-24">
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-neutral-900 mb-6 leading-tight">
-            Hacer que tu negocio sea <span className="font-bold italic text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-orange-500 px-1.5 py-0.5 inline-block">más fácil de gestionar.</span>
+            Hacer que tu negocio sea <span className="font-bold italic text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-indigo-600 to-indigo-500 px-1.5 py-0.5 inline-block">más fácil de gestionar.</span>
           </h2>
           <p className="text-base md:text-lg text-neutral-600 font-light leading-relaxed">
-            Dale a tu trabajo la autoridad que necesita. Mira cómo impacta la falta de un portafolio web en tu día a día interactuando abajo:
+            Dale a tu trabajo la autoridad que necesita. Explora nuestras soluciones o revisa los problemas que resolvemos interactuando en el simulador:
           </p>
         </div>
 
@@ -115,24 +114,38 @@ export default function PainSection() {
                 <button
                   type="button"
                   onClick={() => setViewMode('problem')}
-                  className={`flex-1 py-1 rounded-lg text-[8.5px] font-bold tracking-wider uppercase transition-all duration-300 flex items-center justify-center gap-1 ${
+                  className={`flex-1 py-1 rounded-lg text-[8.5px] font-bold tracking-wider uppercase transition-all duration-300 flex items-center justify-center gap-1 relative ${
                     viewMode === 'problem'
                       ? 'bg-rose-500 text-white shadow-xs'
                       : 'text-neutral-500 hover:text-neutral-700'
                   }`}
                 >
-                  <span>⚠️ El Problema</span>
+                  {viewMode === 'solution' && (
+                    <motion.span 
+                      animate={{ opacity: [0.3, 0.8, 0.3] }}
+                      transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                      className="absolute inset-0 bg-rose-500/35 rounded-lg pointer-events-none"
+                    />
+                  )}
+                  <span className="relative z-10">⚠️ El Problema</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => setViewMode('solution')}
-                  className={`flex-1 py-1 rounded-lg text-[8.5px] font-bold tracking-wider uppercase transition-all duration-300 flex items-center justify-center gap-1 ${
+                  className={`flex-1 py-1 rounded-lg text-[8.5px] font-bold tracking-wider uppercase transition-all duration-300 flex items-center justify-center gap-1 relative ${
                     viewMode === 'solution'
                       ? 'bg-emerald-500 text-white shadow-xs'
                       : 'text-neutral-500 hover:text-neutral-700'
                   }`}
                 >
-                  <span>🚀 La Solución</span>
+                  {viewMode === 'problem' && (
+                    <motion.span 
+                      animate={{ opacity: [0.3, 0.8, 0.3] }}
+                      transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                      className="absolute inset-0 bg-emerald-500/35 rounded-lg pointer-events-none"
+                    />
+                  )}
+                  <span className="relative z-10">🚀 La Solución</span>
                 </button>
               </div>
 

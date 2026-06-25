@@ -2,8 +2,11 @@
 
 import React from 'react';
 import { Laptop, Mail } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 
 export default function Footer() {
+  const pathname = usePathname();
+  const isHome = pathname === '/';
   return (
     <footer className="relative py-16 z-10 border-t border-white/[0.08] bg-neutral-950/95 backdrop-blur-xl">
       <div className="max-w-7xl mx-auto px-6">
@@ -15,11 +18,12 @@ export default function Footer() {
           </div>
 
           <div className="flex flex-col items-center md:items-end gap-4">
-            <div className="flex items-center gap-8 text-xs text-zinc-300 font-semibold uppercase tracking-wider">
-              <a href="#hero" className="hover:text-white transition-colors duration-200">Inicio</a>
-              <a href="#pain" className="hover:text-white transition-colors duration-200">Facilidades</a>
-              <a href="#solution" className="hover:text-white transition-colors duration-200">Solución</a>
-              <a href="#pricing" className="hover:text-white transition-colors duration-200">Precios</a>
+            <div className="flex items-center gap-8 text-xs text-zinc-300 font-semibold uppercase tracking-wider flex-wrap justify-center md:justify-end">
+              <a href={isHome ? '#hero' : '/'} className="hover:text-white transition-colors duration-200">Inicio</a>
+              <a href={isHome ? '#pain' : '/#pain'} className="hover:text-white transition-colors duration-200">Facilidades</a>
+              <a href={isHome ? '#solution' : '/#solution'} className="hover:text-white transition-colors duration-200">Solución</a>
+              <a href={isHome ? '#pricing' : '/#pricing'} className="hover:text-white transition-colors duration-200">Precios</a>
+              <a href="/nuestra-historia" className={`hover:text-white transition-colors duration-200 ${pathname === '/nuestra-historia' ? 'text-cyan-400 font-bold' : ''}`}>Nuestra Historia</a>
             </div>
             
             {/* Social Media Links */}

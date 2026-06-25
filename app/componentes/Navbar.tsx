@@ -3,9 +3,13 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Mail } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 import { SCROLL_SECTIONS } from '../utils/constants';
 
 export default function Navbar() {
+  const pathname = usePathname();
+  const isHome = pathname === '/';
+
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
@@ -17,6 +21,7 @@ export default function Navbar() {
 
     // Smooth section tracking
     const trackActiveSection = () => {
+      if (!isHome) return;
       const scrollPosition = window.scrollY + 200;
 
       for (const section of SCROLL_SECTIONS) {
@@ -38,11 +43,11 @@ export default function Navbar() {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('scroll', trackActiveSection);
     };
-  }, []);
+  }, [isHome]);
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-      scrolled 
+      scrolled || !isHome
         ? 'py-4 bg-black/20 backdrop-blur-xl border-b border-white/[0.06] shadow-[0_8px_32px_rgba(0,0,0,0.25)]' 
         : 'py-6 bg-transparent border-b border-transparent'
     }`}>
@@ -50,7 +55,7 @@ export default function Navbar() {
         
         {/* Left Column - Logo */}
         <div className="flex justify-start flex-shrink-0">
-          <a href="#hero" className="flex items-center group">
+          <a href={isHome ? '#hero' : '/'} className="flex items-center group">
             <img 
               src="/iconoCrea.png" 
               alt="Estudio Crea" 
@@ -63,9 +68,9 @@ export default function Navbar() {
         <div className="hidden lg:flex justify-center flex-grow">
           <nav className="flex items-center gap-1.5 bg-white/[0.04] border border-white/[0.06] p-1 rounded-full backdrop-blur-md">
             <a 
-              href="#showcase" 
+              href={isHome ? '#showcase' : '/#showcase'}
               className={`text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-full transition-all duration-300 ${
-                activeSection === 'showcase' 
+                activeSection === 'showcase' && isHome
                   ? 'bg-white/10 text-white border border-white/10 shadow-lg' 
                   : 'text-zinc-300 hover:text-white border border-transparent'
               }`}
@@ -73,9 +78,9 @@ export default function Navbar() {
               Ustedes
             </a>
             <a 
-              href="#pain" 
+              href={isHome ? '#pain' : '/#pain'}
               className={`text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-full transition-all duration-300 ${
-                activeSection === 'pain' 
+                activeSection === 'pain' && isHome
                   ? 'bg-white/10 text-white border border-white/10 shadow-lg' 
                   : 'text-zinc-300 hover:text-white border border-transparent'
               }`}
@@ -83,9 +88,9 @@ export default function Navbar() {
               Facilidades
             </a>
             <a 
-              href="#solution" 
+              href={isHome ? '#solution' : '/#solution'}
               className={`text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-full transition-all duration-300 ${
-                activeSection === 'solution' 
+                activeSection === 'solution' && isHome
                   ? 'bg-white/10 text-white border border-white/10 shadow-lg' 
                   : 'text-zinc-300 hover:text-white border border-transparent'
               }`}
@@ -93,9 +98,9 @@ export default function Navbar() {
               Solución
             </a>
             <a 
-              href="#pricing" 
+              href={isHome ? '#pricing' : '/#pricing'}
               className={`text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-full transition-all duration-300 ${
-                activeSection === 'pricing' 
+                activeSection === 'pricing' && isHome
                   ? 'bg-white/10 text-white border border-white/10 shadow-lg' 
                   : 'text-zinc-300 hover:text-white border border-transparent'
               }`}
@@ -103,14 +108,24 @@ export default function Navbar() {
               Precios
             </a>
             <a 
-              href="#booking" 
+              href={isHome ? '#booking' : '/#booking'}
               className={`text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-full transition-all duration-300 ${
-                activeSection === 'booking' 
+                activeSection === 'booking' && isHome
                   ? 'bg-white/10 text-white border border-white/10 shadow-lg' 
                   : 'text-zinc-300 hover:text-white border border-transparent'
               }`}
             >
               Turnos
+            </a>
+            <a 
+              href="/nuestra-historia"
+              className={`text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-full transition-all duration-300 ${
+                pathname === '/nuestra-historia'
+                  ? 'bg-white/10 text-white border border-white/10 shadow-lg' 
+                  : 'text-zinc-300 hover:text-white border border-transparent'
+              }`}
+            >
+              Nuestra Historia
             </a>
           </nav>
         </div>
@@ -152,39 +167,48 @@ export default function Navbar() {
           >
             <div className="px-6 py-6 flex flex-col gap-4">
               <a 
-                href="#showcase" 
+                href={isHome ? '#showcase' : '/#showcase'}
                 onClick={() => setMobileMenuOpen(false)}
                 className="text-sm font-semibold uppercase tracking-wider text-zinc-300 hover:text-white py-2 border-b border-white/[0.02]"
               >
                 Ustedes
               </a>
               <a 
-                href="#pain" 
+                href={isHome ? '#pain' : '/#pain'}
                 onClick={() => setMobileMenuOpen(false)}
                 className="text-sm font-semibold uppercase tracking-wider text-zinc-300 hover:text-white py-2 border-b border-white/[0.02]"
               >
                 Facilidades
               </a>
               <a 
-                href="#solution" 
+                href={isHome ? '#solution' : '/#solution'}
                 onClick={() => setMobileMenuOpen(false)}
                 className="text-sm font-semibold uppercase tracking-wider text-zinc-300 hover:text-white py-2 border-b border-white/[0.02]"
               >
                 Solución
               </a>
               <a 
-                href="#pricing" 
+                href={isHome ? '#pricing' : '/#pricing'}
                 onClick={() => setMobileMenuOpen(false)}
                 className="text-sm font-semibold uppercase tracking-wider text-zinc-300 hover:text-white py-2 border-b border-white/[0.02]"
               >
                 Precios
               </a>
               <a 
-                href="#booking" 
+                href={isHome ? '#booking' : '/#booking'}
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-sm font-semibold uppercase tracking-wider text-zinc-300 hover:text-white py-2"
+                className="text-sm font-semibold uppercase tracking-wider text-zinc-300 hover:text-white py-2 border-b border-white/[0.02]"
               >
                 Turnos
+              </a>
+              <a 
+                href="/nuestra-historia" 
+                onClick={() => setMobileMenuOpen(false)}
+                className={`text-sm font-semibold uppercase tracking-wider py-2 ${
+                  pathname === '/nuestra-historia' ? 'text-cyan-400 font-bold' : 'text-zinc-300 hover:text-white'
+                }`}
+              >
+                Nuestra Historia
               </a>
               
               <a 

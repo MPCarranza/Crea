@@ -25,8 +25,8 @@ const SLIDES: Slide[] = [
     id: 1,
     tag: "Estudio Crea",
     bg: "bg-[#faf9f6]",
-    imgBackground: "/fondo.jpg",
-    imgMidground: "/medio.png",
+    imgBackground: "/bg_slide_1.png",
+    imgMidground: "",
     imgForeground: "",
     type: "logo",
     mobileObjectPosition: "85% center"
@@ -35,23 +35,22 @@ const SLIDES: Slide[] = [
     id: 2,
     tag: "Dirección",
     bg: "bg-[#f5f3ed]",
-    imgBackground: "/fondoDos.png",
-    imgMidground: "/medioDos.png",
+    imgBackground: "/bg_slide_2.png",
+    imgMidground: "",
     imgForeground: "",
     type: "direction",
-    title: "Una dirección clara",
-    highlight: "da resultados más altos",
+    title: "Hay personas que necesitan lo que haces. Ayudémoslas a encontrarte.",
     mobileObjectPosition: "center"
   },
   {
     id: 3,
     tag: "Tu Web",
     bg: "bg-[#faf9f6]",
-    imgBackground: "/fondo.jpg",
-    imgMidground: "/medio.png",
+    imgBackground: "/bg_slide_3.png",
+    imgMidground: "",
     imgForeground: "",
     type: "tuweb",
-    title: "Desconectarse es un lujo",
+    title: "Creamos páginas webs que reflejan quien sos, cómo trabajas y el valor que aportas.",
     mobileObjectPosition: "85% center"
   }
 ];
@@ -103,6 +102,9 @@ export default function HeroInmersive() {
       
       {/* Gradiente superior para asegurar contraste con la Navbar */}
       <div className="absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-black/80 via-black/40 to-transparent z-20 pointer-events-none" />
+      
+      {/* Capa de filtro oscuro para asegurar legibilidad en fondos claros */}
+      <div className="absolute inset-0 bg-black/40 z-10 pointer-events-none" />
 
       {/* ─── CAPAS DE IMÁGENES SURREALISTAS (PARALLAX ASOCIADO AL RATÓN) ─── */}
       <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden select-none">
@@ -248,7 +250,7 @@ export default function HeroInmersive() {
 
               {slide.type === "direction" && (
                 <div className="relative w-full flex flex-col items-center">
-                  <h1 className="font-sans font-semibold text-white text-4xl md:text-7xl tracking-tight leading-[1.1] max-w-5xl mx-auto drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
+                  <h1 className="font-sans font-semibold text-white text-3xl md:text-5xl lg:text-6xl tracking-tight leading-[1.1] max-w-5xl mx-auto drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
                     {slide.title} <br />
                     <span className="text-white">
                       {slide.highlight}
@@ -260,7 +262,7 @@ export default function HeroInmersive() {
 
               {slide.type === "tuweb" && (
                 <div className="flex flex-col items-center space-y-6">
-                  <h1 className="font-sans font-semibold text-white text-4xl md:text-7xl tracking-tight leading-none drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
+                  <h1 className="font-sans font-semibold text-white text-3xl md:text-5xl lg:text-6xl tracking-tight leading-none max-w-5xl text-center drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
                     {slide.title}
                   </h1>
                   {slide.subtitle && (
@@ -294,13 +296,13 @@ export default function HeroInmersive() {
       {/* Botones de acción estables fijos en la parte inferior */}
       <div className="absolute bottom-20 left-1/2 -translate-x-1/2 z-40 flex flex-row gap-3 md:gap-4 items-center justify-center w-auto px-6">
         
-        {/* QUIERO MI WEB Wrapper for Popover */}
+        {/* QUIERO MI PROYECTO Wrapper for Popover */}
         <div className="relative">
           <button 
             onClick={(e) => handleButtonClick(e, 'quiero')}
             className="px-5 md:px-8 py-3 md:py-4 rounded-xl bg-gradient-to-r from-cyan-600 to-indigo-600 text-white font-sans text-xs md:text-sm font-bold tracking-wide hover:scale-[1.02] hover:brightness-95 transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.2)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.55)] border border-transparent whitespace-nowrap cursor-pointer"
           >
-            QUIERO MI WEB
+            QUIERO EMPEZAR MI PROYECTO
           </button>
           
           <AnimatePresence>
@@ -348,7 +350,7 @@ export default function HeroInmersive() {
             onClick={(e) => handleButtonClick(e, 'dudas')}
             className="px-5 md:px-8 py-3 md:py-4 rounded-xl backdrop-blur-md bg-white/[0.03] border border-white/[0.08] text-[#fcfcfd] font-sans text-xs md:text-sm font-medium tracking-wide hover:bg-white/[0.08] transition-all duration-300 whitespace-nowrap cursor-pointer"
           >
-            DUDAS
+            ¿ES PARA MÍ?
           </button>
           
           <AnimatePresence>
@@ -373,7 +375,7 @@ export default function HeroInmersive() {
                       <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.96 9.96 0 0 0 1.333 4.982L2 22l5.156-1.352a9.943 9.943 0 0 0 4.854 1.258h.004c5.507 0 9.99-4.478 9.99-9.984 0-2.667-1.037-5.176-2.922-7.062C17.198 3.037 14.687 2 12.012 2zm5.792 14.15c-.247.697-1.207 1.272-1.658 1.328-.45.056-.902.083-2.906-.723-2.56-1.029-4.214-3.64-4.341-3.812-.127-.172-1.032-1.372-1.032-2.618 0-1.246.65-1.855.882-2.1.23-.245.506-.308.675-.308.169 0 .338.001.485.008.156.007.366-.06.572.441.21.512.72 1.754.783 1.881.063.127.106.276.02.446-.085.17-.127.276-.254.425-.127.15-.266.333-.38.446-.127.127-.26.265-.113.519.148.254.656 1.082 1.408 1.751.97.863 1.789 1.13 2.043 1.257.254.127.4.106.55-.064.15-.17.639-.744.81-1 .17-.255.339-.213.571-.127.233.085 1.479.697 1.733.824.254.128.423.191.486.3.064.109.064.634-.183 1.332z" />
                     </svg>
                   </span>
-                  <span>Vía WhatsApp</span>
+                  <span>Conversemos por WhatsApp</span>
                 </a>
                 <a
                   href="mailto:estudiocrea2026@gmail.com?subject=Consulta%20-%20Estudio%20Crea&body=Hola%20Estudio%20Crea,%20tengo%20algunas%20dudas..."
@@ -383,7 +385,7 @@ export default function HeroInmersive() {
                   <span className="w-5 h-5 rounded-full bg-indigo-500/10 flex items-center justify-center text-indigo-400 shrink-0">
                     <Mail className="w-3.5 h-3.5" />
                   </span>
-                  <span>Vía Email</span>
+                  <span>Conversemos por Email</span>
                 </a>
               </motion.div>
             )}

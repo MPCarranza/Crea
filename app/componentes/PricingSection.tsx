@@ -190,19 +190,19 @@ export default function PricingSection() {
           <div className="p-8 md:p-12 rounded-3xl bg-gradient-to-r from-cyan-50 to-indigo-50 border border-cyan-100 backdrop-blur-md shadow-sm relative overflow-hidden group">
             <div className="absolute inset-0 bg-white/[0.01] pointer-events-none" />
             <h3 className="font-serif text-2xl md:text-3xl font-bold text-neutral-900 mb-3">
-              ¿Tu negocio necesita algo diferente?
+              ¿Tenés una idea y no sabés por dónde empezar?
             </h3>
             <p className="text-neutral-600 font-light text-sm md:text-base leading-relaxed max-w-2xl mx-auto mb-8">
-              Si buscás una estructura a medida para tu clínica, comercio o marca personal, contanos tu idea.
+              No hace falta que tengas todo resuelto.<br /><br />Contanos qué necesitás y pensemos juntos la mejor forma de convertirlo en una presencia digital que te represente.
             </p>
             <a 
-              href="https://wa.me/5493855824408?text=Hola%20Estudio%20Crea,%20busco%20una%20estructura%20a%20medida%20para%20mi%20idea%20de%20proyecto."
+              href="https://wa.me/5493855824408?text=Hola%20Estudio%20Crea,%20tengo%20una%20idea%20y%20me%20gustar%C3%ADa%20que%20hablemos%20de%20mi%20proyecto."
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-xs font-bold uppercase tracking-widest bg-neutral-900 text-white hover:bg-cyan-600 hover:text-white transition-all duration-300 shadow-md font-semibold"
             >
               <MessageSquare className="w-4 h-4 shrink-0" />
-              <span>Cotizá tu proyecto por WhatsApp</span>
+              <span>Hablemos de tu proyecto</span>
             </a>
           </div>
         </div>

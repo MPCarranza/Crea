@@ -1,22 +1,14 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { Zap, RefreshCw, ExternalLink, Mail } from 'lucide-react';
+import { Zap, ExternalLink, Mail } from 'lucide-react';
+import { InlineWidget } from 'react-calendly';
 
 export default function BookingSection() {
-  const widgetUrl = 'https://calendly.com/estudiocrea2026/30min?back=1';
-  const [isIframeLoading, setIsIframeLoading] = useState(true);
+  const widgetUrl = 'https://calendly.com/estudiocrea2026/30min';
 
-  // Fallback loader timer
-  useEffect(() => {
-    if (isIframeLoading) {
-      const timer = setTimeout(() => {
-        setIsIframeLoading(false);
-      }, 4000);
-      return () => clearTimeout(timer);
-    }
-  }, [isIframeLoading]);
+
 
   return (
     <section id="booking" className="relative py-24 md:py-32 z-10 bg-[#f4f6fa]">
@@ -106,27 +98,19 @@ export default function BookingSection() {
           </div>
         </div>
 
-        {/* Centered Iframe Container (No Mockup) */}
-        <div className="w-full max-w-4xl mx-auto rounded-3xl overflow-hidden border border-black/[0.08] shadow-[0_20px_50px_rgba(0,0,0,0.06)] bg-white relative h-[650px]">
-          
-          {/* Smooth state loader spinner */}
-          {isIframeLoading && (
-            <div className="absolute inset-0 z-20 bg-white flex flex-col items-center justify-center gap-3">
-              <RefreshCw className="w-6 h-6 text-cyan-600 animate-spin" />
-              <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-450">
-                Cargando turnero...
-              </span>
-            </div>
-          )}
-
-          <iframe 
-            src={widgetUrl} 
-            width="100%" 
-            height="100%" 
-            frameBorder="0"
-            style={{ border: 'none', display: 'block' }}
-            onLoad={() => setIsIframeLoading(false)}
-            allow="geolocation; microphone; camera; clipboard-write"
+        {/* React Calendly Component Container with Styled Custom Scrollbar */}
+        <div className="w-full max-w-4xl mx-auto h-[600px] md:h-[750px] overflow-y-auto overflow-x-hidden rounded-2xl bg-gradient-to-r from-cyan-50 to-indigo-50 border border-cyan-100 shadow-xs [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-gradient-to-b [&::-webkit-scrollbar-thumb]:from-cyan-500 [&::-webkit-scrollbar-thumb]:to-indigo-600 [&::-webkit-scrollbar-thumb]:rounded-full">
+          <InlineWidget 
+            url={widgetUrl} 
+            styles={{ height: '1200px', width: '100%' }}
+            pageSettings={{
+              primaryColor: '0891b2',
+              textColor: '111111',
+              backgroundColor: 'eef2ff',
+              hideEventTypeDetails: false,
+              hideLandingPageDetails: false,
+              hideGdprBanner: true
+            }}
           />
         </div>
 

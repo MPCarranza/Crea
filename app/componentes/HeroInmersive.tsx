@@ -227,7 +227,7 @@ export default function HeroInmersive() {
                   className="relative flex flex-col items-center justify-center pt-8 pb-4"
                 >
                   <Image 
-                    src="/logoHero.png?v=2" 
+                    src="/logoHeroV2.png" 
                     alt="Estudio Crea" 
                     width={672}
                     height={200}

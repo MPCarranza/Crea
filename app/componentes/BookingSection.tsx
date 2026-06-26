@@ -102,7 +102,7 @@ export default function BookingSection() {
         <div className="w-full max-w-4xl mx-auto h-[600px] md:h-[750px] overflow-y-auto overflow-x-hidden rounded-2xl bg-gradient-to-r from-cyan-50 to-indigo-50 border border-cyan-100 shadow-xs [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-gradient-to-b [&::-webkit-scrollbar-thumb]:from-cyan-500 [&::-webkit-scrollbar-thumb]:to-indigo-600 [&::-webkit-scrollbar-thumb]:rounded-full">
           <InlineWidget 
             url={widgetUrl} 
-            styles={{ height: '1200px', width: '100%' }}
+            styles={{ height: '1050px', width: '100%' }}
             pageSettings={{
               primaryColor: '0891b2',
               textColor: '111111',

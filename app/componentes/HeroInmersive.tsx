@@ -126,7 +126,7 @@ export default function HeroInmersive() {
                 alt={slide.tag}
                 fill
                 priority={slide.id === 1}
-                quality={85}
+                quality={75}
                 sizes="100vw"
                 style={{
                   objectFit: 'cover',

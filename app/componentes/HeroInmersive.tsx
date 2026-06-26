@@ -60,6 +60,33 @@ export default function HeroInmersive() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [activePopover, setActivePopover] = useState<'quiero' | 'dudas' | null>(null);
 
+  // Touch gesture states
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEndHandler = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+    
+    if (isLeftSwipe) {
+      setCurrent((prev) => (prev + 1) % SLIDES.length);
+    } else if (isRightSwipe) {
+      setCurrent((prev) => (prev - 1 + SLIDES.length) % SLIDES.length);
+    }
+  };
+
   // Close popover when clicking outside
   useEffect(() => {
     if (!activePopover) return;
@@ -98,7 +125,13 @@ export default function HeroInmersive() {
   const slide = SLIDES[current];
 
   return (
-    <section id="hero" className={`relative w-full min-h-dvh ${slide.bg} transition-colors duration-1000 overflow-hidden flex items-center justify-center`}>
+    <section 
+      id="hero" 
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+      onTouchEnd={onTouchEndHandler}
+      className={`relative w-full min-h-dvh ${slide.bg} transition-colors duration-1000 overflow-hidden flex items-center justify-center`}
+    >
       
       {/* Gradiente superior para asegurar contraste con la Navbar */}
       <div className="absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-black/80 via-black/40 to-transparent z-20 pointer-events-none" />

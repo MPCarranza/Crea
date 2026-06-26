@@ -947,7 +947,8 @@ export default function ShowcaseSection() {
                 <div key={idx} className="w-[340px] sm:w-[380px] shrink-0">
                   <SpotlightCard
                     glowColor={item.themeColor}
-                    className="p-6 flex flex-col justify-between min-h-[440px] border border-black/[0.06] hover:border-black/[0.12] transition-all duration-300 bg-white"
+                    onClick={() => window.open(`https://wa.me/5493855824408?text=${encodeURIComponent(`Hola Estudio Crea, me interesa la opción: ${item.title} que vi en la sección de Showcase. ¿Me podrían dar más información?`)}`, '_blank')}
+                    className="p-6 flex flex-col justify-between min-h-[440px] border border-black/[0.06] hover:border-black/[0.12] transition-all duration-300 bg-white cursor-pointer hover:-translate-y-1 hover:shadow-xl"
                   >
                     <div>
                       {/* Cabecera del Navegador Mockup */}
@@ -1038,7 +1039,8 @@ export default function ShowcaseSection() {
                 <div key={idx} className="w-[340px] sm:w-[380px] shrink-0">
                   <SpotlightCard
                     glowColor={item.themeColor}
-                    className="p-6 flex flex-col justify-between min-h-[440px] border border-black/[0.06] hover:border-black/[0.12] transition-all duration-300 bg-white"
+                    onClick={() => window.open(`https://wa.me/5493855824408?text=${encodeURIComponent(`Hola Estudio Crea, me interesa la opción: ${item.title} que vi en la sección de Showcase. ¿Me podrían dar más información?`)}`, '_blank')}
+                    className="p-6 flex flex-col justify-between min-h-[440px] border border-black/[0.06] hover:border-black/[0.12] transition-all duration-300 bg-white cursor-pointer hover:-translate-y-1 hover:shadow-xl"
                   >
                     <div>
                       {/* Cabecera del Navegador Mockup */}
